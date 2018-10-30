@@ -1,0 +1,27 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@realmark/db": "git+https://git@github.com/realmark/db.git",
+    "hapi": "^17.6.0",
+    "inert": "^5.1.0",
+    "joi": "^14.0.1",
+    "path": "^0.12.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jarrodyellets/api.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jarrodyellets/api/issues"
+  },
+  "homepage": "https://github.com/jarrodyellets/api#readme"
+}
