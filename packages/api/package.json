@@ -2,7 +2,7 @@
   "name": "api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "dependencies": {
     "@realmark/db": "git+https://git@github.com/realmark/db.git",
     "hapi": "^17.6.0",
