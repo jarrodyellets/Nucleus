@@ -60,10 +60,30 @@ const server = Hapi.server({
   }
 });
 
+const validate = async (request, username, password, h) => {
+
+  const user = await client.users.query({
+    userName: username
+  });
+  if (!user) {
+    return { credentials: null, isValid: false };
+  }
+
+  const isValid = await Bcrypt.compare(password, user.password);
+  const credentials = { firstName: user.firstName, lastName: user.lastName, userName: user.userName, email: user.email};
+
+  return { isValid, credentials };
+}
+
 
 //Endpoints
 
 const init = async () => {
+
+  await server.register(require('hapi-auth-basic'));
+
+  server.auth.strategy('simple', 'basic', { validate })
+  server.auth.default('simple');
 
   server.route({
     method: 'GET',
