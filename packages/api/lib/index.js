@@ -60,6 +60,9 @@ const server = Hapi.server({
   }
 });
 
+
+//Auth Strategy
+
 const validate = async (request, username, password, h) => {
 
   const userArray = await client.users.query({
@@ -77,6 +80,7 @@ const validate = async (request, username, password, h) => {
 
   return { isValid, credentials };
 }
+
 
 const init = async () => {
 
