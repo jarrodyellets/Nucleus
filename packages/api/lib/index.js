@@ -62,49 +62,35 @@ const server = Hapi.server({
 
 const validate = async (request, username, password, h) => {
 
-  const user = await client.users.query({
+  const userArray = await client.users.query({
     userName: username
   });
+
+  const user = userArray[0];
+
   if (!user) {
     return { credentials: null, isValid: false };
   }
 
   const isValid = await Bcrypt.compare(password, user.password);
-  const credentials = { firstName: user.firstName, lastName: user.lastName, userName: user.userName, email: user.email};
+  const credentials = { id: user.id, name: user.firstName };
 
   return { isValid, credentials };
 }
-
-
-//Endpoints
 
 const init = async () => {
 
   await server.register(require('hapi-auth-basic'));
 
-  server.auth.strategy('simple', 'basic', { validate })
+  server.auth.strategy('simple', 'basic', { validate });
   server.auth.default('simple');
 
   server.route({
     method: 'GET',
     path: '/user',
-    handler: async (request, h) => {
-      const userArray = await client.users.query({
-        userName: request.query.userName
-      });
-      if (userArray.length) {
-        return userArray;
-      } else {
-        return "User does not exist";
-      }
+    handler: (request, h) => {
+      return 'Welcome ' + request.auth.credentials.name;
     },
-    options: {
-      validate: {
-        query: {
-          userName: internals.schema.userName
-        }
-      }
-    }
   })
 
   server.route({
@@ -139,6 +125,7 @@ const init = async () => {
       }
     },
     options: {
+      auth: false,
       validate: {
         payload: {
           userName: internals.schema.userName,
