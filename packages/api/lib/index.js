@@ -92,8 +92,8 @@ const init = async () => {
   server.route({
     method: 'GET',
     path: '/user',
-    handler: (request, h) => {
-      return 'Welcome ' + request.auth.credentials.name;
+    handler: async (request, h) => {
+      return 'Welcome ' + request.auth.credentials.name + " " + request.auth.credentials.id;
     },
   })
 
@@ -121,6 +121,7 @@ const init = async () => {
             });
           }
         })
+
         return "User Added";
       } else if(userArray.length){
         return "Username already exists";
@@ -139,6 +140,16 @@ const init = async () => {
           email: internals.schema.email
         }
       }
+    }
+  })
+
+  server.route({
+    method: 'DELETE',
+    path: '/user/{id}',
+    handler: async (request, h) => {
+      const userName = request.auth.credentials.name;
+      await client.users.remove(request.params.id);
+      return "User: " + userName + " deleted." ;
     }
   })
 
