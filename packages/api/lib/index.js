@@ -11,11 +11,12 @@ let client;
 
 const internals = {
   schema: {
-    userName: Joi.string().min(1).max(20),
-    password: Joi.string().min(1),
-    firstName: Joi.string().min(1),
-    lastName: Joi.string().min(1),
-    email: Joi.string().email()
+    userName: Joi.string().min(1).max(20).required(),
+    password: Joi.string().min(1).required(),
+    firstName: Joi.string().min(1).required(),
+    lastName: Joi.string().min(1).required(),
+    email: Joi.string().email().required(),
+    posts: Joi.string()
   }
 }
 
@@ -89,14 +90,18 @@ const init = async () => {
   server.auth.strategy('simple', 'basic', { validate });
   server.auth.default('simple');
 
+  //Get user info
   server.route({
     method: 'GET',
     path: '/user',
     handler: async (request, h) => {
-      return 'Welcome ' + request.auth.credentials.name + " " + request.auth.credentials.id;
+      const user = client.users.query({id: request.auth.credentials.id}); 
+      return user
     },
   })
 
+
+  //Create user
   server.route({
     method: 'POST',
     path: '/user',
@@ -117,7 +122,8 @@ const init = async () => {
               password: hash,
               firstName: request.payload.firstName,
               lastName: request.payload.lastName,
-              email: request.payload.email
+              email: request.payload.email,
+              posts: []
             });
           }
         })
@@ -137,12 +143,15 @@ const init = async () => {
           password: internals.schema.password,
           firstName: internals.schema.firstName,
           lastName: internals.schema.lastName,
-          email: internals.schema.email
+          email: internals.schema.email,
+          post: internals.schema.posts
         }
       }
     }
   })
 
+
+  //Delete user
   server.route({
     method: 'DELETE',
     path: '/user/{id}',
@@ -150,6 +159,33 @@ const init = async () => {
       const userName = request.auth.credentials.name;
       await client.users.remove(request.params.id);
       return "User: " + userName + " deleted." ;
+    }
+  })
+
+
+  //Add blog post
+  server.route({
+    method: 'POST',
+    path: '/post',
+    handler: async (request, h) => {
+      const id = request.auth.credentials.id;
+      const user = await client.users.query({id: id});
+      const posts = await user[0].posts;
+      const newPost  = {
+        date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+        comments: [],
+        post: request.payload.post
+      }
+      await posts.push(newPost);
+      await client.users.update({id: id, posts: posts})
+      return "New post added";
+    },
+    options: {
+      validate: {
+        payload: {
+          post: internals.schema.posts
+        }
+      }
     }
   })
 
