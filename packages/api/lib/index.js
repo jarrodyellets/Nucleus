@@ -90,16 +90,28 @@ const init = async () => {
   server.auth.strategy('simple', 'basic', { validate });
   server.auth.default('simple');
 
-  //Get user info
+
+  //Get all users
   server.route({
     method: 'GET',
     path: '/user',
     handler: async (request, h) => {
-      const user = client.users.query({id: request.auth.credentials.id}); 
-      return user
+      const users = await client.users.query(); 
+      return users;
     },
   })
 
+  
+  //Get specific user
+  server.route({
+    method: 'GET',
+    path: '/user/{userId}',
+    handler: async (request, h) => {
+      const id = request.auth.credentials.id;
+      const user = await client.users.query({id});
+      return user
+    }
+  })
 
   //Create user
   server.route({
@@ -132,7 +144,7 @@ const init = async () => {
       } else if(userArray.length){
         return "Username already exists";
       } else {
-        return "Email address already exists"
+        return "Email address already exists";
       }
     },
     options: {
@@ -151,6 +163,40 @@ const init = async () => {
   })
 
 
+  //Update user
+  server.route({
+    method: 'PUT',
+    path: '/user/{id}',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.auth.credentials.id});
+      const emailArray = await client.users.query({
+        email: request.payload.email
+      });
+      if(!emailArray.length){
+        await client.users.update({
+          id: request.auth.credentials.id,
+          firstName: request.payload.firstName,
+          lastName: request.payload.lastName,
+          email: request.payload.email
+        })
+        const updatedUser = await client.users.query({id: request.auth.credentials.id});
+        return updatedUser
+      } else {
+        return "Email already exists"
+      }
+    },
+    options: {
+      validate: {
+        payload: {
+          firstName: internals.schema.firstName,
+          lastName: internals.schema.lastName,
+          email: internals.schema.email,
+        }
+      }
+    }
+  })
+
+
   //Delete user
   server.route({
     method: 'DELETE',
@@ -163,6 +209,19 @@ const init = async () => {
   })
 
 
+  //Get blog post
+  server.route({
+    method: 'GET',
+    path: '/post/{postId}',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.auth.credentials.id});
+      const posts = user[0].posts;
+      const post = await posts.find(post => post.id == request.params.postId);
+      return post;
+    }
+  })
+
+
   //Add blog post
   server.route({
     method: 'POST',
@@ -171,14 +230,16 @@ const init = async () => {
       const id = request.auth.credentials.id;
       const user = await client.users.query({id: id});
       const posts = await user[0].posts;
+      const date = Date.now();
       const newPost  = {
         date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
         comments: [],
-        post: request.payload.post
+        post: request.payload.post,
+        id: id + date
       }
       await posts.push(newPost);
-      await client.users.update({id: id, posts: posts})
-      return "New post added";
+      await client.users.update({id: id, posts: posts});
+      return "New Post Added";
     },
     options: {
       validate: {
@@ -186,6 +247,47 @@ const init = async () => {
           post: internals.schema.posts
         }
       }
+    }
+  })
+
+
+  //Update blog post
+  server.route({
+    method: 'PUT',
+    path: '/post/{postId}',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.auth.credentials.id});
+      const posts = user[0].posts;
+      const post = await posts.find(post => post.id == request.params.postId);
+      const postIndex = await posts.findIndex(x => x.id == post.id)
+      posts[postIndex].post = request.payload.post; 
+      await client.users.update({id: request.auth.credentials.id, posts: posts});
+      const updatedPosts = await client.users.query({id: request.auth.credentials.id});
+      return updatedPosts
+    },
+    options: {
+      validate: {
+        payload: {
+          post: internals.schema.posts
+        }
+      }
+    }
+  })
+
+
+  //Delete blog post
+  server.route({
+    method: 'DELETE',
+    path: '/post/{postId}',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.auth.credentials.id});
+      const posts = user[0].posts;
+      const post = await posts.find(post => post.id == request.params.postId);
+      const postIndex = await posts.findIndex(x => x.id == post.id);
+      await posts.splice(postIndex, 1);
+      await client.users.update({id: request.auth.credentials.id, posts: posts});
+      const updatedPosts = await client.users.query({id: request.auth.credentials.id});
+      return updatedPosts
     }
   })
 
