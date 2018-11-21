@@ -140,7 +140,6 @@ const init = async () => {
             });
           }
         })
-
         return "User Added";
       } else if(userArray.length){
         return "Username already exists";
@@ -169,7 +168,6 @@ const init = async () => {
     method: 'PUT',
     path: '/user/{id}',
     handler: async (request, h) => {
-      const user = await client.users.query({id: request.auth.credentials.id});
       const emailArray = await client.users.query({
         email: request.payload.email
       });
@@ -235,11 +233,12 @@ const init = async () => {
       const newPost  = {
         date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
         comments: [],
+        likes: [],
         post: request.payload.post,
         id: id + date
       }
       await posts.push(newPost);
-      await client.users.update({id: id, posts: posts});
+      await client.users.update({id: id, posts});
       return "New Post Added";
     },
     options: {
@@ -262,9 +261,8 @@ const init = async () => {
       const post = await posts.find(post => post.id == request.params.postId);
       const postIndex = await posts.findIndex(x => x.id == post.id)
       posts[postIndex].post = request.payload.post; 
-      await client.users.update({id: request.auth.credentials.id, posts: posts});
-      const updatedPosts = await client.users.query({id: request.auth.credentials.id});
-      return updatedPosts
+      await client.users.update({id: request.auth.credentials.id, posts});
+      return 'Post updated';
     },
     options: {
       validate: {
@@ -286,9 +284,8 @@ const init = async () => {
       const post = await posts.find(post => post.id == request.params.postId);
       const postIndex = await posts.findIndex(x => x.id == post.id);
       await posts.splice(postIndex, 1);
-      await client.users.update({id: request.auth.credentials.id, posts: posts});
-      const updatedPosts = await client.users.query({id: request.auth.credentials.id});
-      return updatedPosts
+      await client.users.update({id: request.auth.credentials.id, posts});
+      return 'Post deleted';
     }
   })
 
@@ -336,7 +333,7 @@ const init = async () => {
         comment: request.payload.comment,
         id: author + date
       });
-      await client.users.update({id: request.params.userId, posts: posts});
+      await client.users.update({id: request.params.userId, posts});
       return 'Comment Added';
     },
     options: {
@@ -360,9 +357,15 @@ const init = async () => {
       const postIndex = await posts.findIndex(x => x.id == post.id);
       const comment = await post.comments.findIndex(comment => comment.id == request.params.commentId);
       posts[postIndex].comments[comment].comment = request.payload.comment;
-      await client.users.update({id: request.auth.credentials.id, posts: posts});
-      const updatedPosts = await client.users.query({id: request.auth.credentials.id});
+      await client.users.update({id: request.auth.credentials.id, posts});
       return 'Comment updated';
+    },
+    options: {
+      validate: {
+        payload: {
+          comment: internals.schema.comments
+        }
+      }
     }
   })
 
@@ -378,11 +381,27 @@ const init = async () => {
       const postIndex = await posts.findIndex(x => x.id == post.id);
       const comment = await post.comments.findIndex(comment => comment.id == request.params.commentId);
       await posts[postIndex].comments.splice(comment, 1);
-      await client.users.update({id: request.auth.credentials.id, posts: posts});
-      const updatedPosts = await client.users.query({id: request.auth.credentials.id});
+      await client.users.update({id: request.auth.credentials.id, posts});
       return 'Comment deleted'
     }
   })
+
+
+  //Add like
+  server.route({
+    method: 'POST',
+    path: '/user/{userId}/post/{postId}/like',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.params.userId});
+      const posts = user[0].posts;
+      const post = await posts.find(post => post.id == request.params.postId);
+      const postIndex = await posts.findIndex(x => x.id == post.id);
+      await posts[postIndex].likes.push(request.auth.credentials.id);
+      await client.users.update({id: request.params.userId, posts})
+      return 'Post liked!';
+    }
+  })
+  
 
   try {
     await server.start()
