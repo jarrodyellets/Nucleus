@@ -16,7 +16,8 @@ const internals = {
     firstName: Joi.string().min(1).required(),
     lastName: Joi.string().min(1).required(),
     email: Joi.string().email().required(),
-    posts: Joi.string()
+    posts: Joi.string().min(1).max(100),
+    comments: Joi.string().min(1)
   }
 }
 
@@ -212,7 +213,7 @@ const init = async () => {
   //Get blog post
   server.route({
     method: 'GET',
-    path: '/post/{postId}',
+    path: '/user/{userId}/post/{postId}',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.auth.credentials.id});
       const posts = user[0].posts;
@@ -225,7 +226,7 @@ const init = async () => {
   //Add blog post
   server.route({
     method: 'POST',
-    path: '/post',
+    path: '/user/{userId}/post',
     handler: async (request, h) => {
       const id = request.auth.credentials.id;
       const user = await client.users.query({id: id});
@@ -254,7 +255,7 @@ const init = async () => {
   //Update blog post
   server.route({
     method: 'PUT',
-    path: '/post/{postId}',
+    path: '/user/{userId}/post/{postId}',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.auth.credentials.id});
       const posts = user[0].posts;
@@ -278,7 +279,7 @@ const init = async () => {
   //Delete blog post
   server.route({
     method: 'DELETE',
-    path: '/post/{postId}',
+    path: '/user/{userId}/post/{postId}',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.auth.credentials.id});
       const posts = user[0].posts;
@@ -288,6 +289,98 @@ const init = async () => {
       await client.users.update({id: request.auth.credentials.id, posts: posts});
       const updatedPosts = await client.users.query({id: request.auth.credentials.id});
       return updatedPosts
+    }
+  })
+
+
+  //Get all comments
+  server.route({
+    method: 'GET',
+    path: '/user/{userId}/post/{postId}/comment',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.params.userId});
+      const posts = user[0].posts;
+      const post = await posts.find(post => post.id == request.params.postId);
+      return post.comments;
+    }
+  })
+
+
+  //Get comment
+  server.route({
+    method: 'GET',
+    path:'/user/{userId}/post/{postId}/comment/{commentId}',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.params.userId});
+      const posts = user[0].posts;
+      const post = await posts.find(post => post.id == request.params.postId);
+      const comment = await post.comments.find(comment => comment.id == request.params.commentId);
+      return comment;
+    }
+  })
+
+
+  //Add comment
+  server.route({
+    method: 'POST',
+    path: '/user/{userId}/post/{postId}/comment',
+    handler: async (request, h) => {
+      const author = request.auth.credentials.id;
+      const user = await client.users.query({id: request.params.userId});
+      const posts = user[0].posts;
+      const date = Date.now();
+      const post = await posts.findIndex(post => post.id == request.params.postId);
+      await posts[post].comments.push({
+        date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+        author: author,
+        comment: request.payload.comment,
+        id: author + date
+      });
+      await client.users.update({id: request.params.userId, posts: posts});
+      return 'Comment Added';
+    },
+    options: {
+      validate: {
+        payload: {
+          comment: internals.schema.comments
+        }
+      }
+    }
+  })
+
+
+  //Update comment
+  server.route({
+    method: 'PUT',
+    path: '/user/{userId}/post/{postId}/comment/{commentId}',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.params.userId});
+      const posts = user[0].posts;
+      const post = await posts.find(post => post.id == request.params.postId);
+      const postIndex = await posts.findIndex(x => x.id == post.id);
+      const comment = await post.comments.findIndex(comment => comment.id == request.params.commentId);
+      posts[postIndex].comments[comment].comment = request.payload.comment;
+      await client.users.update({id: request.auth.credentials.id, posts: posts});
+      const updatedPosts = await client.users.query({id: request.auth.credentials.id});
+      return 'Comment updated';
+    }
+  })
+
+
+  //Delete comment
+  server.route({
+    method: 'DELETE',
+    path: '/user/{userId}/post/{postId}/comment/{commentId}',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.params.userId});
+      const posts = user[0].posts;
+      const post = await posts.find(post => post.id == request.params.postId);
+      const postIndex = await posts.findIndex(x => x.id == post.id);
+      const comment = await post.comments.findIndex(comment => comment.id == request.params.commentId);
+      await posts[postIndex].comments.splice(comment, 1);
+      await client.users.update({id: request.auth.credentials.id, posts: posts});
+      const updatedPosts = await client.users.query({id: request.auth.credentials.id});
+      return 'Comment deleted'
     }
   })
 
