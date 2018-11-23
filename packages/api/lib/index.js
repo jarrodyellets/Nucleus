@@ -231,7 +231,7 @@ const init = async () => {
       const posts = await user[0].posts;
       const date = Date.now();
       const newPost  = {
-        date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+        date,
         comments: [],
         likes: [],
         post: request.payload.post,
@@ -328,7 +328,7 @@ const init = async () => {
       const date = Date.now();
       const post = await posts.findIndex(post => post.id == request.params.postId);
       await posts[post].comments.push({
-        date: new Date().toISOString().replace(/T/, ' ').replace(/\..+/, ''),
+        date,
         author: author,
         comment: request.payload.comment,
         id: author + date
@@ -401,7 +401,24 @@ const init = async () => {
       return 'Post liked!';
     }
   })
-  
+
+
+  //Delete like
+  server.route({
+    method: 'DELETE',
+    path: '/user/{userId}/post/{postId}/like',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.params.userId});
+      const posts = user[0].posts;
+      const post = await posts.find(post => post.id == request.params.postId);
+      const postIndex = await posts.findIndex(x => x.id == post.id);
+      const likeIndex = await posts[postIndex].likes.find(like => like == request.auth.credentials.id);
+      await posts[postIndex].likes.splice(likeIndex, 1);
+      await client.users.update({id: request.params.userId, posts});
+      return 'Like deleted';
+    }
+  })
+
 
   try {
     await server.start()
