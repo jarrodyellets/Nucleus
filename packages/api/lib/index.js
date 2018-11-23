@@ -387,6 +387,20 @@ const init = async () => {
   })
 
 
+  //Get all likes
+  server.route({
+    method: 'GET',
+    path: '/user/{userId}/post/{postId}/like',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.params.userId});
+      const posts = user[0].posts;
+      const post = await posts.find(post => post.id == request.params.postId);
+      const postIndex = await posts.findIndex(x => x.id == post.id);
+      return posts[postIndex].likes;
+    }
+  })
+
+
   //Add like
   server.route({
     method: 'POST',
