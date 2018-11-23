@@ -17,7 +17,8 @@ const internals = {
     lastName: Joi.string().min(1).required(),
     email: Joi.string().email().required(),
     posts: Joi.string().min(1).max(100),
-    comments: Joi.string().min(1)
+    comments: Joi.string().min(1),
+    friends: Joi.string()
   }
 }
 
@@ -95,7 +96,7 @@ const init = async () => {
   //Get all users
   server.route({
     method: 'GET',
-    path: '/user',
+    path: '/users',
     handler: async (request, h) => {
       const users = await client.users.query(); 
       return users;
@@ -106,18 +107,18 @@ const init = async () => {
   //Get specific user
   server.route({
     method: 'GET',
-    path: '/user/{userId}',
+    path: '/users/{userId}',
     handler: async (request, h) => {
       const id = request.auth.credentials.id;
       const user = await client.users.query({id});
-      return user
+      return user;
     }
   })
 
   //Create user
   server.route({
     method: 'POST',
-    path: '/user',
+    path: '/users',
     handler: async (request, h) => {
       const userArray = await client.users.query({
         userName: request.payload.userName
@@ -136,7 +137,8 @@ const init = async () => {
               firstName: request.payload.firstName,
               lastName: request.payload.lastName,
               email: request.payload.email,
-              posts: []
+              posts: [],
+              friends: []
             });
           }
         })
@@ -156,7 +158,8 @@ const init = async () => {
           firstName: internals.schema.firstName,
           lastName: internals.schema.lastName,
           email: internals.schema.email,
-          post: internals.schema.posts
+          post: internals.schema.posts,
+          friends: internals.schema.friends
         }
       }
     }
@@ -166,7 +169,7 @@ const init = async () => {
   //Update user
   server.route({
     method: 'PUT',
-    path: '/user/{id}',
+    path: '/users/{id}',
     handler: async (request, h) => {
       const emailArray = await client.users.query({
         email: request.payload.email
@@ -179,9 +182,9 @@ const init = async () => {
           email: request.payload.email
         })
         const updatedUser = await client.users.query({id: request.auth.credentials.id});
-        return updatedUser
+        return updatedUser;
       } else {
-        return "Email already exists"
+        return "Email already exists";
       }
     },
     options: {
@@ -199,11 +202,11 @@ const init = async () => {
   //Delete user
   server.route({
     method: 'DELETE',
-    path: '/user/{id}',
+    path: '/users/{id}',
     handler: async (request, h) => {
       const userName = request.auth.credentials.name;
       await client.users.remove(request.params.id);
-      return "User: " + userName + " deleted." ;
+      return "User: " + userName + " deleted.";
     }
   })
 
@@ -211,7 +214,7 @@ const init = async () => {
   //Get blog post
   server.route({
     method: 'GET',
-    path: '/user/{userId}/post/{postId}',
+    path: '/users/{userId}/posts/{postId}',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.auth.credentials.id});
       const posts = user[0].posts;
@@ -224,7 +227,7 @@ const init = async () => {
   //Add blog post
   server.route({
     method: 'POST',
-    path: '/user/{userId}/post',
+    path: '/users/{userId}/posts',
     handler: async (request, h) => {
       const id = request.auth.credentials.id;
       const user = await client.users.query({id: id});
@@ -254,7 +257,7 @@ const init = async () => {
   //Update blog post
   server.route({
     method: 'PUT',
-    path: '/user/{userId}/post/{postId}',
+    path: '/users/{userId}/posts/{postId}',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.auth.credentials.id});
       const posts = user[0].posts;
@@ -277,7 +280,7 @@ const init = async () => {
   //Delete blog post
   server.route({
     method: 'DELETE',
-    path: '/user/{userId}/post/{postId}',
+    path: '/users/{userId}/posts/{postId}',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.auth.credentials.id});
       const posts = user[0].posts;
@@ -293,7 +296,7 @@ const init = async () => {
   //Get all comments
   server.route({
     method: 'GET',
-    path: '/user/{userId}/post/{postId}/comment',
+    path: '/users/{userId}/posts/{postId}/comments',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.params.userId});
       const posts = user[0].posts;
@@ -306,7 +309,7 @@ const init = async () => {
   //Get comment
   server.route({
     method: 'GET',
-    path:'/user/{userId}/post/{postId}/comment/{commentId}',
+    path:'/users/{userId}/posts/{postId}/comments/{commentId}',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.params.userId});
       const posts = user[0].posts;
@@ -320,7 +323,7 @@ const init = async () => {
   //Add comment
   server.route({
     method: 'POST',
-    path: '/user/{userId}/post/{postId}/comment',
+    path: '/users/{userId}/posts/{postId}/comments',
     handler: async (request, h) => {
       const author = request.auth.credentials.id;
       const user = await client.users.query({id: request.params.userId});
@@ -349,7 +352,7 @@ const init = async () => {
   //Update comment
   server.route({
     method: 'PUT',
-    path: '/user/{userId}/post/{postId}/comment/{commentId}',
+    path: '/users/{userId}/posts/{postId}/comments/{commentId}',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.params.userId});
       const posts = user[0].posts;
@@ -373,7 +376,7 @@ const init = async () => {
   //Delete comment
   server.route({
     method: 'DELETE',
-    path: '/user/{userId}/post/{postId}/comment/{commentId}',
+    path: '/users/{userId}/posts/{postId}/comments/{commentId}',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.params.userId});
       const posts = user[0].posts;
@@ -382,7 +385,21 @@ const init = async () => {
       const comment = await post.comments.findIndex(comment => comment.id == request.params.commentId);
       await posts[postIndex].comments.splice(comment, 1);
       await client.users.update({id: request.auth.credentials.id, posts});
-      return 'Comment deleted'
+      return 'Comment deleted';
+    }
+  })
+
+
+  //Get all likes
+  server.route({
+    method: 'GET',
+    path: '/users/{userId}/posts/{postId}/likes',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.params.userId});
+      const posts = user[0].posts;
+      const post = await posts.find(post => post.id == request.params.postId);
+      const postIndex = await posts.findIndex(x => x.id == post.id);
+      return posts[postIndex].likes;
     }
   })
 
@@ -404,7 +421,7 @@ const init = async () => {
   //Add like
   server.route({
     method: 'POST',
-    path: '/user/{userId}/post/{postId}/like',
+    path: '/users/{userId}/posts/{postId}/likes',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.params.userId});
       const posts = user[0].posts;
@@ -420,7 +437,7 @@ const init = async () => {
   //Delete like
   server.route({
     method: 'DELETE',
-    path: '/user/{userId}/post/{postId}/like',
+    path: '/users/{userId}/posts/{postId}/likes',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.params.userId});
       const posts = user[0].posts;
@@ -430,6 +447,46 @@ const init = async () => {
       await posts[postIndex].likes.splice(likeIndex, 1);
       await client.users.update({id: request.params.userId, posts});
       return 'Like deleted';
+    }
+  })
+
+
+  //Get all friends
+  server.route({
+    method: 'GET',
+    path: '/users/{userId}/friends',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.params.userId});
+      return user[0].friends;
+    }
+  })
+
+
+  //Add friend
+  server.route({
+    method: 'POST',
+    path: '/users/{userId}/friends',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.params.userId});
+      const friends = user[0].friends;
+      await friends.push(request.auth.credentials.id);
+      await client.users.update({id: request.params.userId, friends});
+      return 'Friend added';
+    }
+  })
+
+
+  //Delete friend
+  server.route({
+    method: 'DELETE',
+    path: '/users/{userId}/friends',
+    handler: async (request, h) => {
+      const user = await client.users.query({id: request.params.userId});
+      const friends = user[0].friends;
+      const friendIndex = await friends.find(friend => friend == request.auth.credentials.id);
+      await friends.splice(friendIndex, 1);
+      await client.users.update({id: request.params.userId, friends});
+      return 'Friend deleted';
     }
   })
 
