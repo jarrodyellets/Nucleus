@@ -1,6 +1,14 @@
+:root {
+  --black: #131711;
+  --white:  #e6ecf0;
+  --blue: #18acc3;
+  --yellow: #f2f6c3;
+}
+
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
   font-family: 'Source Sans Pro', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -9,12 +17,72 @@ body {
 }
 
 .splashWrapper {
-  width: 90%;
-  max-width: 600px;
-  border-radius: 10px;
-  margin: 100px auto;
-  background: #3b5999;
-  text-align: center;
-  padding: 50px;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-image: url("https://www.jarrodyellets.com/images/splashHero.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.splashLeft {
+  width: 30%;
+}
+
+.loginWrapper {
   color: #e6ecf0;
+
+}
+
+.loginHeader {
+  background: rgba(0, 0, 0, .75);
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+  padding: 20px;
+}
+
+.loginTitle {
+  font-size: 1.2em;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.loginDescription {
+  font-size: .8em;
+}
+
+.loginFormWrapper {
+  background: rgba(0, 0, 0, .6);
+  border-bottom-left-radius: 3px;
+  border-bottom-right-radius: 3px;
+  padding: 20px;
+}
+
+.loginForm {
+  display: flex;
+  flex-direction: column;
+}
+
+.loginInput {
+  background: var(--yellow);
+  border: none;
+  border-radius: 3px;
+  height: 25px;
+  margin-bottom: 10px;
+  outline: none;
+}
+
+.loginButton {
+  background: #18acc3;
+  border: none;
+  border-radius: 5px;
+  width: 100px;
+  height: 25px;
+  color: var(--white);
+  font-size: .7em;
+  cursor: pointer;
+
 }
