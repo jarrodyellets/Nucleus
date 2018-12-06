@@ -2,7 +2,7 @@
   --black: #131711;
   --white:  #e6ecf0;
   --blue: #18acc3;
-  --yellow: #f2f6c3;
+  --yellow: #fef7e0;
 }
 
 body {
@@ -20,12 +20,19 @@ body {
   width: 100%;
   height: 100vh;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   background-image: url("https://www.jarrodyellets.com/images/splashHero.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.splashInnerWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
 }
 
 .splashLeft {
@@ -70,19 +77,50 @@ body {
   background: var(--yellow);
   border: none;
   border-radius: 3px;
-  height: 25px;
+  height: 30px;
   margin-bottom: 10px;
   outline: none;
 }
 
 .loginButton {
-  background: #18acc3;
+  background: var(--blue);
   border: none;
   border-radius: 5px;
   width: 100px;
-  height: 25px;
+  height: 30px;
   color: var(--white);
   font-size: .7em;
   cursor: pointer;
+}
 
+.splashRight {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: var(--black);
+}
+
+.splashTitle {
+  font-size: 4em;
+  font-size: 700;
+  font-family: 'Roboto Condensed', sans-serif;
+}
+
+.splashDescription {
+  font-size: 1.2em;
+  margin: 10px 0;
+}
+
+.splashButton {
+  margin: 10px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  background: var(--blue);
+  color: var(--white);
+  height: 30px;
+  width: 100px;
+  border-radius: 5px;
+  font-size: .8em;
 }
