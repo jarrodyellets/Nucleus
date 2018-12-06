@@ -11,7 +11,7 @@ const LogIn = (props) => {
         <form className="loginForm">
           <input className="loginInput" type="text" name="username" placeholder="username" />
           <input className="loginInput" type="password" name="password" placeholder="password"/>
-          <button className="loginButton" type="submit">{props.member ? "Login" : "Sign Up"}</button>
+          <button className="loginButton btn" type="submit">{props.member ? "Login" : "Sign Up"}</button>
         </form>
       </div>
     </div>

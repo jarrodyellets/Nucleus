@@ -3,6 +3,7 @@
   --white:  #e6ecf0;
   --blue: #18acc3;
   --yellow: #fef7e0;
+  --orange: #e37222;
 }
 
 body {
@@ -77,20 +78,22 @@ body {
   background: var(--yellow);
   border: none;
   border-radius: 3px;
-  height: 30px;
+  height: 15px;
   margin-bottom: 10px;
   outline: none;
+  padding: 10px;
 }
 
 .loginButton {
   background: var(--blue);
   border: none;
-  border-radius: 5px;
+  border-radius: 3px;
   width: 100px;
   height: 30px;
   color: var(--white);
-  font-size: .7em;
+  font-size: .8em;
   cursor: pointer;
+  margin-top: 10px;
 }
 
 .splashRight {
@@ -102,13 +105,26 @@ body {
 }
 
 .splashTitle {
+  position: relative;
   font-size: 4em;
   font-size: 700;
   font-family: 'Roboto Condensed', sans-serif;
 }
 
+.splashLogo {
+  position: relative;
+  height: 60px;
+  bottom: -10px;
+}
+
 .splashDescription {
-  font-size: 1.2em;
+  font-size: 1.1em;
+  font-weight: 700;
+  margin: 10px 0;
+  text-align: center;
+}
+
+.splashDescriptionLine {
   margin: 10px 0;
 }
 
@@ -121,6 +137,10 @@ body {
   color: var(--white);
   height: 30px;
   width: 100px;
-  border-radius: 5px;
+  border-radius: 3px;
   font-size: .8em;
+}
+
+.btn:hover {
+ background: #1699ad;
 }
