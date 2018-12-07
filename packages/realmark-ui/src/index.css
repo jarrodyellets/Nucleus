@@ -184,4 +184,40 @@ body {
   cursor: pointer;
 }
 
+.mainWrapper {
+  width: 100%;
+  max-width: 900px;
+  margin: 10px auto 0 auto;
+}
+
+.profileCardWrapper {
+  background: #fdfdfd;
+  width: 30%;
+  margin-right: 10px;
+}
+
+.profileCardImg {
+  width: 100%;
+}
+
+.profileCardInfoWrapper {
+  padding: 10px;
+}
+
+.profileCardFullName {
+  font-size: 1.3em;
+  font-weight: 700;
+}
+
+.profileCardPostsWrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-top: 20px;
+}
+
+.profileCardHeading {
+  font-size: .9em;
+  font-weight: 700;
+}
+
 
