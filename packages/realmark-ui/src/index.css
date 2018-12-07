@@ -29,37 +29,27 @@ body {
   background-position: center;
 }
 
-.splashInnerWrapper {
-  width: 100%;
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-}
-
-.splashLeft {
-  width: 30%;
-}
-
 .loginWrapper {
   color: #e6ecf0;
-
+  width: 90%;
+  max-width: 500px;
 }
 
 .loginHeader {
   background: rgba(0, 0, 0, .75);
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
-  padding: 20px;
+  padding: 20px 20px 10px 20px;
+}
+
+.loginLogo {
+  text-align: center;
 }
 
 .loginTitle {
   font-size: 1.2em;
   font-weight: 700;
-  margin-bottom: 5px;
-}
-
-.loginDescription {
-  font-size: .8em;
+  margin-top: 10px;
 }
 
 .loginFormWrapper {
@@ -88,23 +78,14 @@ body {
   background: var(--blue);
   border: none;
   border-radius: 3px;
-  width: 100px;
-  height: 30px;
+  height: 35px;
   color: var(--white);
   font-size: .8em;
   cursor: pointer;
   margin-top: 10px;
 }
 
-.splashRight {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  color: var(--black);
-}
-
-.splashTitle {
+.loginLogoTitle {
   position: relative;
   font-size: 4em;
   font-size: 700;
@@ -114,31 +95,23 @@ body {
 .splashLogo {
   position: relative;
   height: 60px;
-  bottom: -10px;
+  bottom: -8px;
+  left: -5px;
 }
 
-.splashDescription {
+.loginLogoDescription {
+  position: relative;
+  font-style: italic;
+  font-size: .9em;
+  top: -10px;
+  right: -15px;
+}
+
+.loginFirstTime {
+  margin-top: 50px;
   font-size: 1.1em;
   font-weight: 700;
-  margin: 10px 0;
   text-align: center;
-}
-
-.splashDescriptionLine {
-  margin: 10px 0;
-}
-
-.splashButton {
-  margin: 10px;
-  border: none;
-  outline: none;
-  cursor: pointer;
-  background: var(--blue);
-  color: var(--white);
-  height: 30px;
-  width: 100px;
-  border-radius: 3px;
-  font-size: .8em;
 }
 
 .btn:hover {
