@@ -83,6 +83,7 @@ body {
   font-size: .8em;
   cursor: pointer;
   margin-top: 10px;
+  width: 100%;
 }
 
 .loginLogoTitle {
@@ -117,3 +118,70 @@ body {
 .btn:hover {
  background: #1699ad;
 }
+
+.navWrapper {
+  width: 100%;
+  height: 50px;
+  background: #fdfdfd;
+  border-bottom: 1px solid rgba(0, 0, 0, .3);
+}
+
+.navInnerWrapper {
+  max-width: 900px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.navLeftWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-right: auto;
+  flex: 1;
+}
+
+.navLinks {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.navLink {
+  margin-right: 25px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.navLink:hover {
+  color: var(--blue);
+}
+
+.navLogo {
+  width: 40px;
+}
+
+.navPostWrapper {
+  flex: 1;
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.navPost {
+  width: 100px;
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  background: var(--blue);
+  color: var(--white);
+  font-weight: 700;
+  font-size: .9em;
+  height: 40px;
+  cursor: pointer;
+}
+
+

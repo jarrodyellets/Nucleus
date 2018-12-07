@@ -13,9 +13,9 @@ const SignUp = (props) => {
       <input className="loginInput" type="text" name="username" placeholder="Enter username" />
       <label className="loginFormLabel">Password:</label>
       <input className="loginInput" type="password" name="password" placeholder="Enter password"/>
-      <button className="loginButton btn" type="submit">Login</button>
+      <button className="loginButton btn" type="submit">Sign Up</button>
       <div className="loginFirstTime">Already a User?</div>
-      <button className="loginButton btn" onClick={() => {props.changeMember(true)}}>Sign Up</button>
+      <button className="loginButton btn" onClick={() => {props.changeMember(true)}}>Login</button>
     </div>
   )
 }

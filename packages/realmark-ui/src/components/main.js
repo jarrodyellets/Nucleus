@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
 import Splash from './splash';
+import HomePage from './homePage';
 
 class App extends Component {
   constructor(props) {
@@ -24,7 +25,8 @@ class App extends Component {
     return (
       <div className="app">
         <Switch>
-          <Route exact path="/" render={(props) => <Splash {...props} member={this.state.member} changeMember={this.changeMember} />} />
+          <Route exact path='/' render={(props) => <Splash {...props} member={this.state.member} changeMember={this.changeMember} />} />
+          <Route path='/home' render={(props) => <HomePage {...props} member={this.state.member} changeMember={this.changeMember} />} />
         </Switch>
       </div>
     );
