@@ -1,6 +1,7 @@
 import React from 'react'
 import Nav from './nav';
 import ProfileCard from './profileCard';
+import Posts from './posts';
 
 const HomePage = (props) => {
   return (
@@ -8,6 +9,7 @@ const HomePage = (props) => {
       <Nav />
       <div className="mainWrapper">
         <ProfileCard />
+        <Posts />
       </div>
     </div>
   )
