@@ -8,9 +8,6 @@ import HomePage from './homePage';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      member: true
-    }
 
     this.handleMember = this.handleMember.bind(this);
 
@@ -25,7 +22,7 @@ class App extends Component {
     return (
       <div className="app">
         <Switch>
-          <Route exact path='/' render={(props) => <Splash {...props} member={this.props.member} handleMember={this.handleMember} />} />
+          <Route exact path='/' render={(props) => <Splash {...props} handleMember={this.handleMember} />} />
           <Route path='/home' render={(props) => <HomePage {...props} member={this.props.member} handleMember={this.handleMember} />} />
         </Switch>
       </div>
