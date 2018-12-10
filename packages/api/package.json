@@ -4,7 +4,7 @@
   "description": "",
   "main": "lib/index.js",
   "dependencies": {
-    "@realmark/db": "git+https://git@github.com/realmark/db.git",
+    "@realmark/db": "^1.0.0",
     "bcrypt": "^3.0.2",
     "hapi": "^17.6.0",
     "hapi-auth-basic": "^5.0.0",
