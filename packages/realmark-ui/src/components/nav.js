@@ -15,6 +15,7 @@ const Nav = (props) => {
         </div>
         <div className="navPostWrapper">
           <button className="navPost">Post</button>
+          <div className="navLink">Log Out</div>
         </div>
       </div>
     </div>
