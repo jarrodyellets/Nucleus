@@ -66,31 +66,73 @@ const server = Hapi.server({
 
 //Auth Strategy
 
-const validate = async (request, username, password, h) => {
+// const validate = async (request, username, password, h) => {
 
-  const userArray = await client.users.query({
-    userName: username
-  });
+//   const userArray = await client.users.query({
+//     userName: username
+//   });
 
-  const user = userArray[0];
+//   const user = userArray[0];
 
-  if (!user) {
-    return { credentials: null, isValid: false };
-  }
+//   if (!user) {
+//     return { credentials: null, isValid: false };
+//   }
 
-  const isValid = await Bcrypt.compare(password, user.password);
-  const credentials = { id: user.id, name: user.firstName };
+//   const isValid = await Bcrypt.compare(password, user.password);
+//   const credentials = { id: user.id, name: user.firstName };
 
-  return { isValid, credentials };
-}
-
+//   return { isValid, credentials };
+// }
 
 const init = async () => {
 
   await server.register(require('hapi-auth-basic'));
+  await server.register(require('hapi-auth-cookie'));
 
-  server.auth.strategy('simple', 'basic', { validate });
-  server.auth.default('simple');
+  // server.auth.strategy('simple', 'basic', { validate });
+  // server.auth.default('simple');
+
+  server.auth.strategy('restricted', 'cookie', { 
+    password: 'RDXcdNWW6649jd9TKsQNsbSwfzNHrBBa',
+    cookie: 'session',
+    isSecure: false,
+    redirectTo: '/',
+    validateFunc: async (request, session) => {
+      const cached = await cached.get(session.sid);
+      const out = {
+        valid: !!cached
+      };
+      if (out.valid){
+        out.credentials = cached.account;
+      }
+
+      return out;
+    }
+   });
+
+
+   //Login
+   server.route({
+     method: 'POST',
+     path: '/login',
+     handler: async (request, h) => {
+       const { username, password } = request.payload;
+       const user = await client.users.query({user});
+
+       if(!user || !await Bcrypt.compare(password, user[0].password)){
+        console.log('Invalid credentials')
+       }
+       request.cookieAuth.set({ username })
+     }
+   })
+
+   server.route({
+    method: 'GET',
+    path: '/logout',
+    handler: async (request, h) => {
+      request.cookieAuth.clear();
+    }
+  })
 
 
   //Get all users
