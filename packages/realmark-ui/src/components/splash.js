@@ -4,6 +4,34 @@ import LogIn from './logIn';
 import SignUp from './signUp';
 
 class Splash extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      firstName: '',
+      lastName: '',
+      email: '',
+      username: '',
+      password: ''
+    }
+
+    this.onChange = this.onChange.bind(this);
+    this.handleData = this.handleData.bind(this);
+  }
+
+  onChange(e) {
+    this.setState({[e.target.name]: e.target.value})
+  }
+
+  handleData(){
+    const data = this.state;
+    fetch('http://localhost:8000/users', {
+    method:'POST',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  })
+  }
 
   render(){
     return (
@@ -17,7 +45,7 @@ class Splash extends Component {
             <div className="loginTitle">{this.props.member ? "Login:" : "Sign Up:"}</div>
           </div>
           <div className="loginFormWrapper">
-            {this.props.member ? <LogIn handleMember={this.props.handleMember} /> : <SignUp handleMember={this.props.handleMember} />}
+            {this.props.member ? <LogIn handleMember={this.props.handleMember} /> : <SignUp user={this.state} handleData={this.handleData} onChange={this.onChange} handleMember={this.props.handleMember} />}
           </div>
         </div>
       </div>

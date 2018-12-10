@@ -60,6 +60,7 @@ const server = Hapi.server({
     response: {
       emptyStatusCode: 204
     },
+    cors: true,
   }
 });
 
@@ -112,7 +113,11 @@ const init = async () => {
 
    server.route({
      method: 'GET',
-
+     path: '/test',
+     handler: async (request, h) => {
+       const data = client.users.query()
+       return data;
+     }
    })
 
 
@@ -169,7 +174,7 @@ const init = async () => {
     path: '/users',
     handler: async (request, h) => {
       const userArray = await client.users.query({
-        userName: request.payload.userName
+        userName: request.payload.username
       });
       const emailArray = await client.users.query({
         email: request.payload.email
@@ -180,7 +185,7 @@ const init = async () => {
             console.log(err);
           } else {
             client.users.insert({
-              userName: request.payload.userName,
+              userName: request.payload.username,
               password: hash,
               firstName: request.payload.firstName,
               lastName: request.payload.lastName,
@@ -201,13 +206,11 @@ const init = async () => {
       auth: false,
       validate: {
         payload: {
-          userName: internals.schema.userName,
+          username: internals.schema.userName,
           password: internals.schema.password,
           firstName: internals.schema.firstName,
           lastName: internals.schema.lastName,
-          email: internals.schema.email,
-          post: internals.schema.posts,
-          friends: internals.schema.friends
+          email: internals.schema.email
         }
       }
     }
