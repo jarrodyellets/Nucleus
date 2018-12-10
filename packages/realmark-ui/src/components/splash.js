@@ -14,7 +14,7 @@ const Splash = (props) => {
           <div className="loginTitle">{props.member ? "Login:" : "Sign Up:"}</div>
         </div>
         <div className="loginFormWrapper">
-          {props.member ? <LogIn changeMember={props.changeMember} /> : <SignUp changeMember={props.changeMember} />}
+          {props.member ? <LogIn handleMember={props.handleMember} /> : <SignUp handleMember={props.handleMember} />}
         </div>
       </div>
     </div>

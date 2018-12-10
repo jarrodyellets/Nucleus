@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { changeMember } from '../actions/memberAction';
 import Splash from './splash';
 import HomePage from './homePage';
 
@@ -10,27 +12,29 @@ class App extends Component {
       member: true
     }
 
-    this.changeMember = this.changeMember.bind(this);
+    this.handleMember = this.handleMember.bind(this);
 
   }
 
-  changeMember(e){
+  handleMember(e){
     const member = e;
-    this.setState({
-      member
-    })
+    this.props.changeMember(member);
   }
   
   render() {
     return (
       <div className="app">
         <Switch>
-          <Route exact path='/' render={(props) => <Splash {...props} member={this.state.member} changeMember={this.changeMember} />} />
-          <Route path='/home' render={(props) => <HomePage {...props} member={this.state.member} changeMember={this.changeMember} />} />
+          <Route exact path='/' render={(props) => <Splash {...props} member={this.props.member} handleMember={this.handleMember} />} />
+          <Route path='/home' render={(props) => <HomePage {...props} member={this.props.member} handleMember={this.handleMember} />} />
         </Switch>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => ({
+  member: state.member.member
+})
+
+export default withRouter(connect(mapStateToProps, {changeMember})(App));

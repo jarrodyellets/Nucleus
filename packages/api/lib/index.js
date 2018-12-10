@@ -110,6 +110,11 @@ const init = async () => {
     }
    });
 
+   server.route({
+     method: 'GET',
+
+   })
+
 
    //Login
    server.route({
@@ -120,9 +125,10 @@ const init = async () => {
        const user = await client.users.query({user});
 
        if(!user || !await Bcrypt.compare(password, user[0].password)){
-        console.log('Invalid credentials')
+        return false;
        }
        request.cookieAuth.set({ username })
+       return request.auth.credentials
      }
    })
 

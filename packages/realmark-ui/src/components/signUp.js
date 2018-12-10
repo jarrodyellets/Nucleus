@@ -15,7 +15,7 @@ const SignUp = (props) => {
       <input className="loginInput" type="password" name="password" placeholder="Enter password"/>
       <button className="loginButton btn" type="submit">Sign Up</button>
       <div className="loginFirstTime">Already a User?</div>
-      <button className="loginButton btn" onClick={() => {props.changeMember(true)}}>Login</button>
+      <button className="loginButton btn" onClick={() => {props.handleMember(true)}}>Login</button>
     </div>
   )
 }
