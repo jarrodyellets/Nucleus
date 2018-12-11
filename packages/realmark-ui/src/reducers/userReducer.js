@@ -14,7 +14,11 @@ export default function(state = initialState, action){
   switch (action.type){
     case SIGN_UP:
       return {
-        ...state
+        ...state,
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        email: action.payload.email,
+        username: action.payload.userName
       };
       default :
         return state;

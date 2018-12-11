@@ -26,6 +26,9 @@ class Splash extends Component {
   handleData(){
     const data = this.state;
     this.props.signUpUser(data)
+    .then(() => {
+      console.log(this.props.user);
+    });
   }
 
   render(){
