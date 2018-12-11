@@ -31,7 +31,7 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  member: state.member.member
+  member: state.member
 })
 
 export default withRouter(connect(mapStateToProps, {changeMember})(App));

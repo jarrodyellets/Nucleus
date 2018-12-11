@@ -1,4 +1,4 @@
-import { SIGN_UP } from './types';
+import { SIGN_UP, ERROR } from './types';
 
 export const signUpUser = (data) => dispatch => {
   return new Promise((resolve, reject) => {
@@ -11,11 +11,19 @@ export const signUpUser = (data) => dispatch => {
     })
       .then(res => res.json())
       .then(user => {
-        dispatch({
-        type: SIGN_UP,
-        payload: user
-      });
-      resolve();
+        if(!user.error){
+          dispatch({
+            type: SIGN_UP,
+            payload: user
+          });
+          resolve();
+        } else {
+          dispatch({
+            type: ERROR,
+            payload: user
+          });
+          resolve();
+        }
     });
   });
 }
