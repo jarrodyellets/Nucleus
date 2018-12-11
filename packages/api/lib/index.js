@@ -3,6 +3,7 @@
 const Db = require('@realmark/db');
 const Hapi = require('hapi');
 const Joi = require('joi');
+const Path = require('path');
 const Bcrypt = require('bcrypt');
 let client;
 
@@ -57,6 +58,9 @@ const database = async () => {
 const server = Hapi.server({
   port: 8000,
   routes: {
+    files: {
+      relativeTo: Path.join(__dirname, '..', '..', 'realmark-ui', 'build')
+    },
     response: {
       emptyStatusCode: 204
     },
@@ -89,6 +93,9 @@ const init = async () => {
 
   await server.register(require('hapi-auth-basic'));
   await server.register(require('hapi-auth-cookie'));
+  await server.register([{
+    plugin: require('inert')
+  }])
 
   // server.auth.strategy('simple', 'basic', { validate });
   // server.auth.default('simple');
@@ -110,6 +117,32 @@ const init = async () => {
       return out;
     }
    });
+
+   server.route({
+     method: 'GET',
+     path: '/',
+     handler: (request, h) => {
+       return h.file('index.html');
+     }
+   })
+
+   server.route({
+     method: 'GET',
+     path: '/static/{path*}',
+     handler: {
+       directory: {
+         path: './static'
+       }
+     }
+   })
+
+   server.route({
+    method: 'GET',
+    path: '/manifest.json',
+    handler: (request, h) => {
+      return h.file('manifest.json');
+    }
+  })
 
    server.route({
      method: 'GET',
@@ -180,7 +213,7 @@ const init = async () => {
         email: request.payload.email
       })
       if (!userArray.length && !emailArray.length) {
-        Bcrypt.hash(request.payload.password, 10, function(err, hash) {
+        Bcrypt.hash(request.payload.password, 10, function (err, hash) {
           if (err) {
             console.log(err);
           } else {
@@ -195,11 +228,18 @@ const init = async () => {
             });
           }
         })
-        return "User Added";
+        return {
+          userName: request.payload.username,
+          firstName: request.payload.firstName,
+          lastName: request.payload.lastName,
+          email: request.payload.email,
+          posts: [],
+          friends: []
+        };
       } else if(userArray.length){
-        return "Username already exists";
+        return {error: "Username already exists"};
       } else {
-        return "Email address already exists";
+        return {error: "Email already exists"};
       }
     },
     options: {

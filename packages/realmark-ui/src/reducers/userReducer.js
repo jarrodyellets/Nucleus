@@ -4,16 +4,20 @@ const initialState ={
   firstName: '',
   lastName: '',
   email: '',
-  usename: '',
-  password: ''
+  username: '',
+  posts: [],
+  friends: []
 }
 
 export default function(state = initialState, action){
   switch (action.type){
-    case MEMBER:
+    case SIGN_UP:
       return {
         ...state,
-        member: action.payload
+        firstName: action.payload.firstName,
+        lastName: action.payload.lastName,
+        email: action.payload.email,
+        username: action.payload.userName
       };
       default :
         return state;
