@@ -213,7 +213,7 @@ const init = async () => {
         email: request.payload.email
       })
       if (!userArray.length && !emailArray.length) {
-        Bcrypt.hash(request.payload.password, 10, function(err, hash) {
+        Bcrypt.hash(request.payload.password, 10, function (err, hash) {
           if (err) {
             console.log(err);
           } else {
@@ -228,11 +228,18 @@ const init = async () => {
             });
           }
         })
-        return "User Added";
+        return {
+          userName: request.payload.username,
+          firstName: request.payload.firstName,
+          lastName: request.payload.lastName,
+          email: request.payload.email,
+          posts: [],
+          friends: []
+        };
       } else if(userArray.length){
-        return "Username already exists";
+        return {error: "Username already exists"};
       } else {
-        return "Email address already exists";
+        return {error: "Email already exists"};
       }
     },
     options: {

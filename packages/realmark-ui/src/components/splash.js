@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogIn from './logIn';
 import SignUp from './signUp';
+import { signUpUser } from '../actions/signUpAction';
 
 class Splash extends Component {
   constructor(props){
@@ -24,13 +25,7 @@ class Splash extends Component {
 
   handleData(){
     const data = this.state;
-    fetch('http://localhost:8000/users', {
-    method:'POST',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify(data)
-  })
+    this.props.signUpUser(data)
   }
 
   render(){
@@ -54,7 +49,8 @@ class Splash extends Component {
 }
 
 const mapStateToProps = state => ({
-  member: state.member.member
+  member: state.member.member,
+  user: state.user
 })
 
-export default connect(mapStateToProps)(Splash);
+export default connect(mapStateToProps, {signUpUser})(Splash);
