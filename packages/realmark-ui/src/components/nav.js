@@ -1,14 +1,14 @@
 import React from 'react';
 import Scroll from 'react-scroll-to-element';
+import { withRouter } from 'react-router-dom';
 
 const Nav = (props) => {
-
   return (
     <div className="navWrapper">
       <div className="navInnerWrapper">
         <div className="navLeftWrapper">
           <div className="navLinks">
-            <div className="navLink">Home</div>
+            <div className={props.location.pathname === '/home' ? "navLinkActive" : "navLink"}>Home</div>
             <div className="navLink">My Profile</div>
           </div>
         </div>
@@ -26,4 +26,4 @@ const Nav = (props) => {
   )
 }
 
-export default Nav;
+export default withRouter(Nav);

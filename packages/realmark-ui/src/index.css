@@ -167,6 +167,13 @@ body {
   cursor: pointer;
 }
 
+.navLinkActive {
+  margin-right: 25px;
+  font-weight: 700;
+  cursor: pointer;
+  color: var(--blue);
+}
+
 .navLink:hover, .navLogout:hover {
   color: var(--blue);
 }
