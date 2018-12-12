@@ -1,6 +1,8 @@
-import React from 'react'
+import React from 'react';
+import Scroll from 'react-scroll-to-element';
 
 const Nav = (props) => {
+
   return (
     <div className="navWrapper">
       <div className="navInnerWrapper">
@@ -11,7 +13,9 @@ const Nav = (props) => {
           </div>
         </div>
         <div className="navLogoWrapper">
-          <img className="navLogo" alt="logo" src="https://www.jarrodyellets.com/images/BlogHubLogo.png"/>
+          <Scroll type="class" element="mainWrapper" offset={-60}>
+            <img className="navLogo" alt="logo" src="https://www.jarrodyellets.com/images/BlogHubLogo.png"/>
+          </Scroll>
         </div>
         <div className="navPostWrapper">
           <button className="navPost">Post</button>

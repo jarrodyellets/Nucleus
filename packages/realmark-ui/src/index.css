@@ -178,6 +178,7 @@ body {
 
 .navLogo {
   width: 40px;
+  cursor: pointer;
 }
 
 .navPostWrapper {
