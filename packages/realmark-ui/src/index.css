@@ -167,8 +167,13 @@ body {
   cursor: pointer;
 }
 
-.navLink:hover {
+.navLink:hover, .navLogout:hover {
   color: var(--blue);
+}
+
+.navLogout {
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .navLogo {
@@ -209,8 +214,10 @@ body {
 
 .profileCardWrapper {
   background: #fdfdfd;
-  width: 30%;
-  margin-right: 10px;
+  width: 270px;
+  margin-left: 0;
+  position: fixed;
+  z-index: 5;
 }
 
 .profileCardImg {
@@ -238,7 +245,9 @@ body {
 }
 
 .postsWrapper {
+  position: relative;
   width: calc(70% - 10px);
+  margin-left: auto;
 }
 
 .postWrapper {
