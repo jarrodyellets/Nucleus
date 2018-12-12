@@ -7,7 +7,7 @@ const SignUp = (props) => {
     isFirstNameEmpty: "The first name field is required!",
     isLastNameEmpty: "The last name field is required!",
     isNotEmail: "The email field must be a valid email address!",
-    isEmailEmpty: "The eamil field is required!",
+    isEmailEmpty: "The email field is required!",
     isPasswordEmpty: "The password field is required!",
   }
   return (
