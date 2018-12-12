@@ -115,6 +115,15 @@ body {
   text-align: center;
 }
 
+.loginButtonWrapper {
+  position: relative;
+}
+
+.loginError {
+  position: absolute;
+  bottom: -20px;
+}
+
 .btn:hover {
  background: #1699ad;
 }

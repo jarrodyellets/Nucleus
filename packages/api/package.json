@@ -11,7 +11,8 @@
     "hapi-auth-cookie": "^9.1.0",
     "inert": "^5.1.0",
     "joi": "^14.0.1",
-    "path": "^0.12.7"
+    "path": "^0.12.7",
+    "underscore": "^1.9.1"
   },
   "devDependencies": {},
   "scripts": {
