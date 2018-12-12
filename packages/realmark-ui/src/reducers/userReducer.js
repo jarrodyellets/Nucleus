@@ -1,4 +1,4 @@
-import { SIGN_UP } from '../actions/types';
+import { SIGN_UP, ERROR } from '../actions/types';
 
 const initialState ={
   firstName: '',
@@ -6,7 +6,15 @@ const initialState ={
   email: '',
   username: '',
   posts: [],
-  friends: []
+  friends: [],
+  error: {
+    isUserNameEmpty: false,
+    isFirstNameEmpty: false,
+    isLastNameEmpty: false,
+    isNotEmail: false,
+    isEmailEmpty: false,
+    isPasswordEmpty: false
+  }
 }
 
 export default function(state = initialState, action){
@@ -17,7 +25,12 @@ export default function(state = initialState, action){
         firstName: action.payload.firstName,
         lastName: action.payload.lastName,
         email: action.payload.email,
-        username: action.payload.userName
+        username: action.payload.userName,
+      };
+      case ERROR:
+        return {
+          ...state,
+          error: action.payload.error
       };
       default :
         return state;

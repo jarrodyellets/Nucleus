@@ -26,9 +26,6 @@ class Splash extends Component {
   handleData(){
     const data = this.state;
     this.props.signUpUser(data)
-    .then(() => {
-      console.log(this.props.user);
-    });
   }
 
   render(){
@@ -43,7 +40,7 @@ class Splash extends Component {
             <div className="loginTitle">{this.props.member ? "Login:" : "Sign Up:"}</div>
           </div>
           <div className="loginFormWrapper">
-            {this.props.member ? <LogIn handleMember={this.props.handleMember} /> : <SignUp user={this.state} handleData={this.handleData} onChange={this.onChange} handleMember={this.props.handleMember} />}
+            {this.props.member ? <LogIn userData={this.props.userData} handleMember={this.props.handleMember} /> : <SignUp user={this.state} userData={this.props.userData} handleData={this.handleData} onChange={this.onChange} handleMember={this.props.handleMember} />}
           </div>
         </div>
       </div>
@@ -53,7 +50,7 @@ class Splash extends Component {
 
 const mapStateToProps = state => ({
   member: state.member.member,
-  user: state.user
+  userData: state.user,
 })
 
 export default connect(mapStateToProps, {signUpUser})(Splash);
