@@ -20,7 +20,9 @@ const internals = {
     email: Joi.string().email().required(),
     posts: Joi.string().min(1).max(100),
     comments: Joi.string().min(1),
-    friends: Joi.string()
+    friends: Joi.string(),
+    imageURL: Joi.string(),
+    location: Joi.string()
   }
 }
 
@@ -251,6 +253,8 @@ const init = async () => {
               firstName: request.payload.firstName,
               lastName: request.payload.lastName,
               email: request.payload.email,
+              imageURL: request.payload.imageURL,
+              location: request.payload.location,
               posts: [],
               friends: []
             });
@@ -261,6 +265,8 @@ const init = async () => {
           firstName: request.payload.firstName,
           lastName: request.payload.lastName,
           email: request.payload.email,
+          imageURL: request.payload.imageURL,
+          location: request.payload.location,
           posts: [],
           friends: []
         };
@@ -278,7 +284,9 @@ const init = async () => {
           password: internals.schema.password,
           firstName: internals.schema.firstName,
           lastName: internals.schema.lastName,
-          email: internals.schema.email
+          email: internals.schema.email,
+          imageURL: internals.schema.imageURL,
+          location: internals.schema.location
         },
         failAction: (request, h, err) => {
           throw err;

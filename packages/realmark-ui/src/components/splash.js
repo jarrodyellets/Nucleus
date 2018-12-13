@@ -12,7 +12,9 @@ class Splash extends Component {
       lastName: '',
       email: '',
       username: '',
-      password: ''
+      password: '',
+      imageURL: '',
+      location: ''
     }
 
     this.onChange = this.onChange.bind(this);
@@ -26,6 +28,7 @@ class Splash extends Component {
   handleData(){
     const data = this.state;
     this.props.signUpUser(data)
+    .then(() => {console.log(this.props.userData)})
   }
 
   render(){

@@ -16,6 +16,10 @@ const SignUp = (props) => {
       <input className="loginInput" type="text" name="firstName" value={props.user.firstName} onChange={props.onChange} placeholder="Enter first name"/>
       <label className="loginFormLabel">Last Name:</label>
       <input className="loginInput" type="text" name="lastName" value={props.user.lastName} onChange={props.onChange} placeholder="Enter last name"/>
+      <label className="loginFormLabel">Profile Image URL:</label>
+      <input className="loginInput" type="text" name="imageURL" value={props.user.imageURL} onChange={props.onChange} placeholder="Enter image URL"/>
+      <label className="loginFormLabel">Location:</label>
+      <input className="loginInput" type="text" name="location" value={props.user.location} onChange={props.onChange} placeholder="Enter location"/>
       <label className="loginFormLabel">Email:</label>
       <input className="loginInput" type="text" name="email" value={props.user.email} onChange={props.onChange} placeholder="Enter email"/>
       <label className="loginFormLabel">Username:</label>

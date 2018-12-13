@@ -4,16 +4,17 @@ import Post from './post';
 const Posts = (props) => {
   return (
     <div className="postsWrapper">
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
-      <Post />
+      <Post user={props.user}/>
+      <Post user={props.user}/>
+      <Post user={props.user}/>
+      <Post user={props.user}/>
+      <Post user={props.user}/>
+      <Post user={props.user}/>
+      <Post user={props.user}/>
+      <Post user={props.user}/>
+      <Post user={props.user}/>
+      <Post user={props.user}/>
+      <Post user={props.user}/>
     </div>
   )
 }

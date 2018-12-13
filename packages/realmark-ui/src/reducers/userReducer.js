@@ -5,6 +5,8 @@ const initialState ={
   lastName: '',
   email: '',
   username: '',
+  imageURL: '',
+  location: '',
   posts: [],
   friends: [],
   error: {
@@ -18,6 +20,7 @@ const initialState ={
 }
 
 export default function(state = initialState, action){
+  console.log(action.payload);
   switch (action.type){
     case SIGN_UP:
       return {
@@ -26,6 +29,8 @@ export default function(state = initialState, action){
         lastName: action.payload.lastName,
         email: action.payload.email,
         username: action.payload.userName,
+        imageURL: action.payload.imageURL,
+        location: action.payload.location
       };
       case ERROR:
         return {
