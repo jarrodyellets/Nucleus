@@ -1,4 +1,6 @@
-import React from 'react'
+import React from 'react';
+import Scroll from 'react-scroll-to-element';
+import { withRouter } from 'react-router-dom';
 
 const Nav = (props) => {
   return (
@@ -6,20 +8,22 @@ const Nav = (props) => {
       <div className="navInnerWrapper">
         <div className="navLeftWrapper">
           <div className="navLinks">
-            <div className="navLink">Home</div>
+            <div className={props.location.pathname === '/home' ? "navLinkActive" : "navLink"}>Home</div>
             <div className="navLink">My Profile</div>
           </div>
         </div>
         <div className="navLogoWrapper">
-          <img className="navLogo" alt="logo" src="https://www.jarrodyellets.com/images/BlogHubLogo.png"/>
+          <Scroll type="class" element="mainWrapper" offset={-60}>
+            <img className="navLogo" alt="logo" src="https://www.jarrodyellets.com/images/BlogHubLogo.png"/>
+          </Scroll>
         </div>
         <div className="navPostWrapper">
           <button className="navPost">Post</button>
-          <div className="navLink">Log Out</div>
+          <div className="navLogout">Log Out</div>
         </div>
       </div>
     </div>
   )
 }
 
-export default Nav;
+export default withRouter(Nav);

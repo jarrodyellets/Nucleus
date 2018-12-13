@@ -20,7 +20,9 @@ const internals = {
     email: Joi.string().email().required(),
     posts: Joi.string().min(1).max(100),
     comments: Joi.string().min(1),
-    friends: Joi.string()
+    friends: Joi.string(),
+    imageURL: Joi.string(),
+    location: Joi.string()
   }
 }
 
@@ -99,7 +101,6 @@ const init = async () => {
   }])
 
   // server.auth.strategy('simple', 'basic', { validate });
-  // server.auth.default('simple');
 
   server.auth.strategy('restricted', 'cookie', { 
     password: 'RDXcdNWW6649jd9TKsQNsbSwfzNHrBBa',
@@ -119,6 +120,7 @@ const init = async () => {
     }
    });
 
+   server.auth.default('restricted');
 
    //Validation error handling
 
@@ -127,7 +129,7 @@ const init = async () => {
      if(!response.isBoom){
        return h.continue;
      }
-     if (request.route.method == 'post'){
+     if (request.route.method == 'post' && request.route.path == '/users'){
       const isUserNameEmpty = _.where(response.details, {message: '"username" is not allowed to be empty'}).length > 0;
       const isFirstNameEmpty = _.where(response.details, {message: '"firstName" is not allowed to be empty'}).length > 0;
       const isLastNameEmpty = _.where(response.details, {message: '"lastName" is not allowed to be empty'}).length > 0;
@@ -151,6 +153,9 @@ const init = async () => {
      path: '/',
      handler: (request, h) => {
        return h.file('index.html');
+     },
+     options: {
+       auth: false
      }
    })
 
@@ -161,6 +166,9 @@ const init = async () => {
        directory: {
          path: './static'
        }
+     },
+     options: {
+       auth: false
      }
    })
 
@@ -169,6 +177,9 @@ const init = async () => {
     path: '/manifest.json',
     handler: (request, h) => {
       return h.file('manifest.json');
+    },
+    options: {
+      auth: false
     }
   })
 
@@ -187,14 +198,32 @@ const init = async () => {
      method: 'POST',
      path: '/login',
      handler: async (request, h) => {
-       const { username, password } = request.payload;
-       const user = await client.users.query({user});
+      let { username, password } = request.payload;
+      let user = await client.users.query({userName: username});
+      
+      if(user.length < 1){
+        return {login: false, error: "Invalid Username", id: null};
+      } else if (!await Bcrypt.compare(password, user[0].password)){
+        return {login: false, error: "Invalid Password", id: null}
+      }
+      request.cookieAuth.set({ id: user[0].id })
+      return {
+        userName: user[0].userName,
+        firstName: user[0].firstName,
+        lastName: user[0].lastName,
+        email: user[0].email,
+        imageURL: user[0].imageURL,
+        location: user[0].location,
+        posts: user[0].posts,
+        friends: user[0].friends,
+        id: request.auth.artifacts.id,
+        login: true,
+        loginError: null
+      } 
 
-       if(!user || !await Bcrypt.compare(password, user[0].password)){
-        return false;
-       }
-       request.cookieAuth.set({ username })
-       return request.auth.credentials
+    },
+     options: {
+       auth: false
      }
    })
 
@@ -251,6 +280,8 @@ const init = async () => {
               firstName: request.payload.firstName,
               lastName: request.payload.lastName,
               email: request.payload.email,
+              imageURL: request.payload.imageURL,
+              location: request.payload.location,
               posts: [],
               friends: []
             });
@@ -261,8 +292,11 @@ const init = async () => {
           firstName: request.payload.firstName,
           lastName: request.payload.lastName,
           email: request.payload.email,
+          imageURL: request.payload.imageURL,
+          location: request.payload.location,
           posts: [],
-          friends: []
+          friends: [],
+          newUser: true
         };
       } else if(userArray.length){
         return {error: "Username already exists"};
@@ -278,7 +312,9 @@ const init = async () => {
           password: internals.schema.password,
           firstName: internals.schema.firstName,
           lastName: internals.schema.lastName,
-          email: internals.schema.email
+          email: internals.schema.email,
+          imageURL: internals.schema.imageURL,
+          location: internals.schema.location
         },
         failAction: (request, h, err) => {
           throw err;

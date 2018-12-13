@@ -4,10 +4,10 @@ const Post = (props) => {
   return (
     <div className="postWrapper">
       <div className="postHeadingWrapper">
-        <img className="postImg" alt="profile" src="https://www.jarrodyellets.com/images/profilePlaceholder.png" />
+        <img className="postImg" alt="profile" src={props.user.imageURL} />
         <div className="postHeadingTextWrapper">
-          <div className="postHeadingTextFullName">Jarrod Yellets <span className="postHeadingTextTime">16m</span></div>
-          <div className="postHeadingTextUserName">@jarrodyellets</div>
+          <div className="postHeadingTextFullName">{props.user.firstName} {props.user.lastName} <span className="postHeadingTextTime">16m</span></div>
+          <div className="postHeadingTextUserName">@{props.user.username}</div>
         </div>
       </div>
       <div className="postTextWrapper">

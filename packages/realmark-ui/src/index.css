@@ -18,21 +18,24 @@ body {
 }
 
 .splashWrapper {
+  position: relative;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  background-image: url("https://www.jarrodyellets.com/images/splashHero.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
+  background: #2C3E50;
+  background: -webkit-linear-gradient(to left, #4CA1AF, #2C3E50);
+  background: linear-gradient(to left, #4CA1AF, #2C3E50);
+  padding: 50px 0;
+  box-sizing: border-box;
 }
 
 .loginWrapper {
   color: #e6ecf0;
   width: 90%;
   max-width: 500px;
+  flex: 1;
 }
 
 .loginHeader {
@@ -167,12 +170,25 @@ body {
   cursor: pointer;
 }
 
-.navLink:hover {
+.navLinkActive {
+  margin-right: 25px;
+  font-weight: 700;
+  cursor: pointer;
   color: var(--blue);
+}
+
+.navLink:hover, .navLogout:hover {
+  color: var(--blue);
+}
+
+.navLogout {
+  font-weight: 700;
+  cursor: pointer;
 }
 
 .navLogo {
   width: 40px;
+  cursor: pointer;
 }
 
 .navPostWrapper {
@@ -209,12 +225,16 @@ body {
 
 .profileCardWrapper {
   background: #fdfdfd;
-  width: 30%;
-  margin-right: 10px;
+  width: 270px;
+  margin-left: 0;
+  position: fixed;
+  z-index: 5;
 }
 
 .profileCardImg {
   width: 100%;
+  height: 270px;
+  object-fit: cover;
 }
 
 .profileCardInfoWrapper {
@@ -238,7 +258,9 @@ body {
 }
 
 .postsWrapper {
+  position: relative;
   width: calc(70% - 10px);
+  margin-left: auto;
 }
 
 .postWrapper {

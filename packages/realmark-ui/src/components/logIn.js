@@ -5,10 +5,10 @@ const LogIn = (props) => {
   return (
         <div className="loginForm">
           <label className="loginFormLabel" id="loginUsername">Username:</label>
-          <input className="loginInput" type="text" name="username" placeholder="Enter username" />
+          <input className="loginInput" type="text" name="username" onChange={props.onChange} placeholder="Enter username" />
           <label className="loginFormLabel" id="loginPassword">Password:</label>
-          <input className="loginInput" type="password" name="password" placeholder="Enter password"/>
-          <Link to='/home'><button className="loginButton btn" type="submit">Login</button></Link>
+          <input className="loginInput" type="password" name="password" onChange={props.onChange} placeholder="Enter password"/>
+          <button className="loginButton btn" onClick={props.handleLogin}>Login</button>
           <div className="loginFirstTime">First Time Here?</div>
           <button className="loginButton btn" onClick={() => {props.handleMember(false)}}>Register</button>
         </div>
