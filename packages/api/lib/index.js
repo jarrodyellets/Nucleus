@@ -206,8 +206,20 @@ const init = async () => {
       } else if (!await Bcrypt.compare(password, user[0].password)){
         return {login: false, error: "Invalid Password", id: null}
       }
-      request.cookieAuth.set({ username, id: user[0].id, login: true })
-      return request.auth.artifacts;
+      request.cookieAuth.set({ id: user[0].id })
+      return {
+        userName: user[0].userName,
+        firstName: user[0].firstName,
+        lastName: user[0].lastName,
+        email: user[0].email,
+        imageURL: user[0].imageURL,
+        location: user[0].location,
+        posts: user[0].posts,
+        friends: user[0].friends,
+        id: request.auth.artifacts.id,
+        login: true,
+        loginError: null
+      } 
 
     },
      options: {

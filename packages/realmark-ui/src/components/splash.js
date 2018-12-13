@@ -39,7 +39,7 @@ class Splash extends Component {
       password: this.state.password
     }
     this.props.logIn(user)
-    .then(() => {console.log(this.props.userData)})
+    .then(() => this.props.history.push('/home'))
   }
 
   render(){
@@ -54,7 +54,7 @@ class Splash extends Component {
             <div className="loginTitle">{this.props.member ? "Login:" : "Sign Up:"}</div>
           </div>
           <div className="loginFormWrapper">
-            {this.props.member || this.props.userData.newUser ? <LogIn userData={this.props.userData} handleMember={this.props.handleMember} handleLogin={this.handleLogin}/> : <SignUp user={this.state} userData={this.props.userData} handleData={this.handleData} onChange={this.onChange} handleMember={this.props.handleMember} />}
+            {this.props.member || this.props.userData.newUser ? <LogIn userData={this.props.userData} handleMember={this.props.handleMember} onChange={this.onChange} handleLogin={this.handleLogin}/> : <SignUp user={this.state} userData={this.props.userData} handleData={this.handleData} onChange={this.onChange} handleMember={this.props.handleMember} />}
           </div>
         </div>
       </div>

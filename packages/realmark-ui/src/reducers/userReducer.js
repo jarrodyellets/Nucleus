@@ -38,6 +38,12 @@ export default function(state = initialState, action){
       case LOG_IN:
         return {
           ...state,
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName,
+          email: action.payload.email,
+          username: action.payload.userName,
+          imageURL: action.payload.imageURL,
+          location: action.payload.location,
           id: action.payload.id,
           login: action.payload.login,
           loginError: action.payload.error
