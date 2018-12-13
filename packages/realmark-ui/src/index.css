@@ -134,7 +134,7 @@ body {
 .navWrapper {
   width: 100%;
   height: 50px;
-  background: #fdfdfd;
+  background: #fafafa;
   border-bottom: 1px solid rgba(0, 0, 0, .3);
   position: fixed;
   top: 0;
@@ -205,7 +205,7 @@ body {
   border: none;
   outline: none;
   background: var(--blue);
-  color: #fdfdfd;
+  color: #fafafa;
   font-weight: 700;
   font-size: .9em;
   height: 40px;
@@ -224,7 +224,7 @@ body {
 }
 
 .profileCardWrapper {
-  background: #fdfdfd;
+  background: #fafafa;
   width: 270px;
   margin-left: 0;
   position: fixed;
@@ -246,6 +246,28 @@ body {
   font-weight: 700;
 }
 
+.profileCardContactWrapper {
+  margin: 20px 0;
+}
+
+.profileCardContact {
+  margin-bottom: 10px;
+  color: #888;
+  cursor: pointer;
+}
+
+.profileCardLocation {
+  color: #888;
+}
+
+.far {
+  margin-right: 5px;
+}
+
+.fas {
+  margin-right: 9px;
+}
+
 .profileCardPostsWrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -254,6 +276,12 @@ body {
 
 .profileCardHeading {
   font-size: .9em;
+  font-weight: 700;
+  color: var(--blue);
+  cursor: pointer;
+}
+
+.profileCardNumbers {
   font-weight: 700;
 }
 
@@ -272,7 +300,7 @@ body {
   padding: 10px;
   margin-bottom: 10px;
   box-sizing: border-box;
-  background: #fdfdfd;
+  background: #fafafa;
 }
 
 .postHeadingWrapper {
@@ -319,4 +347,8 @@ body {
   margin-top: 10px;
   font-weight: 700;
   color: #999;
+}
+
+.postLikes {
+  cursor: pointer;
 }

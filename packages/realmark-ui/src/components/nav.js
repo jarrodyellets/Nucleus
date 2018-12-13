@@ -10,6 +10,8 @@ const Nav = (props) => {
           <div className="navLinks">
             <div className={props.location.pathname === '/home' ? "navLinkActive" : "navLink"}>Home</div>
             <div className="navLink">My Profile</div>
+            <div className="navLink">Explore</div>
+            <div className="navLink">Mail</div>
           </div>
         </div>
         <div className="navLogoWrapper">
