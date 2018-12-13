@@ -30,7 +30,8 @@ export default function(state = initialState, action){
         email: action.payload.email,
         username: action.payload.userName,
         imageURL: action.payload.imageURL,
-        location: action.payload.location
+        location: action.payload.location,
+        newUser: true
       };
       case ERROR:
         return {

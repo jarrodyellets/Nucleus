@@ -101,7 +101,6 @@ const init = async () => {
   }])
 
   // server.auth.strategy('simple', 'basic', { validate });
-  // server.auth.default('simple');
 
   server.auth.strategy('restricted', 'cookie', { 
     password: 'RDXcdNWW6649jd9TKsQNsbSwfzNHrBBa',
@@ -121,6 +120,7 @@ const init = async () => {
     }
    });
 
+   server.auth.default('restricted');
 
    //Validation error handling
 
@@ -129,7 +129,7 @@ const init = async () => {
      if(!response.isBoom){
        return h.continue;
      }
-     if (request.route.method == 'post'){
+     if (request.route.method == 'post' && request.route.path == '/users'){
       const isUserNameEmpty = _.where(response.details, {message: '"username" is not allowed to be empty'}).length > 0;
       const isFirstNameEmpty = _.where(response.details, {message: '"firstName" is not allowed to be empty'}).length > 0;
       const isLastNameEmpty = _.where(response.details, {message: '"lastName" is not allowed to be empty'}).length > 0;
@@ -189,14 +189,20 @@ const init = async () => {
      method: 'POST',
      path: '/login',
      handler: async (request, h) => {
-       const { username, password } = request.payload;
-       const user = await client.users.query({user});
+      let { username, password } = request.payload;
+      let user = await client.users.query({userName: username});
+      
+      if(user.length < 1){
+        return {login: false, error: "Invalid Username"};
+      } else if (!await Bcrypt.compare(password, user[0].password)){
+        return {login: false, error: "Invalid Password"}
+      }
+      request.cookieAuth.set({ username, id: user[0].id, login: true })
+      return request.auth.artifacts;
 
-       if(!user || !await Bcrypt.compare(password, user[0].password)){
-        return false;
-       }
-       request.cookieAuth.set({ username })
-       return request.auth.credentials
+    },
+     options: {
+       auth: false
      }
    })
 
@@ -268,7 +274,8 @@ const init = async () => {
           imageURL: request.payload.imageURL,
           location: request.payload.location,
           posts: [],
-          friends: []
+          friends: [],
+          newUser: true
         };
       } else if(userArray.length){
         return {error: "Username already exists"};

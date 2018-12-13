@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import LogIn from './logIn';
 import SignUp from './signUp';
 import { signUpUser } from '../actions/signUpAction';
+import { logIn } from '../actions/loginAction'
 
 class Splash extends Component {
   constructor(props){
@@ -43,7 +44,7 @@ class Splash extends Component {
             <div className="loginTitle">{this.props.member ? "Login:" : "Sign Up:"}</div>
           </div>
           <div className="loginFormWrapper">
-            {this.props.member ? <LogIn userData={this.props.userData} handleMember={this.props.handleMember} /> : <SignUp user={this.state} userData={this.props.userData} handleData={this.handleData} onChange={this.onChange} handleMember={this.props.handleMember} />}
+            {this.props.member || this.props.userData.newUser ? <LogIn userData={this.props.userData} handleMember={this.props.handleMember} login={this.props.logIn}/> : <SignUp user={this.state} userData={this.props.userData} handleData={this.handleData} onChange={this.onChange} handleMember={this.props.handleMember} />}
           </div>
         </div>
       </div>
@@ -56,4 +57,4 @@ const mapStateToProps = state => ({
   userData: state.user,
 })
 
-export default connect(mapStateToProps, {signUpUser})(Splash);
+export default connect(mapStateToProps, {signUpUser, logIn})(Splash);

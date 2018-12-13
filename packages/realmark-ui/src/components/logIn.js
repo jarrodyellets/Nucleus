@@ -8,7 +8,7 @@ const LogIn = (props) => {
           <input className="loginInput" type="text" name="username" placeholder="Enter username" />
           <label className="loginFormLabel" id="loginPassword">Password:</label>
           <input className="loginInput" type="password" name="password" placeholder="Enter password"/>
-          <Link to='/home'><button className="loginButton btn" type="submit">Login</button></Link>
+          <button className="loginButton btn" onClick={() => {props.login(props.userData.username, props.userData.password)}}>Login</button>
           <div className="loginFirstTime">First Time Here?</div>
           <button className="loginButton btn" onClick={() => {props.handleMember(false)}}>Register</button>
         </div>
