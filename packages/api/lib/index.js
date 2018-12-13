@@ -153,6 +153,9 @@ const init = async () => {
      path: '/',
      handler: (request, h) => {
        return h.file('index.html');
+     },
+     options: {
+       auth: false
      }
    })
 
@@ -163,6 +166,9 @@ const init = async () => {
        directory: {
          path: './static'
        }
+     },
+     options: {
+       auth: false
      }
    })
 
@@ -171,6 +177,9 @@ const init = async () => {
     path: '/manifest.json',
     handler: (request, h) => {
       return h.file('manifest.json');
+    },
+    options: {
+      auth: false
     }
   })
 
@@ -193,9 +202,9 @@ const init = async () => {
       let user = await client.users.query({userName: username});
       
       if(user.length < 1){
-        return {login: false, error: "Invalid Username"};
+        return {login: false, error: "Invalid Username", id: null};
       } else if (!await Bcrypt.compare(password, user[0].password)){
-        return {login: false, error: "Invalid Password"}
+        return {login: false, error: "Invalid Password", id: null}
       }
       request.cookieAuth.set({ username, id: user[0].id, login: true })
       return request.auth.artifacts;

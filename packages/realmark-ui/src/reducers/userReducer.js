@@ -1,4 +1,4 @@
-import { SIGN_UP, ERROR } from '../actions/types';
+import { SIGN_UP, ERROR, LOG_IN } from '../actions/types';
 
 const initialState ={
   firstName: '',
@@ -9,6 +9,9 @@ const initialState ={
   location: '',
   posts: [],
   friends: [],
+  id: '',
+  login: false,
+  loginError: '',
   error: {
     isUserNameEmpty: false,
     isFirstNameEmpty: false,
@@ -20,7 +23,6 @@ const initialState ={
 }
 
 export default function(state = initialState, action){
-  console.log(action.payload);
   switch (action.type){
     case SIGN_UP:
       return {
@@ -33,6 +35,13 @@ export default function(state = initialState, action){
         location: action.payload.location,
         newUser: true
       };
+      case LOG_IN:
+        return {
+          ...state,
+          id: action.payload.id,
+          login: action.payload.login,
+          loginError: action.payload.error
+        }
       case ERROR:
         return {
           ...state,
