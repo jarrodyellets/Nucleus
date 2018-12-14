@@ -24,10 +24,10 @@ const ProfileCard = (props) => {
         </div>
       </div>
       <div className="searchBoxWrapper">
-        <button className="seachBoxButton">Edit Profile</button>
+        <button className="searchBoxButton">Edit Profile</button>
         <div className="searchBoxInputWrapper">
           <input className="searchBoxInput" name="search" placeholder="Search Nucleus" />
-          <i class="fas fa-search"></i>
+          <i className="fas fa-search"></i>
         </div>
       </div>
     </div>
