@@ -450,6 +450,13 @@ body {
   z-index: 50;
 }
 
+.newPostImg {
+  width: 60px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+
+}
+
 .newPostTextWindow {
   margin-top: 10vh;
   width: 600px;
@@ -485,19 +492,20 @@ body {
 .newPostWindowPostWrapper {
   margin-top: 20px;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: flex-start;
+  padding: 0 20px;
 }
 
 .newPostTextArea {
-  width: 80%;
+  width: 95%;
   height: 130px;
-  margin-left: 5px;
+  margin-left: 20px;
   resize: none;
   background: #fafafa;
   border-radius: 10px;
   border: 1px solid var(--blue);
-  padding: 5px;
+  padding: 8px;
   box-sizing: border-box;
 }
 

@@ -41,7 +41,7 @@ class newPost extends Component {
               <Link to='/home'><div className="newPostWindowClose"><i className="fas fa-times"></i></div></Link>
             </div>
             <div className="newPostWindowPostWrapper">
-              <img className="postImg" src={this.props.user.imageURL} alt="profile" />
+              <img className="newPostImg" src={this.props.user.imageURL} alt="profile" />
               <textarea className="newPostTextArea" onChange={this.onChange} value={this.state.post} placeholder="Share your thoughts..."></textarea>
             </div>
             <div className="newPostButtonWrapper">
