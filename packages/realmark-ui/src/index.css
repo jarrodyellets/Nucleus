@@ -6,9 +6,20 @@
   --orange: #e37222;
 }
 
-body {
+* {
   margin: 0;
   padding: 0;
+  outline: 0;
+  font-size: 100%;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+body {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  top: 0;
   height: 100%;
   font-family: 'Source Sans Pro', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -65,6 +76,10 @@ body {
 .loginForm {
   display: flex;
   flex-direction: column;
+}
+
+.loginFormLabel {
+  margin-bottom: 3px;
 }
 
 .loginInput {
@@ -134,7 +149,7 @@ body {
 .navWrapper {
   width: 100%;
   height: 50px;
-  background: #fdfdfd;
+  background: #fafafa;
   border-bottom: 1px solid rgba(0, 0, 0, .3);
   position: fixed;
   top: 0;
@@ -205,12 +220,16 @@ body {
   border: none;
   outline: none;
   background: var(--blue);
-  color: #fdfdfd;
+  color: #fafafa;
   font-weight: 700;
   font-size: .9em;
   height: 40px;
   cursor: pointer;
   margin-right: 25px;
+}
+
+.navPost:hover {
+  background: #1699ad;
 }
 
 .mainWrapper {
@@ -224,16 +243,19 @@ body {
 }
 
 .profileCardWrapper {
-  background: #fdfdfd;
-  width: 270px;
+  width: 243px;
   margin-left: 0;
   position: fixed;
   z-index: 5;
 }
 
+.profileCardInnerWrapper {
+  background: #fafafa;
+}
+
 .profileCardImg {
   width: 100%;
-  height: 270px;
+  height: 243px;
   object-fit: cover;
 }
 
@@ -246,6 +268,28 @@ body {
   font-weight: 700;
 }
 
+.profileCardContactWrapper {
+  margin: 20px 0;
+}
+
+.profileCardContact {
+  margin-bottom: 10px;
+  color: #888;
+  cursor: pointer;
+}
+
+.profileCardLocation {
+  color: #888;
+}
+
+.far {
+  margin-right: 5px;
+}
+
+.fa-map-pin {
+  margin-right: 9px;
+}
+
 .profileCardPostsWrapper {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -255,11 +299,64 @@ body {
 .profileCardHeading {
   font-size: .9em;
   font-weight: 700;
+  color: var(--blue);
+  cursor: pointer;
+}
+
+.profileCardNumbers {
+  font-weight: 700;
+}
+
+.searchBoxWrapper {
+  background: #fafafa;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.searchBoxButton {
+  margin-bottom: 10px;
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  width: 100%;
+  padding: 6px 12px;
+  background: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+  cursor: pointer;
+}
+
+.searchBoxInputWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchBoxInput {
+  outline: none;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  width: calc(100% - 16px);
+  padding: 8px;
+  background: var(--white);
+}
+
+.fa-search {
+  position: absolute;
+  bottom: 9px;
+  right: 10px;
+  color: #888;
+  cursor: pointer;
 }
 
 .postsWrapper {
   position: relative;
-  width: calc(70% - 10px);
+  width: calc(73% - 10px);
   margin-left: auto;
 }
 
@@ -272,7 +369,7 @@ body {
   padding: 10px;
   margin-bottom: 10px;
   box-sizing: border-box;
-  background: #fdfdfd;
+  background: #fafafa;
 }
 
 .postHeadingWrapper {
@@ -284,11 +381,12 @@ body {
 
 .postImg {
   width: 60px;
-  border-radius: 5px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
 }
 
 .postHeadingTextWrapper {
-  margin-left: 10px;
+  margin: 5px 0 0 10px;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -319,4 +417,42 @@ body {
   margin-top: 10px;
   font-weight: 700;
   color: #999;
+}
+
+.postLikes {
+  cursor: pointer;
+}
+
+.newPostWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.newPostInnerWrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.newPostBlackoutWrapper {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  width: 100vw;
+  height: 100vh;
+  top: -10px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, .4);
+  z-index: 50;
+}
+
+.newPostTextWindow {
+  margin-top: 10vh;
+  width: 50%;
+  height: 50%;
+  background: var(--white);
 }

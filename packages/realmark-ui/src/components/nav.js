@@ -1,6 +1,6 @@
 import React from 'react';
 import Scroll from 'react-scroll-to-element';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 const Nav = (props) => {
   return (
@@ -10,6 +10,8 @@ const Nav = (props) => {
           <div className="navLinks">
             <div className={props.location.pathname === '/home' ? "navLinkActive" : "navLink"}>Home</div>
             <div className="navLink">My Profile</div>
+            <div className="navLink">Explore</div>
+            <div className="navLink">Mail</div>
           </div>
         </div>
         <div className="navLogoWrapper">
@@ -18,7 +20,7 @@ const Nav = (props) => {
           </Scroll>
         </div>
         <div className="navPostWrapper">
-          <button className="navPost">Post</button>
+          <Link to="/post"><button className="navPost">Post</button></Link>
           <div className="navLogout">Log Out</div>
         </div>
       </div>

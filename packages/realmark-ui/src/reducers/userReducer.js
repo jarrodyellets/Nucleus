@@ -46,7 +46,8 @@ export default function(state = initialState, action){
           location: action.payload.location,
           id: action.payload.id,
           login: action.payload.login,
-          loginError: action.payload.error
+          loginError: action.payload.error,
+          posts: action.payload.posts
         }
       case ERROR:
         return {

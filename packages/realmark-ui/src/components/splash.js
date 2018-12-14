@@ -39,7 +39,9 @@ class Splash extends Component {
       password: this.state.password
     }
     this.props.logIn(user)
-    .then(() => this.props.history.push('/home'))
+    .then(() => {
+      this.props.history.push('/home')
+    })
   }
 
   render(){

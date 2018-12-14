@@ -106,19 +106,8 @@ const init = async () => {
     password: 'RDXcdNWW6649jd9TKsQNsbSwfzNHrBBa',
     cookie: 'session',
     isSecure: false,
-    redirectTo: '/',
-    validateFunc: async (request, session) => {
-      const cached = await cached.get(session.sid);
-      const out = {
-        valid: !!cached
-      };
-      if (out.valid){
-        out.credentials = cached.account;
-      }
-
-      return out;
-    }
-   });
+    redirectTo: '/'
+  });
 
    server.auth.default('restricted');
 
@@ -252,9 +241,21 @@ const init = async () => {
     method: 'GET',
     path: '/users/{userId}',
     handler: async (request, h) => {
-      const id = request.auth.credentials.id;
+      const id = request.params.userId;
       const user = await client.users.query({id});
-      return user;
+      return {
+        userName: user[0].userName,
+        firstName: user[0].firstName,
+        lastName: user[0].lastName,
+        email: user[0].email,
+        imageURL: user[0].imageURL,
+        location: user[0].location,
+        posts: user[0].posts,
+        friends: user[0].friends,
+        id: request.auth.artifacts.id,
+        login: true,
+        loginError: null
+      };
     }
   })
 
@@ -387,7 +388,7 @@ const init = async () => {
     method: 'POST',
     path: '/users/{userId}/posts',
     handler: async (request, h) => {
-      const id = request.auth.credentials.id;
+      const id = request.auth.artifacts.id;
       const user = await client.users.query({id: id});
       const posts = await user[0].posts;
       const date = Date.now();
@@ -398,9 +399,9 @@ const init = async () => {
         post: request.payload.post,
         id: id + date
       }
-      await posts.push(newPost);
+      await posts.unshift(newPost);
       await client.users.update({id: id, posts});
-      return "New Post Added";
+      return client.users.query({id});
     },
     options: {
       validate: {
