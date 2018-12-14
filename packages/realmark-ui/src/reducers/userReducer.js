@@ -1,4 +1,4 @@
-import { SIGN_UP, ERROR, LOG_IN } from '../actions/types';
+import { SIGN_UP, ERROR, LOG_IN, POST } from '../actions/types';
 
 const initialState ={
   firstName: '',
@@ -47,6 +47,11 @@ export default function(state = initialState, action){
           id: action.payload.id,
           login: action.payload.login,
           loginError: action.payload.error,
+          posts: action.payload.posts
+        };
+      case POST:
+        return {
+          ...state,
           posts: action.payload.posts
         }
       case ERROR:

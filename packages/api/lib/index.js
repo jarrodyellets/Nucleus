@@ -100,16 +100,16 @@ const init = async () => {
     plugin: require('inert')
   }])
 
-  // server.auth.strategy('simple', 'basic', { validate });
 
-  server.auth.strategy('restricted', 'cookie', { 
+  server.auth.strategy('session', 'cookie', { 
     password: 'RDXcdNWW6649jd9TKsQNsbSwfzNHrBBa',
     cookie: 'session',
     isSecure: false,
     redirectTo: '/'
+
   });
 
-   server.auth.default('restricted');
+   server.auth.default('session');
 
    //Validation error handling
 
@@ -176,8 +176,8 @@ const init = async () => {
      method: 'GET',
      path: '/test',
      handler: async (request, h) => {
-       const data = client.users.query()
-       return data;
+       
+       return "HERE!";
      }
    })
 
@@ -196,6 +196,7 @@ const init = async () => {
         return {login: false, error: "Invalid Password", id: null}
       }
       request.cookieAuth.set({ id: user[0].id })
+      console.log(request.auth.isAuthenticated);
       return {
         userName: user[0].userName,
         firstName: user[0].firstName,
@@ -386,10 +387,11 @@ const init = async () => {
   //Add blog post
   server.route({
     method: 'POST',
-    path: '/users/{userId}/posts',
+    path: '/users/posts',
     handler: async (request, h) => {
+      console.log(request.auth);
       const id = request.auth.artifacts.id;
-      const user = await client.users.query({id: id});
+      let user = await client.users.query({id: id});
       const posts = await user[0].posts;
       const date = Date.now();
       const newPost  = {
@@ -401,7 +403,10 @@ const init = async () => {
       }
       await posts.unshift(newPost);
       await client.users.update({id: id, posts});
-      return client.users.query({id});
+      user = await client.users.query({id})
+      return {
+        posts: user[0].posts
+      }
     },
     options: {
       validate: {
