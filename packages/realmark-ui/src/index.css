@@ -452,7 +452,77 @@ body {
 
 .newPostTextWindow {
   margin-top: 10vh;
-  width: 50%;
-  height: 50%;
+  width: 600px;
+  height: 275px;
   background: var(--white);
+  border-radius: 10px;
+}
+
+.newPostWindowHeaderWrapper {
+  position: relative;
+  height: 50px;
+  background: #fafafa;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.newPostWindowHeader {
+  font-weight: 700;
+  font-size: 1.2em;
+}
+
+.newPostWindowClose {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 1.2em;
+  cursor: pointer;
+}
+
+.newPostWindowPostWrapper {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
+.newPostTextArea {
+  width: 80%;
+  height: 130px;
+  margin-left: 5px;
+  resize: none;
+  background: #fafafa;
+  border-radius: 10px;
+  border: 1px solid var(--blue);
+  padding: 5px;
+  box-sizing: border-box;
+}
+
+.newPostButtonWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.newPostButton {
+  margin-right: 20px;
+  outline: none;
+  border: none;
+  background: var(--blue);
+  width: 100px;
+  padding: 10px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: .9em;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.newPostButton:hover {
+  background: #1699ad;
 }

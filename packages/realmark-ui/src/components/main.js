@@ -24,8 +24,8 @@ class App extends Component {
       <div className="app">
         <Switch>
           <Route exact path='/' render={(props) => <Splash {...props} handleMember={this.handleMember} />} />
-          <Route path='/home' render={(props) => <HomePage {...props} member={this.props.member} handleMember={this.handleMember} />} />
-          <Route path='/post' render={(props) => <NewPost {...props} member={this.props.member} handleMember={this.handleMember} />} />
+          <Route path='/home' render={(props) => <HomePage {...props} />} />
+          <Route path='/post' render={(props) => <NewPost {...props} user={this.props.user} />} />
         </Switch>
       </div>
     );
