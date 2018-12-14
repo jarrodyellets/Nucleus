@@ -1,5 +1,4 @@
 import { LOG_IN } from './types';
-import { ERROR } from './types';
 
 export const logIn = (data) => dispatch => {
   return new Promise((resolve, reject) => {

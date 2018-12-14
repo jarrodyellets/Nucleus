@@ -1,7 +1,6 @@
 import React from 'react'
 
 const ProfileCard = (props) => {
-  console.log(props.user);
   return (
     <div className="profileCardWrapper">
       <div className="profileCardInnerWrapper">
@@ -17,8 +16,8 @@ const ProfileCard = (props) => {
             <div className="profileCardHeading">Posts:</div>
             <div className="profileCardHeading">Friends:</div>
             <div className="profileCardHeading">Likes:</div>
-            <div className="profileCardNumbers">1,214</div>
-            <div className="profileCardNumbers">56</div>
+            <div className="profileCardNumbers">{props.user.posts.length}</div>
+            <div className="profileCardNumbers">{props.user.friends.length}</div>
             <div className="profileCardNumbers">56</div>
           </div>
         </div>

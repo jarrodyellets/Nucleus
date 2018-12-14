@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { changeMember } from '../actions/memberAction';
 import Splash from './splash';
 import HomePage from './homePage';
+import NewPost from './newPost';
 
 class App extends Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class App extends Component {
         <Switch>
           <Route exact path='/' render={(props) => <Splash {...props} handleMember={this.handleMember} />} />
           <Route path='/home' render={(props) => <HomePage {...props} member={this.props.member} handleMember={this.handleMember} />} />
+          <Route path='/post' render={(props) => <NewPost {...props} member={this.props.member} handleMember={this.handleMember} />} />
         </Switch>
       </div>
     );
@@ -31,7 +33,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  member: state.member
+  member: state.member,
+  user: state.user
 })
 
 export default withRouter(connect(mapStateToProps, {changeMember})(App));

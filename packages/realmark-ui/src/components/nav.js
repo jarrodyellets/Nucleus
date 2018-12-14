@@ -1,6 +1,6 @@
 import React from 'react';
 import Scroll from 'react-scroll-to-element';
-import { withRouter } from 'react-router-dom';
+import { withRouter, Link } from 'react-router-dom';
 
 const Nav = (props) => {
   return (
@@ -20,7 +20,7 @@ const Nav = (props) => {
           </Scroll>
         </div>
         <div className="navPostWrapper">
-          <button className="navPost">Post</button>
+          <Link to="/post"><button className="navPost">Post</button></Link>
           <div className="navLogout">Log Out</div>
         </div>
       </div>
