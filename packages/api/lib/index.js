@@ -273,23 +273,27 @@ const init = async () => {
   //Get specific user
   server.route({
     method: 'GET',
-    path: '/users/{userId}',
+    path: '/users/{username}',
     handler: async (request, h) => {
-      const id = request.params.userId;
-      const user = await client.users.query({id});
-      return {
-        userName: user[0].userName,
-        firstName: user[0].firstName,
-        lastName: user[0].lastName,
-        email: user[0].email,
-        imageURL: user[0].imageURL,
-        location: user[0].location,
-        posts: user[0].posts,
-        friends: user[0].friends,
-        id: request.auth.artifacts.id,
-        login: true,
-        loginError: null
-      };
+      const name = request.params.username;
+      const user = await client.users.query({userName: name});
+      if(user != []){
+        return {
+          userName: user[0].userName,
+          firstName: user[0].firstName,
+          lastName: user[0].lastName,
+          email: user[0].email,
+          imageURL: user[0].imageURL,
+          location: user[0].location,
+          posts: user[0].posts,
+          friends: user[0].friends,
+          id: request.auth.artifacts.id,
+          login: true,
+          loginError: null
+        };
+      } else {
+        return {error: 'No results'}
+      }
     }
   })
 
@@ -320,7 +324,6 @@ const init = async () => {
             console.log(err);
           } else {
             const newUser = await client.users.query({userName: request.payload.username})
-            await console.log(newUser);
             await client.users.update({
               id: newUser[0].id,
               password: hash
