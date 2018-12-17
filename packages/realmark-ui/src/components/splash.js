@@ -32,7 +32,12 @@ class Splash extends Component {
     const data = this.state;
     this.props.signUpUser(data)
     .then(() => {
-      this.props.history.push('/home');
+      const user = this.props.userData;
+      let error = Object.keys(user.error).filter(function(key) {return user.error[key] === true});
+      if(error.length === 0){
+        console.log(this.props.userData)
+        this.props.history.push('/home');
+      }
     })
   }
 

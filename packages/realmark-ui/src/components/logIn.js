@@ -8,7 +8,7 @@ const LogIn = (props) => {
           <label className="loginFormLabel" id="loginPassword">Password:</label>
           <input className="loginInput" type="password" name="password" onKeyPress={props.handleKeyPress} onChange={props.onChange} placeholder="Enter password"/>
           <button className="loginButton btn" onClick={props.handleLogin}>Login</button>
-          {props.error.error && <div className="loginError">{props.error.error}</div>}
+          {props.error.error && <div className="loginFormError">*{props.error.error}*</div>}
           <div className="loginFirstTime">First Time Here?</div>
           <button className="loginButton btn" type="submit" onClick={() => {props.handleMember(false)}}>Register</button>
         </div>

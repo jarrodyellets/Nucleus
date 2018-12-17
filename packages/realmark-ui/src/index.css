@@ -105,11 +105,11 @@ body {
   width: 100%;
 }
 
-.loginError {
+.loginFormError {
   position: absolute;
-  bottom: 50px;
-  color: red;
-  left: 10px;
+  bottom: 95px;
+  color: var(--yellow);
+  left: 5px;
 }
 
 .loginLogoTitle {
