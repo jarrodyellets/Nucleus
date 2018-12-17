@@ -227,6 +227,37 @@ const init = async () => {
     },
   })
 
+  server.route({
+    method: 'GET',
+    path: '/checklogin',
+    handler: async (request, h) => {
+        if(request.auth.isAuthenticated){
+          const user = await client.users.query({id: request.auth.credentials.id})
+          return {
+            userName: user[0].userName,
+            firstName: user[0].firstName,
+            lastName: user[0].lastName,
+            email: user[0].email,
+            imageURL: user[0].imageURL,
+            location: user[0].location,
+            posts: user[0].posts,
+            friends: user[0].friends,
+            id: request.auth.artifacts.id,
+            login: true,
+            loginError: null
+          }
+        }
+        return {
+          login: false
+      }
+    },
+    options: {
+      auth: {
+        mode: 'try'
+      }
+    }
+  })
+
 
   //Get all users
   server.route({

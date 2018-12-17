@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import LogIn from './logIn';
 import SignUp from './signUp';
 import { signUpUser } from '../actions/signUpAction';
-import { logIn } from '../actions/loginAction'
+import { logIn } from '../actions/loginAction';
+import { checkLogin } from '../actions/checkLogin';
 
 class Splash extends Component {
   constructor(props){
@@ -21,6 +22,16 @@ class Splash extends Component {
     this.onChange = this.onChange.bind(this);
     this.handleData = this.handleData.bind(this);
     this.handleLogin = this.handleLogin.bind(this)
+  }
+
+  componentWillMount(){
+    this.props.checkLogin()
+    .then(() => {
+      console.log(this.props.userData.login);
+      if(this.props.userData.login){
+        this.props.history.push('/home')
+      }
+    })
   }
 
   onChange(e) {
@@ -69,4 +80,4 @@ const mapStateToProps = state => ({
   userData: state.user,
 })
 
-export default connect(mapStateToProps, {signUpUser, logIn})(Splash);
+export default connect(mapStateToProps, {signUpUser, logIn, checkLogin})(Splash);
