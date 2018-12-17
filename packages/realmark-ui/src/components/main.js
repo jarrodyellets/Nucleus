@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { changeMember } from '../actions/memberAction';
+import { checkLogin } from '../actions/checkLogin';
 import Splash from './splash';
 import HomePage from './homePage';
 import NewPost from './newPost';
@@ -12,6 +13,15 @@ class App extends Component {
 
     this.handleMember = this.handleMember.bind(this);
 
+  }
+
+  componentWillMount(){
+    this.props.checkLogin()
+    .then(() => {
+      if(this.props.user.login){
+        this.props.history.push('/home')
+      }
+    })
   }
 
   handleMember(e){
@@ -37,4 +47,4 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default withRouter(connect(mapStateToProps, {changeMember})(App));
+export default withRouter(connect(mapStateToProps, {changeMember, checkLogin})(App));

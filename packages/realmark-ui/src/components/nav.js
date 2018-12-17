@@ -21,7 +21,7 @@ const Nav = (props) => {
         </div>
         <div className="navPostWrapper">
           <Link to="/post"><button className="navPost">Post</button></Link>
-          <div className="navLogout">Log Out</div>
+          <div className="navLogout" onClick={props.handleLogOut}>Log Out</div>
         </div>
       </div>
     </div>

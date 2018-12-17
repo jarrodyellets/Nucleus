@@ -1,4 +1,4 @@
-import { SIGN_UP, ERROR, LOG_IN, POST } from '../actions/types';
+import { SIGN_UP, ERROR, LOG_IN, LOG_OUT, POST } from '../actions/types';
 
 const initialState ={
   firstName: '',
@@ -33,6 +33,9 @@ export default function(state = initialState, action){
         username: action.payload.userName,
         imageURL: action.payload.imageURL,
         location: action.payload.location,
+        id: action.payload.id,
+        posts: action.payload.posts,
+        friends: action.payload.friends,
         newUser: true
       };
       case LOG_IN:
@@ -53,6 +56,11 @@ export default function(state = initialState, action){
         return {
           ...state,
           posts: action.payload.posts
+        };
+      case LOG_OUT:
+        return {
+          ...state,
+          login: action.payload
         }
       case ERROR:
         return {

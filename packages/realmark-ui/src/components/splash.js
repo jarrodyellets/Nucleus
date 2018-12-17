@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import LogIn from './logIn';
 import SignUp from './signUp';
 import { signUpUser } from '../actions/signUpAction';
-import { logIn } from '../actions/loginAction'
+import { logIn } from '../actions/loginAction';
 
 class Splash extends Component {
   constructor(props){
@@ -20,7 +20,8 @@ class Splash extends Component {
 
     this.onChange = this.onChange.bind(this);
     this.handleData = this.handleData.bind(this);
-    this.handleLogin = this.handleLogin.bind(this)
+    this.handleLogin = this.handleLogin.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   onChange(e) {
@@ -30,7 +31,9 @@ class Splash extends Component {
   handleData(){
     const data = this.state;
     this.props.signUpUser(data)
-    .then(() => {this.props.handleMember(true)})
+    .then(() => {
+      this.props.history.push('/home');
+    })
   }
 
   handleLogin() {
@@ -42,6 +45,21 @@ class Splash extends Component {
     .then(() => {
       this.props.history.push('/home')
     })
+  }
+
+  handleKeyPress(e) {
+    if(e.charCode === 13) {
+      e.preventDefault();
+      e.stopPropagation();
+      const user = {
+        username: this.state.username,
+        password: this.state.password
+      }
+      this.props.logIn(user)
+      .then(() => {
+        this.props.history.push('/home');
+      })
+    }
   }
 
   render(){
@@ -56,7 +74,7 @@ class Splash extends Component {
             <div className="loginTitle">{this.props.member ? "Login:" : "Sign Up:"}</div>
           </div>
           <div className="loginFormWrapper">
-            {this.props.member || this.props.userData.newUser ? <LogIn userData={this.props.userData} handleMember={this.props.handleMember} onChange={this.onChange} handleLogin={this.handleLogin}/> : <SignUp user={this.state} userData={this.props.userData} handleData={this.handleData} onChange={this.onChange} handleMember={this.props.handleMember} />}
+            {this.props.member || this.props.userData.newUser ? <LogIn userData={this.props.userData} handleMember={this.props.handleMember} onChange={this.onChange} handleKeyPress={this.handleKeyPress} handleLogin={this.handleLogin}/> : <SignUp user={this.state} userData={this.props.userData} handleData={this.handleData} handleKeyPress={this.handleKeyPress} onChange={this.onChange} handleMember={this.props.handleMember} />}
           </div>
         </div>
       </div>
