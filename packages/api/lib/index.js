@@ -196,7 +196,6 @@ const init = async () => {
         return {login: false, error: "Invalid Password", id: null}
       }
       request.cookieAuth.set({ id: user[0].id })
-      console.log(request.auth.isAuthenticated);
       return {
         userName: user[0].userName,
         firstName: user[0].firstName,
@@ -215,14 +214,17 @@ const init = async () => {
      options: {
        auth: false
      }
-   })
+   });
 
    server.route({
     method: 'GET',
     path: '/logout',
     handler: async (request, h) => {
       request.cookieAuth.clear();
-    }
+      return {
+        login: false
+      }
+    },
   })
 
 
@@ -389,7 +391,6 @@ const init = async () => {
     method: 'POST',
     path: '/users/posts',
     handler: async (request, h) => {
-      console.log(request.auth);
       const id = request.auth.artifacts.id;
       let user = await client.users.query({id: id});
       const posts = await user[0].posts;
