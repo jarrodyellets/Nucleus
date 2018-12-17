@@ -31,7 +31,9 @@ class Splash extends Component {
   handleData(){
     const data = this.state;
     this.props.signUpUser(data)
-    .then(() => {this.props.handleMember(true)})
+    .then(() => {
+      this.props.history.push('/home');
+    })
   }
 
   handleLogin() {

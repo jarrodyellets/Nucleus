@@ -298,30 +298,37 @@ const init = async () => {
     method: 'POST',
     path: '/users',
     handler: async (request, h) => {
-      const userArray = await client.users.query({
+      let userArray = await client.users.query({
         userName: request.payload.username
       });
       const emailArray = await client.users.query({
         email: request.payload.email
       })
       if (!userArray.length && !emailArray.length) {
-        Bcrypt.hash(request.payload.password, 10, function (err, hash) {
+        await client.users.insert({
+          userName: request.payload.username,
+          firstName: request.payload.firstName,
+          lastName: request.payload.lastName,
+          email: request.payload.email,
+          imageURL: request.payload.imageURL,
+          location: request.payload.location,
+          posts: [],
+          friends: []
+        })
+        await Bcrypt.hash(request.payload.password, 10, async (err, hash) => {
           if (err) {
             console.log(err);
           } else {
-            client.users.insert({
-              userName: request.payload.username,
-              password: hash,
-              firstName: request.payload.firstName,
-              lastName: request.payload.lastName,
-              email: request.payload.email,
-              imageURL: request.payload.imageURL,
-              location: request.payload.location,
-              posts: [],
-              friends: []
-            });
+            const newUser = await client.users.query({userName: request.payload.username})
+            await console.log(newUser);
+            await client.users.update({
+              id: newUser[0].id,
+              password: hash
+            }, {insert: true}); 
           }
         })
+        userArray = await client.users.query({userName: request.payload.username})
+        await request.cookieAuth.set({ id: userArray[0].id })
         return {
           userName: request.payload.username,
           firstName: request.payload.firstName,
@@ -329,6 +336,7 @@ const init = async () => {
           email: request.payload.email,
           imageURL: request.payload.imageURL,
           location: request.payload.location,
+          id: userArray[0].id,
           posts: [],
           friends: [],
           newUser: true

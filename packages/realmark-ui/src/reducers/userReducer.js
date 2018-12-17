@@ -33,6 +33,9 @@ export default function(state = initialState, action){
         username: action.payload.userName,
         imageURL: action.payload.imageURL,
         location: action.payload.location,
+        id: action.payload.id,
+        posts: action.payload.posts,
+        friends: action.payload.friends,
         newUser: true
       };
       case LOG_IN:
