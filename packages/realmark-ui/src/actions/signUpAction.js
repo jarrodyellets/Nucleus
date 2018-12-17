@@ -1,6 +1,7 @@
 import { SIGN_UP, ERROR } from './types';
 
 export const signUpUser = (data) => dispatch => {
+  console.log(data);
   return new Promise((resolve, reject) => {
     fetch('http://localhost:8000/users', {
       method:'POST',
@@ -11,6 +12,7 @@ export const signUpUser = (data) => dispatch => {
     })
       .then(res => res.json())
       .then(user => {
+        console.log(user);
         if(!user.error){
           dispatch({
             type: SIGN_UP,

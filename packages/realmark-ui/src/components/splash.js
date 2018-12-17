@@ -32,7 +32,12 @@ class Splash extends Component {
     const data = this.state;
     this.props.signUpUser(data)
     .then(() => {
-      this.props.history.push('/home');
+      const user = this.props.userData;
+      let error = Object.keys(user.error).filter(function(key) {return user.error[key] === true});
+      if(error.length === 0){
+        console.log(this.props.userData)
+        this.props.history.push('/home');
+      }
     })
   }
 
@@ -43,7 +48,9 @@ class Splash extends Component {
     }
     this.props.logIn(user)
     .then(() => {
-      this.props.history.push('/home')
+      if(!this.props.error.error){
+        this.props.history.push('/home')
+      }
     })
   }
 
@@ -57,7 +64,9 @@ class Splash extends Component {
       }
       this.props.logIn(user)
       .then(() => {
-        this.props.history.push('/home');
+        if(!this.props.error.error){
+          this.props.history.push('/home');
+        }
       })
     }
   }
@@ -74,7 +83,7 @@ class Splash extends Component {
             <div className="loginTitle">{this.props.member ? "Login:" : "Sign Up:"}</div>
           </div>
           <div className="loginFormWrapper">
-            {this.props.member || this.props.userData.newUser ? <LogIn userData={this.props.userData} handleMember={this.props.handleMember} onChange={this.onChange} handleKeyPress={this.handleKeyPress} handleLogin={this.handleLogin}/> : <SignUp user={this.state} userData={this.props.userData} handleData={this.handleData} handleKeyPress={this.handleKeyPress} onChange={this.onChange} handleMember={this.props.handleMember} />}
+            {this.props.member || this.props.userData.newUser ? <LogIn userData={this.props.userData} error={this.props.error} handleMember={this.props.handleMember} onChange={this.onChange} handleKeyPress={this.handleKeyPress} handleLogin={this.handleLogin}/> : <SignUp user={this.state} userData={this.props.userData} handleData={this.handleData} handleKeyPress={this.handleKeyPress} onChange={this.onChange} handleMember={this.props.handleMember} />}
           </div>
         </div>
       </div>
@@ -85,6 +94,7 @@ class Splash extends Component {
 const mapStateToProps = state => ({
   member: state.member.member,
   userData: state.user,
+  error: state.error
 })
 
 export default connect(mapStateToProps, {signUpUser, logIn})(Splash);

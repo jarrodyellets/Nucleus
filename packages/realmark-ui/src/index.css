@@ -74,6 +74,7 @@ body {
 }
 
 .loginForm {
+  position: relative;
   display: flex;
   flex-direction: column;
 }
@@ -102,6 +103,13 @@ body {
   cursor: pointer;
   margin-top: 10px;
   width: 100%;
+}
+
+.loginFormError {
+  position: absolute;
+  bottom: 95px;
+  color: var(--yellow);
+  left: 5px;
 }
 
 .loginLogoTitle {
