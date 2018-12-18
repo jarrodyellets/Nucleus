@@ -3,15 +3,18 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { changeMember } from '../actions/memberAction';
 import { checkLogin } from '../actions/checkLogin';
+import { logOut } from '../actions/logoutAction';
 import Splash from './splash';
 import HomePage from './homePage';
 import NewPost from './newPost';
+import Nav from './nav';
 
 class App extends Component {
   constructor(props) {
     super(props);
 
     this.handleMember = this.handleMember.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
 
   }
 
@@ -28,10 +31,20 @@ class App extends Component {
     const member = e;
     this.props.changeMember(member);
   }
+
+  handleLogOut(){
+    this.props.logOut()
+    .then(() => {
+      if(!this.props.user.login){
+        this.props.history.push('/')
+      }
+    })
+  }
   
   render() {
     return (
       <div className="app">
+      {this.props.user.login && <Nav handleLogOut={this.handleLogOut} />}
         <Switch>
           <Route exact path='/' render={(props) => <Splash {...props} handleMember={this.handleMember} />} />
           <Route path='/home' render={(props) => <HomePage {...props} />} />
@@ -47,4 +60,4 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default withRouter(connect(mapStateToProps, {changeMember, checkLogin})(App));
+export default withRouter(connect(mapStateToProps, {changeMember, checkLogin, logOut})(App));
