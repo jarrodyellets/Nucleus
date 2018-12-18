@@ -1,0 +1,30 @@
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { logOut } from '../actions/logoutAction';
+import ProfileCard from './profileCard';
+import Posts from './posts';
+
+
+class SearchPage extends Component {
+  constructor(props){
+    super(props);
+
+  }
+
+  render(){
+    return (
+      <div>
+        <div className="mainWrapper">
+          <ProfileCard user={this.props.user} />
+          <Posts user={this.props.user} />
+        </div>
+      </div>
+    )
+  }
+}
+
+const mapStateToProps = state => ({
+  user: state.currentUser
+})
+
+export default connect(mapStateToProps, {logOut})(SearchPage);
