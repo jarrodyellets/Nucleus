@@ -1,33 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { searchUser } from '../actions/searchAction';
+
 
 class ProfileCard extends Component {
   constructor(props){
     super(props);
-    this.state = {
-      username: ''
-    }
-
-    this.onChange = this.onChange.bind(this);
-    this.handleSearch = this.handleSearch.bind(this);
 
   }
-
-  onChange(e){
-    this.setState({
-      username: e.target.value
-    })
-  }
-
-  handleSearch(){
-    this.props.searchUser(this.state.username)
-    .then(() => {
-      console.log(this.props.currentUser);
-    })
-  }
-
+  
   render(){
+    console.log(this.props)
     return (
       <div className="profileCardWrapper">
         <div className="profileCardInnerWrapper">
@@ -51,10 +33,6 @@ class ProfileCard extends Component {
         </div>
         <div className="searchBoxWrapper">
           <button className="searchBoxButton">Edit Profile</button>
-          <div className="searchBoxInputWrapper">
-            <input className="searchBoxInput" name="search" onChange={this.onChange} value={this.state.username} placeholder="Search Nucleus" />
-            <i className="fas fa-search" onClick={this.handleSearch}></i>
-          </div>
         </div>
       </div>
     )
@@ -65,4 +43,4 @@ const mapStateToProps = state => ({
   currentUser: state.currentUser
 })
 
-export default connect(mapStateToProps, {searchUser})(ProfileCard);
+export default connect(mapStateToProps)(ProfileCard);

@@ -5,7 +5,7 @@ import ProfileCard from './profileCard';
 import Posts from './posts';
 
 
-class HomePage extends Component {
+class SearchPage extends Component {
   constructor(props){
     super(props);
 
@@ -14,7 +14,6 @@ class HomePage extends Component {
   render(){
     return (
       <div>
-        
         <div className="mainWrapper">
           <ProfileCard user={this.props.user} />
           <Posts user={this.props.user} />
@@ -25,7 +24,7 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.currentUser
 })
 
-export default connect(mapStateToProps, {logOut})(HomePage);
+export default connect(mapStateToProps, {logOut})(SearchPage);
