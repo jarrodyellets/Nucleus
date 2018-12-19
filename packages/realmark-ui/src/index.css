@@ -15,6 +15,10 @@
   background: transparent;
 }
 
+a {
+  text-decoration: none !important;
+}
+
 body {
   position: relative;
   margin: 0;
@@ -299,9 +303,18 @@ body {
 }
 
 .profileCardPostsWrapper {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   margin-top: 20px;
+}
+
+.profileCardInnerCardWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  cursor: pointer;
 }
 
 .profileCardHeading {
@@ -315,19 +328,17 @@ body {
   font-weight: 700;
 }
 
-.searchBoxWrapper {
+.editWrapper {
   background: #fafafa;
   margin-top: 10px;
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
   padding: 10px;
   box-sizing: border-box;
 }
 
-.searchBoxButton {
-  margin-bottom: 10px;
+.editButton {
   outline: none;
   border: 1px solid #ccc;
   border-radius: 3px;
@@ -541,4 +552,65 @@ body {
 
 .newPostButton:hover {
   background: #1699ad;
+}
+
+.searchWrapper {
+  max-width: 900px;
+  margin: 60px auto 0 auto;
+}
+
+.searchInnerWrapper {
+  background: #fafafa;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30px;
+}
+
+.searchLeftWrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.searchImg {
+  width: 100px;
+  border-radius: 50%;
+}
+
+.searchInfoWrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  align-self: flex-start;
+  margin-left: 20px;
+}
+
+.searchName {
+  font-size: 1.1em;
+  font-weight: 700;
+  color: var(--blue);
+}
+
+.searchUserName, .searchLocation {
+  color: var(--black);
+}
+
+.searchRightWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchButton {
+  padding: 6px 12px;
+  font-size: .9em;
+  outline: none;
+  color: #fafafa;
+  background: var(--blue);
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
 }

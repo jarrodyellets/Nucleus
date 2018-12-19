@@ -12,13 +12,29 @@ class Nav extends Component {
     }
     this.onChange = this.onChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   handleSearch(){
     this.props.searchUser(this.state.username)
     .then(() => {
-      console.log(this.props.currentUser);
+      if(this.props.currentUser.username){
+        this.props.handleNav('/search');
+        this.setState({ username: '' })
+      }
     })
+  }
+
+  handleKeyPress(e){
+    if(e.charCode === 13){
+      this.props.searchUser(this.state.username)
+      .then(() => {
+        if(this.props.currentUser.username){
+          this.props.handleNav('/search');
+          this.setState({ username: '' })
+        }
+      })
+    }
   }
 
   onChange(e){
@@ -33,7 +49,7 @@ class Nav extends Component {
         <div className="navInnerWrapper">
           <div className="navLeftWrapper">
             <div className="navLinks">
-              <div className={this.props.location.pathname === '/home' ? "navLinkActive" : "navLink"}>Home</div>
+              <div className={this.props.location.pathname === '/home' ? "navLinkActive" : "navLink"} onClick={() => {this.props.handleNav('/home')}} >Home</div>
               <div className="navLink">My Profile</div>
               <div className="navLink">Explore</div>
               <div className="navLink">Mail</div>
@@ -46,7 +62,7 @@ class Nav extends Component {
           </div>
           <div className="navPostWrapper">
             <div className="searchBoxInputWrapper">
-              <input className="searchBoxInput" name="search" onChange={this.onChange} value={this.state.username} placeholder="Search Nucleus" />
+              <input className="searchBoxInput" name="search" onChange={this.onChange} onKeyPress={this.handleKeyPress} value={this.state.username} placeholder="Search Nucleus" />
               <i className="fas fa-search" onClick={this.handleSearch}></i>
             </div>
             <Link to="/post"><button className="navPost">Post</button></Link>
