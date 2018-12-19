@@ -342,6 +342,7 @@ const init = async () => {
           id: userArray[0].id,
           posts: [],
           friends: [],
+          login: true,
           newUser: true
         };
       } else if(userArray.length){

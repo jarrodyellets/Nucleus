@@ -17,7 +17,9 @@ class Nav extends Component {
   handleSearch(){
     this.props.searchUser(this.state.username)
     .then(() => {
-      console.log(this.props.currentUser);
+      if(this.props.currentUser.username){
+        this.props.handleNav('/search');
+      }
     })
   }
 
@@ -33,7 +35,7 @@ class Nav extends Component {
         <div className="navInnerWrapper">
           <div className="navLeftWrapper">
             <div className="navLinks">
-              <div className={this.props.location.pathname === '/home' ? "navLinkActive" : "navLink"}>Home</div>
+              <div className={this.props.location.pathname === '/home' ? "navLinkActive" : "navLink"} onClick={() => {this.props.handleNav('/home')}} >Home</div>
               <div className="navLink">My Profile</div>
               <div className="navLink">Explore</div>
               <div className="navLink">Mail</div>

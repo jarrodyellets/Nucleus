@@ -36,6 +36,8 @@ export default function(state = initialState, action){
         id: action.payload.id,
         posts: action.payload.posts,
         friends: action.payload.friends,
+        login: true,
+        test: true,
         newUser: true
       };
       case LOG_IN:

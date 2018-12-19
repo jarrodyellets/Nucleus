@@ -8,6 +8,7 @@ import Splash from './splash';
 import HomePage from './homePage';
 import NewPost from './newPost';
 import Nav from './nav';
+import Search from './search';
 
 class App extends Component {
   constructor(props) {
@@ -15,6 +16,7 @@ class App extends Component {
 
     this.handleMember = this.handleMember.bind(this);
     this.handleLogOut = this.handleLogOut.bind(this);
+    this.handleNav = this.handleNav.bind(this);
 
   }
 
@@ -40,15 +42,20 @@ class App extends Component {
       }
     })
   }
+
+  handleNav(page){
+    this.props.history.push(page)
+  }
   
   render() {
     return (
       <div className="app">
-      {this.props.user.login && <Nav handleLogOut={this.handleLogOut} />}
+        {this.props.user.login && <Nav handleLogOut={this.handleLogOut} handleNav={this.handleNav} />}
         <Switch>
           <Route exact path='/' render={(props) => <Splash {...props} handleMember={this.handleMember} />} />
           <Route path='/home' render={(props) => <HomePage {...props} />} />
           <Route path='/post' render={(props) => <NewPost {...props} user={this.props.user} />} />
+          <Route path='/search' component={Search} />
         </Switch>
       </div>
     );
