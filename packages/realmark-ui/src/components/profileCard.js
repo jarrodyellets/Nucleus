@@ -9,9 +9,8 @@ class ProfileCard extends Component {
   }
   
   render(){
-    console.log(this.props)
     return (
-      <div className="profileCardWrapper">
+      <div>
         <div className="profileCardInnerWrapper">
           <img className="profileCardImg" alt="Profile" src={this.props.user.imageURL ? this.props.user.imageURL : "https://www.jarrodyellets.com/images/profilePlaceholder.png"}/>
           <div className="profileCardInfoWrapper">
@@ -22,17 +21,20 @@ class ProfileCard extends Component {
               <div className="profileCardLocation"><i className="fas fa-map-pin fa-icon"></i> {this.props.user.location}</div>
             </div>
             <div className="profileCardPostsWrapper">
-              <div className="profileCardHeading">Posts:</div>
-              <div className="profileCardHeading">Friends:</div>
-              <div className="profileCardHeading">Likes:</div>
-              <div className="profileCardNumbers">{this.props.user.posts.length}</div>
-              <div className="profileCardNumbers">{this.props.user.friends.length}</div>
-              <div className="profileCardNumbers">56</div>
+              <div className="profileCardInnerPostsWrapper">
+                <div className="profileCardHeading">Posts:</div>
+                <div className="profileCardNumbers">{this.props.user.posts.length}</div>
+              </div>
+              <div className="profileCardInnerPostsWrapper">
+                <div className="profileCardHeading">Following:</div>
+                <div className="profileCardNumbers">{this.props.user.friends.length}</div>
+              </div>
+              <div className="profileCardInnerPostsWrapper">
+                <div className="profileCardHeading">Followers:</div>
+                <div className="profileCardNumbers">0</div>
+              </div>
             </div>
           </div>
-        </div>
-        <div className="searchBoxWrapper">
-          <button className="searchBoxButton">Edit Profile</button>
         </div>
       </div>
     )

@@ -3,10 +3,9 @@ import { connect } from 'react-redux';
 import { logOut } from '../actions/logoutAction';
 import ProfileCard from './profileCard';
 import Posts from './posts';
-import EditContainer from './editContainer';
 
 
-class HomePage extends Component {
+class UserProfile extends Component {
   constructor(props){
     super(props);
 
@@ -15,12 +14,8 @@ class HomePage extends Component {
   render(){
     return (
       <div>
-        
         <div className="mainWrapper">
-          <div className="profileCardWrapper">
-            <ProfileCard user={this.props.user} />
-            <EditContainer />
-          </div>
+          <ProfileCard user={this.props.user} />
           <Posts user={this.props.user} />
         </div>
       </div>
@@ -29,7 +24,7 @@ class HomePage extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.currentUser
 })
 
-export default connect(mapStateToProps, {logOut})(HomePage);
+export default connect(mapStateToProps, {logOut})(UserProfile);

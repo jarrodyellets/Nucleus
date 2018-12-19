@@ -9,6 +9,7 @@ import HomePage from './homePage';
 import NewPost from './newPost';
 import Nav from './nav';
 import Search from './search';
+import userProfile from './userProfile';
 
 class App extends Component {
   constructor(props) {
@@ -56,6 +57,7 @@ class App extends Component {
           <Route path='/home' render={(props) => <HomePage {...props} />} />
           <Route path='/post' render={(props) => <NewPost {...props} user={this.props.user} />} />
           <Route path='/search' component={Search} />
+          <Route path='/user' component={userProfile} />
         </Switch>
       </div>
     );
