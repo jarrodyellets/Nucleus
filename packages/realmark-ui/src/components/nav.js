@@ -20,6 +20,7 @@ class Nav extends Component {
     .then(() => {
       if(this.props.currentUser.username){
         this.props.handleNav('/search');
+        this.setState({ username: '' })
       }
     })
   }
@@ -30,6 +31,7 @@ class Nav extends Component {
       .then(() => {
         if(this.props.currentUser.username){
           this.props.handleNav('/search');
+          this.setState({ username: '' })
         }
       })
     }

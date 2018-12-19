@@ -15,7 +15,9 @@ class UserProfile extends Component {
     return (
       <div>
         <div className="mainWrapper">
-          <ProfileCard user={this.props.user} />
+          <div className="profileCardWrapper">
+            <ProfileCard user={this.props.user} />
+          </div>
           <Posts user={this.props.user} />
         </div>
       </div>

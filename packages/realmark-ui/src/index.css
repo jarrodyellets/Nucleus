@@ -256,7 +256,6 @@ body {
 
 .profileCardWrapper {
   width: 243px;
-  max-height: 80vh;
   margin-left: 0;
   position: fixed;
   z-index: 5;
