@@ -24,7 +24,8 @@ class Explore extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser
+  currentUser: state.currentUser,
+  allUsers: state.allUsers.allUsers
 })
 
 export default withRouter(connect(mapStateToProps,{searchUser})(Explore));

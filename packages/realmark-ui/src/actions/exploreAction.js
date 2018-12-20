@@ -7,9 +7,12 @@ export const explore = () => dispatch => {
         })
         .then(res => res.json())
         .then(data => {
+            const sorted = data.sort(function(a, b){
+                return b.posts.length - a.posts.length
+              })
             dispatch({
                 type: EXPLORE,
-                payload: data
+                payload: sorted
             })
             resolve();
         })
