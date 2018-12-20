@@ -10,6 +10,7 @@ import NewPost from './newPost';
 import Nav from './nav';
 import Search from './search';
 import userProfile from './userProfile';
+import Explore from './explore';
 
 class App extends Component {
   constructor(props) {
@@ -58,6 +59,7 @@ class App extends Component {
           <Route path='/post' render={(props) => <NewPost {...props} user={this.props.user} />} />
           <Route path='/search' component={Search} />
           <Route path='/user' component={userProfile} />
+          <Route path='/explore' component={Explore} />
         </Switch>
       </div>
     );
@@ -65,7 +67,6 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  member: state.member,
   user: state.user
 })
 

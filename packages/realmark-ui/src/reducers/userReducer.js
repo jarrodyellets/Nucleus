@@ -1,4 +1,4 @@
-import { SIGN_UP, ERROR, LOG_IN, LOG_OUT, POST } from '../actions/types';
+import { SIGN_UP, ERROR, LOG_IN, LOG_OUT, POST, MEMBER } from '../actions/types';
 
 const initialState ={
   firstName: '',
@@ -12,6 +12,7 @@ const initialState ={
   id: '',
   login: false,
   loginError: '',
+  member: true,
   error: {
     isUserNameEmpty: false,
     isFirstNameEmpty: false,
@@ -62,8 +63,14 @@ export default function(state = initialState, action){
       case LOG_OUT:
         return {
           ...state,
-          login: action.payload
-        }
+          login: action.payload,
+          member: true
+        };
+      case MEMBER:
+        return {
+          ...state,
+          member: action.payload
+        };
       case ERROR:
         return {
           ...state,
