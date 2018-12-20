@@ -1,15 +1,15 @@
-import { MEMBER } from '../actions/types';
+import { EXPLORE } from '../actions/types';
 
 const initialState ={
-  member: true
+  allUsers: []
 }
 
 export default function(state = initialState, action){
   switch (action.type){
-    case MEMBER:
+    case EXPLORE:
       return {
         ...state,
-        member: action.payload
+        allUsers: action.payload
       };
       default :
         return state;

@@ -3,6 +3,7 @@ import Scroll from 'react-scroll-to-element';
 import { withRouter, Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { searchUser } from '../actions/searchAction';
+import { explore } from '../actions/exploreAction';
 
 class Nav extends Component {
   constructor(props){
@@ -13,6 +14,7 @@ class Nav extends Component {
     this.onChange = this.onChange.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
+    this.handleExplore = this.handleExplore.bind(this);
   }
 
   handleSearch(){
@@ -22,6 +24,13 @@ class Nav extends Component {
         this.props.handleNav('/search');
         this.setState({ username: '' })
       }
+    })
+  }
+
+  handleExplore(){
+    this.props.explore()
+    .then(() => {
+      console.log(this.props.allUsers)
     })
   }
 
@@ -51,7 +60,7 @@ class Nav extends Component {
             <div className="navLinks">
               <div className={this.props.location.pathname === '/home' ? "navLinkActive" : "navLink"} onClick={() => {this.props.handleNav('/home')}} >Home</div>
               <div className="navLink">My Profile</div>
-              <div className="navLink">Explore</div>
+              <div className="navLink" onClick={this.handleExplore}>Explore</div>
               <div className="navLink">Mail</div>
             </div>
           </div>
@@ -75,7 +84,8 @@ class Nav extends Component {
 }
 
 const mapStateToProps = state => ({
-  currentUser: state.currentUser
+  currentUser: state.currentUser,
+  allUsers: state.allUsers.allUsers
 })
 
-export default withRouter(connect(mapStateToProps,{searchUser})(Nav));
+export default withRouter(connect(mapStateToProps,{searchUser, explore})(Nav));

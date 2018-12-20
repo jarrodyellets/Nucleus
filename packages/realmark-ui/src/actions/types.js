@@ -5,3 +5,4 @@ export const LOG_IN = 'LOG_IN';
 export const LOG_OUT = 'LOG_OUT';
 export const POST = 'POST';
 export const SEARCH = 'SEARCH';
+export const EXPLORE = 'EXPLORE';

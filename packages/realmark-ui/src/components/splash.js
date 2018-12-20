@@ -80,10 +80,10 @@ class Splash extends Component {
               <div className="loginLogoTitle"><img className="splashLogo" alt="logo" src="https://www.jarrodyellets.com/images/BlogHubLogo.png"/>Nucleus</div>
               <div className="loginLogoDescription">Watch the World Happen Live.</div>
             </div>
-            <div className="loginTitle">{this.props.member ? "Login:" : "Sign Up:"}</div>
+            <div className="loginTitle">{this.props.userData.member ? "Login:" : "Sign Up:"}</div>
           </div>
           <div className="loginFormWrapper">
-            {this.props.member || this.props.userData.newUser ? <LogIn userData={this.props.userData} error={this.props.error} handleMember={this.props.handleMember} onChange={this.onChange} handleKeyPress={this.handleKeyPress} handleLogin={this.handleLogin}/> : <SignUp user={this.state} userData={this.props.userData} handleData={this.handleData} handleKeyPress={this.handleKeyPress} onChange={this.onChange} handleMember={this.props.handleMember} />}
+            {this.props.userData.member ? <LogIn userData={this.props.userData} error={this.props.error} handleMember={this.props.handleMember} onChange={this.onChange} handleKeyPress={this.handleKeyPress} handleLogin={this.handleLogin}/> : <SignUp user={this.state} userData={this.props.userData} handleData={this.handleData} handleKeyPress={this.handleKeyPress} onChange={this.onChange} handleMember={this.props.handleMember} />}
           </div>
         </div>
       </div>
@@ -92,7 +92,6 @@ class Splash extends Component {
 }
 
 const mapStateToProps = state => ({
-  member: state.member.member,
   userData: state.user,
   error: state.error
 })
