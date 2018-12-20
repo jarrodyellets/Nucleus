@@ -615,3 +615,49 @@ body {
   border: none;
   cursor: pointer;
 }
+
+.exploreMain {
+  cursor: pointer;
+}
+
+.exploreWrapper {
+  position: relative;
+  top: 50px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.exploreHeader {
+  font-size: 1.3em;
+  font-weight: 700;
+  margin: 10px 0;
+}
+
+.exploreUserWrapper {
+  display: grid;
+  grid-template-columns: repeat(3, 33.3%);
+  grid-gap: 10px;
+}
+
+.exploreInnerWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background: #fafafa;
+}
+
+.exploreImgWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 30px 0;
+}
+
+.exploreImg {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+}

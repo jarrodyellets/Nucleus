@@ -30,7 +30,7 @@ class Nav extends Component {
   handleExplore(){
     this.props.explore()
     .then(() => {
-      console.log(this.props.allUsers);
+      this.props.handleNav('/explore');
     })
   }
 
