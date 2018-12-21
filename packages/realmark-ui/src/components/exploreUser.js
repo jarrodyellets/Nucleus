@@ -20,11 +20,11 @@ const ExploreUser = (props) => {
           </div>
           <div className="profileCardInnerPostsWrapper">
             <div className="profileCardHeading">Following:</div>
-            <div className="profileCardNumbers">{props.user.friends.length}</div>
+            <div className="profileCardNumbers">{props.user.following.length}</div>
           </div>
           <div className="profileCardInnerPostsWrapper">
             <div className="profileCardHeading">Followers:</div>
-            <div className="profileCardNumbers">0</div>
+            <div className="profileCardNumbers">{props.user.followers.length}</div>
           </div>
         </div>
       </div>

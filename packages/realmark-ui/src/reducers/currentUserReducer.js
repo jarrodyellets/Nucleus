@@ -8,7 +8,8 @@ const initialState ={
   imageURL: '',
   location: '',
   posts: [],
-  friends: [],
+  followers: [],
+  following: [],
   id: '',
 }
 
@@ -24,7 +25,8 @@ export default function(state = initialState, action){
         imageURL: action.payload.imageURL,
         location: action.payload.location,
         posts: action.payload.posts,
-        friends: action.payload.friends,
+        followers: action.payload.followers,
+        following: action.payload.following,
         id: action.payload.id,
       };
       default :

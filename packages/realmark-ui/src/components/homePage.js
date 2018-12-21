@@ -14,8 +14,7 @@ class HomePage extends Component {
 
   render(){
     return (
-      <div>
-        
+      <div> 
         <div className="mainWrapper">
           <div className="profileCardWrapper">
             <ProfileCard user={this.props.user} />

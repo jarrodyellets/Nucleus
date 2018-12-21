@@ -24,7 +24,7 @@ class Explore extends Component {
   render(){
     const users = this.props.allUsers;
     console.log(users);
-    const user = users.map((user) => {
+    const user = users.posts.map((user) => {
       return (
         <div className="exploreMain" onClick={() => {this.handleSearch(user.userName)}}>
           <ExploreUser user={user} id={user.id} handleSeach={this.handleSeach} />
