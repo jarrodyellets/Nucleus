@@ -27,11 +27,11 @@ class ProfileCard extends Component {
               </div>
               <div className="profileCardInnerPostsWrapper">
                 <div className="profileCardHeading">Following:</div>
-                <div className="profileCardNumbers">{this.props.user.friends.length}</div>
+                <div className="profileCardNumbers">{this.props.user.following.length}</div>
               </div>
               <div className="profileCardInnerPostsWrapper">
                 <div className="profileCardHeading">Followers:</div>
-                <div className="profileCardNumbers">0</div>
+                <div className="profileCardNumbers">{this.props.user.followers.length}</div>
               </div>
             </div>
           </div>

@@ -8,7 +8,8 @@ const initialState ={
   imageURL: '',
   location: '',
   posts: [],
-  friends: [],
+  followers: [],
+  following: [],
   id: '',
   login: false,
   loginError: '',
@@ -36,7 +37,8 @@ export default function(state = initialState, action){
         location: action.payload.location,
         id: action.payload.id,
         posts: action.payload.posts,
-        friends: action.payload.friends,
+        followers: action.payload.followers,
+        following: action.payload.following,
         login: true,
         test: true,
         newUser: true
@@ -53,7 +55,9 @@ export default function(state = initialState, action){
           id: action.payload.id,
           login: action.payload.login,
           loginError: action.payload.error,
-          posts: action.payload.posts
+          posts: action.payload.posts,
+          followers: action.payload.followers,
+          following: action.payload.following
         };
       case POST:
         return {

@@ -20,7 +20,8 @@ const internals = {
     email: Joi.string().email().required(),
     posts: Joi.string().min(1).max(100),
     comments: Joi.string().min(1),
-    friends: Joi.string(),
+    followers: Joi.string(),
+    following: Joi.string(),
     imageURL: Joi.string(),
     location: Joi.string()
   }
@@ -137,6 +138,8 @@ const init = async () => {
      return h.continue;
    })
 
+
+   //Home route
    server.route({
      method: 'GET',
      path: '/',
@@ -148,6 +151,8 @@ const init = async () => {
      }
    })
 
+
+   //Get CSS files
    server.route({
      method: 'GET',
      path: '/static/{path*}',
@@ -161,6 +166,8 @@ const init = async () => {
      }
    })
 
+
+   //Get manifest
    server.route({
     method: 'GET',
     path: '/manifest.json',
@@ -171,15 +178,6 @@ const init = async () => {
       auth: false
     }
   })
-
-   server.route({
-     method: 'GET',
-     path: '/test',
-     handler: async (request, h) => {
-       
-       return "HERE!";
-     }
-   })
 
 
    //Login
@@ -204,7 +202,8 @@ const init = async () => {
         imageURL: user[0].imageURL,
         location: user[0].location,
         posts: user[0].posts,
-        friends: user[0].friends,
+        followers: user[0].followers,
+        following: user[0].following,
         id: request.auth.artifacts.id,
         login: true,
         loginError: null
@@ -216,6 +215,8 @@ const init = async () => {
      }
    });
 
+
+   //Log user out
    server.route({
     method: 'GET',
     path: '/logout',
@@ -227,6 +228,8 @@ const init = async () => {
     },
   })
 
+
+  //Check if user is logged in
   server.route({
     method: 'GET',
     path: '/checklogin',
@@ -241,7 +244,8 @@ const init = async () => {
             imageURL: user[0].imageURL,
             location: user[0].location,
             posts: user[0].posts,
-            friends: user[0].friends,
+            followers: user[0].followers,
+            following: user[0].following,
             id: request.auth.artifacts.id,
             login: true,
             loginError: null
@@ -286,7 +290,8 @@ const init = async () => {
           imageURL: user[0].imageURL,
           location: user[0].location,
           posts: user[0].posts,
-          friends: user[0].friends,
+          followers: user[0].followers,
+          following: user[0].following,
           id: request.auth.artifacts.id,
           login: true,
           loginError: null
@@ -317,7 +322,8 @@ const init = async () => {
           imageURL: request.payload.imageURL,
           location: request.payload.location,
           posts: [],
-          friends: []
+          followers: [],
+          following: []
         })
         await Bcrypt.hash(request.payload.password, 10, async (err, hash) => {
           if (err) {
@@ -341,9 +347,9 @@ const init = async () => {
           location: request.payload.location,
           id: userArray[0].id,
           posts: [],
-          friends: [],
+          followers: [],
+          following: [],
           login: true,
-          newUser: true
         };
       } else if(userArray.length){
         return {error: "Username already exists"};
@@ -659,26 +665,26 @@ const init = async () => {
   })
 
 
-  //Get all friends
+  //Get all followers
   server.route({
     method: 'GET',
-    path: '/users/{userId}/friends',
+    path: '/users/{userId}/followers',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.params.userId});
-      return user[0].friends;
+      return user[0].followers;
     }
   })
 
 
-  //Add friend
+  //Add follower
   server.route({
     method: 'POST',
-    path: '/users/{userId}/friends',
+    path: '/users/{userId}/followers',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.params.userId});
-      const friends = user[0].friends;
-      await friends.push(request.auth.credentials.id);
-      await client.users.update({id: request.params.userId, friends});
+      const followers = user[0].followers;
+      await followers.push(request.auth.credentials.id);
+      await client.users.update({id: request.params.userId, followers});
       return 'Friend added';
     }
   })
@@ -687,13 +693,13 @@ const init = async () => {
   //Delete friend
   server.route({
     method: 'DELETE',
-    path: '/users/{userId}/friends',
+    path: '/users/{userId}/followers',
     handler: async (request, h) => {
       const user = await client.users.query({id: request.params.userId});
-      const friends = user[0].friends;
-      const friendIndex = await friends.find(friend => friend == request.auth.credentials.id);
-      await friends.splice(friendIndex, 1);
-      await client.users.update({id: request.params.userId, friends});
+      const followers = user[0].followers;
+      const followerIndex = await followers.find(friend => friend == request.auth.credentials.id);
+      await followers.splice(followerIndex, 1);
+      await client.users.update({id: request.params.userId, followers});
       return 'Friend deleted';
     }
   })

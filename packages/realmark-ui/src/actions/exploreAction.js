@@ -7,12 +7,16 @@ export const explore = () => dispatch => {
         })
         .then(res => res.json())
         .then(data => {
-            const sorted = data.sort(function(a, b){
+            const sortedPosts = data.slice(0, 6).sort(function(a, b){
                 return b.posts.length - a.posts.length
               })
+
+            const sortedFollowers = data.slice(0, 6).sort(function(a, b){
+                return b.followers.length - a.followers.length
+            })
             dispatch({
                 type: EXPLORE,
-                payload: sorted
+                payload: {posts: sortedPosts, followers: sortedFollowers}
             })
             resolve();
         })
