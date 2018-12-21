@@ -7,7 +7,10 @@ const ExploreUser = (props) => {
         <img className="exploreImg" alt="Profile" src={props.user.imageURL ? props.user.imageURL : "https://www.jarrodyellets.com/images/profilePlaceholder.png"}/>      
       </div>
       <div className="profileCardInfoWrapper">
-        <div className="profileCardFullName">{props.user.firstName} {props.user.lastName}</div>
+        <div className="profileCardNameWrapper">
+          <div className="exploreFullName" onClick={() => {props.handleSearch(props.user.userName)}}>{props.user.firstName} {props.user.lastName}</div>
+          {props.userData.id != props.user.id && <button className="profileCardFollowButton">Follow</button>}
+        </div>
         <div className="profileCardUserName">@{props.user.userName}</div>
         <div className="profileCardContactWrapper">
           <div className="profileCardContact"><i className="far fa-envelope fa-icon"></i> {props.user.email}</div>

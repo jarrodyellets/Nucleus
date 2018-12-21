@@ -25,15 +25,15 @@ class Explore extends Component {
     const users = this.props.allUsers;
     const topPosters = users.posts.map((user) => {
       return (
-        <div className="exploreMain" onClick={() => {this.handleSearch(user.userName)}}>
-          <ExploreUser user={user} id={user.id} handleSeach={this.handleSeach} />
+        <div className="exploreMain">
+          <ExploreUser userData={this.props.userData} user={user} id={user.id} handleSearch={this.handleSearch} />
         </div>
       )
     })
     const topFollowing = users.followers.map((user) => {
       return (
-        <div className="exploreMain" onClick={() => {this.handleSearch(user.userName)}}>
-          <ExploreUser user={user} id={user.id} handleSeach={this.handleSeach} />
+        <div className="exploreMain">
+          <ExploreUser userData={this.props.userData} user={user} id={user.id} handleSearch={this.handleSearch} />
         </div>
       )
     })
@@ -54,7 +54,8 @@ class Explore extends Component {
 
 const mapStateToProps = state => ({
   allUsers: state.allUsers.allUsers,
-  currentUser: state.currentUser
+  currentUser: state.currentUser,
+  userData: state.user
 })
 
 export default connect(mapStateToProps, {searchUser})(Explore);

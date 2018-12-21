@@ -275,9 +275,26 @@ body {
   padding: 10px;
 }
 
+.profileCardNameWrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .profileCardFullName {
   font-size: 1.3em;
   font-weight: 700;
+}
+
+.profileCardFollowButton {
+  padding: 6px 12px;
+  font-size: .9em;
+  outline: none;
+  color: #fafafa;
+  background: var(--blue);
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
 }
 
 .profileCardContactWrapper {
@@ -616,10 +633,6 @@ body {
   cursor: pointer;
 }
 
-.exploreMain {
-  cursor: pointer;
-}
-
 .exploreWrapper {
   position: relative;
   top: 50px;
@@ -660,4 +673,10 @@ body {
   object-fit: cover;
   border: 1px solid #ccc;
   border-radius: 50%;
+}
+
+.exploreFullName {
+  cursor: pointer;
+  font-size: 1.3em;
+  font-weight: 700;
 }
