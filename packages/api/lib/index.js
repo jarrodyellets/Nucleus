@@ -34,6 +34,7 @@ const internals = {
 const database = async () => {
 
   client = await dbase();
+  module.exports.client = await client;
 
   await init();
 }
@@ -194,7 +195,6 @@ const init = async () => {
     method: 'GET',
     path: '/checklogin',
     handler: async (request, h) => {
-        console.log(request.auth);
         if(request.auth.isAuthenticated){
           const user = await client.users.query({id: request.auth.credentials.id})
           return {
