@@ -1,6 +1,7 @@
 'use strict';
 
-const Db = require('@realmark/db');
+const User = require('./user');
+const { dbase } = require('./client');
 const Hapi = require('hapi');
 const Joi = require('joi');
 const Path = require('path');
@@ -32,26 +33,7 @@ const internals = {
 
 const database = async () => {
 
-  const server = await Db.server();
-
-  await server.start();
-
-  client = new Db.Client({
-    location: server.info.uri,
-    database: 'blog'
-  });
-
-  await client.create();
-
-  const create = ({
-    id: {
-      type: 'uuid'
-    }
-  });
-
-  await client.table('users', {
-    create
-  });
+  client = await dbase();
 
   await init();
 }
@@ -72,27 +54,6 @@ const server = Hapi.server({
   }
 });
 
-
-//Auth Strategy
-
-// const validate = async (request, username, password, h) => {
-
-//   const userArray = await client.users.query({
-//     userName: username
-//   });
-
-//   const user = userArray[0];
-
-//   if (!user) {
-//     return { credentials: null, isValid: false };
-//   }
-
-//   const isValid = await Bcrypt.compare(password, user.password);
-//   const credentials = { id: user.id, name: user.firstName };
-
-//   return { isValid, credentials };
-// }
-
 const init = async () => {
 
   await server.register(require('hapi-auth-basic'));
@@ -100,7 +61,6 @@ const init = async () => {
   await server.register([{
     plugin: require('inert')
   }])
-
 
   server.auth.strategy('session', 'cookie', { 
     password: 'RDXcdNWW6649jd9TKsQNsbSwfzNHrBBa',
@@ -234,6 +194,7 @@ const init = async () => {
     method: 'GET',
     path: '/checklogin',
     handler: async (request, h) => {
+        console.log(request.auth);
         if(request.auth.isAuthenticated){
           const user = await client.users.query({id: request.auth.credentials.id})
           return {
@@ -267,10 +228,7 @@ const init = async () => {
   server.route({
     method: 'GET',
     path: '/users',
-    handler: async (request, h) => {
-      const users = await client.users.query(); 
-      return users;
-    },
+    config: User.get
   })
 
   
