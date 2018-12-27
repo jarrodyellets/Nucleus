@@ -1,11 +1,12 @@
 'use strict';
 
 const User = require('./options/user');
+const Home = require('./options/home');
+const Login = require('./options/login');
 const { dbase } = require('./client');
 const Hapi = require('hapi');
 const Joi = require('joi');
 const Path = require('path');
-const Bcrypt = require('bcrypt');
 const _ = require('underscore');
 let client;
 
@@ -98,81 +99,17 @@ const init = async () => {
      return h.continue;
    })
 
-
-   //Home route
-   server.route({
-     method: 'GET',
-     path: '/',
-     handler: (request, h) => {
-       return h.file('index.html');
-     },
-     options: {
-       auth: false
-     }
-   })
-
-
-   //Get CSS files
-   server.route({
-     method: 'GET',
-     path: '/static/{path*}',
-     handler: {
-       directory: {
-         path: './static'
-       }
-     },
-     options: {
-       auth: false
-     }
-   })
-
-
-   //Get manifest
-   server.route({
-    method: 'GET',
-    path: '/manifest.json',
-    handler: (request, h) => {
-      return h.file('manifest.json');
-    },
-    options: {
-      auth: false
-    }
-  })
+   //Home routes
+   server.route({method: 'GET', path: '/', options: Home.home})
+   server.route({method: 'GET', path: '/static/{path*}', options: Home.css})
+   server.route({method: 'GET', path: '/manifest.json', options: Home.manifest})
 
 
    //Login
    server.route({
      method: 'POST',
      path: '/login',
-     handler: async (request, h) => {
-      let { username, password } = request.payload;
-      let user = await client.users.query({userName: username});
-      
-      if(user.length < 1){
-        return {login: false, error: "Invalid Username", id: null};
-      } else if (!await Bcrypt.compare(password, user[0].password)){
-        return {login: false, error: "Invalid Password", id: null}
-      }
-      request.cookieAuth.set({ id: user[0].id })
-      return {
-        userName: user[0].userName,
-        firstName: user[0].firstName,
-        lastName: user[0].lastName,
-        email: user[0].email,
-        imageURL: user[0].imageURL,
-        location: user[0].location,
-        posts: user[0].posts,
-        followers: user[0].followers,
-        following: user[0].following,
-        id: request.auth.artifacts.id,
-        login: true,
-        loginError: null
-      } 
-
-    },
-     options: {
-       auth: false
-     }
+     options: Login.login
    });
 
 
@@ -180,12 +117,7 @@ const init = async () => {
    server.route({
     method: 'GET',
     path: '/logout',
-    handler: async (request, h) => {
-      request.cookieAuth.clear();
-      return {
-        login: false
-      }
-    },
+    options: Login.logout
   })
 
 
@@ -193,33 +125,7 @@ const init = async () => {
   server.route({
     method: 'GET',
     path: '/checklogin',
-    handler: async (request, h) => {
-        if(request.auth.isAuthenticated){
-          const user = await client.users.query({id: request.auth.credentials.id})
-          return {
-            userName: user[0].userName,
-            firstName: user[0].firstName,
-            lastName: user[0].lastName,
-            email: user[0].email,
-            imageURL: user[0].imageURL,
-            location: user[0].location,
-            posts: user[0].posts,
-            followers: user[0].followers,
-            following: user[0].following,
-            id: request.auth.artifacts.id,
-            login: true,
-            loginError: null
-          }
-        }
-        return {
-          login: false
-      }
-    },
-    options: {
-      auth: {
-        mode: 'try'
-      }
-    }
+    options: Login.check
   })
 
 
