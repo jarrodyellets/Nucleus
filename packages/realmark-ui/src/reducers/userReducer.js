@@ -68,7 +68,15 @@ export default function(state = initialState, action){
         return {
           ...state,
           login: action.payload,
-          member: true
+          member: true,
+          error: {
+            isUserNameEmpty: false,
+            isFirstNameEmpty: false,
+            isLastNameEmpty: false,
+            isNotEmail: false,
+            isEmailEmpty: false,
+            isPasswordEmpty: false
+          }
         };
       case MEMBER:
         return {
