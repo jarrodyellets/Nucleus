@@ -1,6 +1,6 @@
 'use strict';
 
-const User = require('./user');
+const User = require('./options/user');
 const { dbase } = require('./client');
 const Hapi = require('hapi');
 const Joi = require('joi');
@@ -34,7 +34,6 @@ const internals = {
 const database = async () => {
 
   client = await dbase();
-  module.exports.client = await client;
 
   await init();
 }
@@ -224,160 +223,12 @@ const init = async () => {
   })
 
 
-  //Get all users
-  server.route({
-    method: 'GET',
-    path: '/users',
-    config: User.get
-  })
-
-  
-  //Get specific user
-  server.route({
-    method: 'GET',
-    path: '/users/{username}',
-    handler: async (request, h) => {
-      const name = request.params.username;
-      const user = await client.users.query({userName: name});
-      if(user != []){
-        return {
-          userName: user[0].userName,
-          firstName: user[0].firstName,
-          lastName: user[0].lastName,
-          email: user[0].email,
-          imageURL: user[0].imageURL,
-          location: user[0].location,
-          posts: user[0].posts,
-          followers: user[0].followers,
-          following: user[0].following,
-          id: request.auth.artifacts.id,
-          login: true,
-          loginError: null
-        };
-      } else {
-        return {error: 'No results'}
-      }
-    }
-  })
-
-  //Create user
-  server.route({
-    method: 'POST',
-    path: '/users',
-    handler: async (request, h) => {
-      let userArray = await client.users.query({
-        userName: request.payload.username
-      });
-      const emailArray = await client.users.query({
-        email: request.payload.email
-      })
-      if (!userArray.length && !emailArray.length) {
-        await client.users.insert({
-          userName: request.payload.username,
-          firstName: request.payload.firstName,
-          lastName: request.payload.lastName,
-          email: request.payload.email,
-          imageURL: request.payload.imageURL,
-          location: request.payload.location,
-          posts: [],
-          followers: [],
-          following: []
-        })
-        await Bcrypt.hash(request.payload.password, 10, async (err, hash) => {
-          if (err) {
-            console.log(err);
-          } else {
-            const newUser = await client.users.query({userName: request.payload.username})
-            await client.users.update({
-              id: newUser[0].id,
-              password: hash
-            }, {insert: true}); 
-          }
-        })
-        userArray = await client.users.query({userName: request.payload.username})
-        await request.cookieAuth.set({ id: userArray[0].id })
-        return {
-          userName: request.payload.username,
-          firstName: request.payload.firstName,
-          lastName: request.payload.lastName,
-          email: request.payload.email,
-          imageURL: request.payload.imageURL,
-          location: request.payload.location,
-          id: userArray[0].id,
-          posts: [],
-          followers: [],
-          following: [],
-          login: true,
-        };
-      } else if(userArray.length){
-        return {error: "Username already exists"};
-      } else {
-        return {error: "Email already exists"};
-      }
-    },
-    options: {
-      auth: false,
-      validate: {
-        payload: {
-          username: internals.schema.userName,
-          password: internals.schema.password,
-          firstName: internals.schema.firstName,
-          lastName: internals.schema.lastName,
-          email: internals.schema.email,
-          imageURL: internals.schema.imageURL,
-          location: internals.schema.location
-        },
-        failAction: (request, h, err) => {
-          throw err;
-        }
-      }
-    }
-  })
-
-
-  //Update user
-  server.route({
-    method: 'PUT',
-    path: '/users/{id}',
-    handler: async (request, h) => {
-      const emailArray = await client.users.query({
-        email: request.payload.email
-      });
-      if(!emailArray.length){
-        await client.users.update({
-          id: request.auth.credentials.id,
-          firstName: request.payload.firstName,
-          lastName: request.payload.lastName,
-          email: request.payload.email
-        })
-        const updatedUser = await client.users.query({id: request.auth.credentials.id});
-        return updatedUser;
-      } else {
-        return "Email already exists";
-      }
-    },
-    options: {
-      validate: {
-        payload: {
-          firstName: internals.schema.firstName,
-          lastName: internals.schema.lastName,
-          email: internals.schema.email,
-        }
-      }
-    }
-  })
-
-
-  //Delete user
-  server.route({
-    method: 'DELETE',
-    path: '/users/{id}',
-    handler: async (request, h) => {
-      const userName = request.auth.credentials.name;
-      await client.users.remove(request.params.id);
-      return "User: " + userName + " deleted.";
-    }
-  })
+  //User routes
+  server.route({method: 'GET', path: '/users', options: User.getAll})
+  server.route({method: 'GET', path: '/users/{username}', options: User.get})
+  server.route({method: 'POST', path: '/users', options: User.create})
+  server.route({method: 'PUT', path: '/users/{username}', options: User.update})
+  server.route({method: 'DELETE', path: '/users/{username}', options: User.delete})
 
 
   //Get blog post
