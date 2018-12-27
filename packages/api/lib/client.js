@@ -1,12 +1,13 @@
 'use strict';
 
 const Db = require('@realmark/db');
-let dbClient;
 
-const internals = {};
+const internals = {
+  client: {}
+};
 
 const returnClient = () => {
-  return dbClient;
+  return internals.client;
 }
 
 const dbase = async () => {
@@ -15,12 +16,12 @@ const dbase = async () => {
 
   await server.start();
 
-  dbClient = new Db.Client({
+  internals.client = new Db.Client({
     location: server.info.uri,
     database: 'blog'
   });
 
-  await dbClient.create();
+  await internals.client.create();
 
   const create = ({
     id: {
@@ -28,11 +29,11 @@ const dbase = async () => {
     }
   });
 
-  await dbClient.table('users', {
+  await internals.client.table('users', {
     create
   });
-  await returnClient()
-  return dbClient;
+
+  return internals.client;
 }
 
 module.exports = {
