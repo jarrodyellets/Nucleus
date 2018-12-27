@@ -1,50 +1,29 @@
 'use strict';
 
+const Hapi = require('hapi');
+const Path = require('path');
+const _ = require('underscore');
 const User = require('./options/user');
 const Home = require('./options/home');
 const Login = require('./options/login');
 const Blog = require('./options/blog');
 const Comments = require('./options/comment');
+const Following = require('./options/following');
 const Likes = require('./options/likes');
 const { dbase } = require('./client');
-const Hapi = require('hapi');
-const Joi = require('joi');
-const Path = require('path');
-const _ = require('underscore');
-let client;
 
 
 //Deaclare internals
-
-const internals = {
-  schema: {
-    userName: Joi.string().min(1).required(),
-    password: Joi.string().min(1).required(),
-    firstName: Joi.string().min(1).required(),
-    lastName: Joi.string().min(1).required(),
-    email: Joi.string().email().required(),
-    posts: Joi.string().min(1),
-    comments: Joi.string().min(1),
-    followers: Joi.string(),
-    following: Joi.string(),
-    imageURL: Joi.string(),
-    location: Joi.string()
-  }
-}
+const interanals = {};
 
 
 //Database server
-
 const database = async () => {
-
-  client = await dbase();
-
+  await dbase();
   await init();
 }
 
-
 //API server
-
 const server = Hapi.server({
   port: 8000,
   routes: {
@@ -59,8 +38,6 @@ const server = Hapi.server({
 });
 
 const init = async () => {
-
-  await server.register(require('hapi-auth-basic'));
   await server.register(require('hapi-auth-cookie'));
   await server.register([{
     plugin: require('inert')
@@ -76,8 +53,8 @@ const init = async () => {
 
    server.auth.default('session');
 
-   //Validation error handling
 
+   //Validation error handling
    server.ext('onPreResponse', function(request, h){
      const response = request.response;
      if(!response.isBoom){
@@ -136,47 +113,9 @@ const init = async () => {
   server.route({method: 'POST', path: '/users/{userId}/posts/{postId}/likes', options: Likes.create});
   server.route({method: 'DELETE', path: '/users/{userId}/posts/{postId}/likes', options: Likes.delete});
 
-
-
-
-  //Get all followers
-  server.route({
-    method: 'GET',
-    path: '/users/{userId}/followers',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.params.userId});
-      return user[0].followers;
-    }
-  })
-
-
-  //Add follower
-  server.route({
-    method: 'POST',
-    path: '/users/{userId}/followers',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.params.userId});
-      const followers = user[0].followers;
-      await followers.push(request.auth.credentials.id);
-      await client.users.update({id: request.params.userId, followers});
-      return 'Friend added';
-    }
-  })
-
-
-  //Delete friend
-  server.route({
-    method: 'DELETE',
-    path: '/users/{userId}/followers',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.params.userId});
-      const followers = user[0].followers;
-      const followerIndex = await followers.find(friend => friend == request.auth.credentials.id);
-      await followers.splice(followerIndex, 1);
-      await client.users.update({id: request.params.userId, followers});
-      return 'Friend deleted';
-    }
-  })
+  //Following routes
+  server.route({method: 'POST', path: '/users/following/{username}', options: Following.create});
+  server.route({method: 'DELETE', path: '/users/following/{username}', options: Following.delete});
 
 
   try {
