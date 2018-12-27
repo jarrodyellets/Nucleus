@@ -1,6 +1,7 @@
 import React from 'react'
 
 const SignUp = (props) => {
+  console.log(props.userData);
   let error = Object.keys(props.userData.error).filter(function(key) {return props.userData.error[key] === true});
   const errors = {
     isUserNameEmpty: "The username field is required!",
