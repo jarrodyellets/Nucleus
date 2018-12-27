@@ -3,6 +3,7 @@
 const User = require('./options/user');
 const Home = require('./options/home');
 const Login = require('./options/login');
+const Blog = require('./options/blog');
 const { dbase } = require('./client');
 const Hapi = require('hapi');
 const Joi = require('joi');
@@ -20,7 +21,7 @@ const internals = {
     firstName: Joi.string().min(1).required(),
     lastName: Joi.string().min(1).required(),
     email: Joi.string().email().required(),
-    posts: Joi.string().min(1).max(100),
+    posts: Joi.string().min(1),
     comments: Joi.string().min(1),
     followers: Joi.string(),
     following: Joi.string(),
@@ -99,35 +100,15 @@ const init = async () => {
      return h.continue;
    })
 
-   //Home routes
-   server.route({method: 'GET', path: '/', options: Home.home})
-   server.route({method: 'GET', path: '/static/{path*}', options: Home.css})
-   server.route({method: 'GET', path: '/manifest.json', options: Home.manifest})
+  //Home routes
+  server.route({method: 'GET', path: '/', options: Home.home})
+  server.route({method: 'GET', path: '/static/{path*}', options: Home.css})
+  server.route({method: 'GET', path: '/manifest.json', options: Home.manifest})
 
-
-   //Login
-   server.route({
-     method: 'POST',
-     path: '/login',
-     options: Login.login
-   });
-
-
-   //Log user out
-   server.route({
-    method: 'GET',
-    path: '/logout',
-    options: Login.logout
-  })
-
-
-  //Check if user is logged in
-  server.route({
-    method: 'GET',
-    path: '/checklogin',
-    options: Login.check
-  })
-
+  //Login routes
+  server.route({method: 'POST', path: '/login', options: Login.login})
+  server.route({method: 'GET', path: '/logout', options: Login.logout})
+  server.route({method: 'GET', path: '/checklogin', options: Login.check})
 
   //User routes
   server.route({method: 'GET', path: '/users', options: User.getAll})
@@ -136,90 +117,12 @@ const init = async () => {
   server.route({method: 'PUT', path: '/users/{username}', options: User.update})
   server.route({method: 'DELETE', path: '/users/{username}', options: User.delete})
 
+  //Blog post routes
+  server.route({method: 'GET', path: '/users/{userId}/posts/{postId}', options: Blog.get})
+  server.route({method: 'POST', path: '/users/posts', options: Blog.create})
+  server.route({method: 'UPDATE', path: '/users/posts/{postId}', options: Blog.update})
+  server.route({method: 'DELETE', path: '/users/posts/{postId}', options: Blog.delete})
 
-  //Get blog post
-  server.route({
-    method: 'GET',
-    path: '/users/{userId}/posts/{postId}',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.auth.credentials.id});
-      const posts = user[0].posts;
-      const post = await posts.find(post => post.id == request.params.postId);
-      return post;
-    }
-  })
-
-
-  //Add blog post
-  server.route({
-    method: 'POST',
-    path: '/users/posts',
-    handler: async (request, h) => {
-      const id = request.auth.artifacts.id;
-      let user = await client.users.query({id: id});
-      const posts = await user[0].posts;
-      const date = Date.now();
-      const newPost  = {
-        date,
-        comments: [],
-        likes: [],
-        post: request.payload.post,
-        id: id + date
-      }
-      await posts.unshift(newPost);
-      await client.users.update({id: id, posts});
-      user = await client.users.query({id})
-      return {
-        posts: user[0].posts
-      }
-    },
-    options: {
-      validate: {
-        payload: {
-          post: internals.schema.posts
-        }
-      }
-    }
-  })
-
-
-  //Update blog post
-  server.route({
-    method: 'PUT',
-    path: '/users/{userId}/posts/{postId}',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.auth.credentials.id});
-      const posts = user[0].posts;
-      const post = await posts.find(post => post.id == request.params.postId);
-      const postIndex = await posts.findIndex(x => x.id == post.id)
-      posts[postIndex].post = request.payload.post; 
-      await client.users.update({id: request.auth.credentials.id, posts});
-      return 'Post updated';
-    },
-    options: {
-      validate: {
-        payload: {
-          post: internals.schema.posts
-        }
-      }
-    }
-  })
-
-
-  //Delete blog post
-  server.route({
-    method: 'DELETE',
-    path: '/users/{userId}/posts/{postId}',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.auth.credentials.id});
-      const posts = user[0].posts;
-      const post = await posts.find(post => post.id == request.params.postId);
-      const postIndex = await posts.findIndex(x => x.id == post.id);
-      await posts.splice(postIndex, 1);
-      await client.users.update({id: request.auth.credentials.id, posts});
-      return 'Post deleted';
-    }
-  })
 
 
   //Get all comments
