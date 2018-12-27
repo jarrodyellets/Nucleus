@@ -5,6 +5,7 @@ const Home = require('./options/home');
 const Login = require('./options/login');
 const Blog = require('./options/blog');
 const Comments = require('./options/comment');
+const Likes = require('./options/likes');
 const { dbase } = require('./client');
 const Hapi = require('hapi');
 const Joi = require('joi');
@@ -131,66 +132,11 @@ const init = async () => {
   server.route({method: 'PUT', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.update});
   server.route({method: 'DELETE', path: '/users/{userId}/posts/{postId}/comments{commentId}', options: Comments.delete});
 
-
-  //Get all likes
-  server.route({
-    method: 'GET',
-    path: '/users/{userId}/posts/{postId}/likes',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.params.userId});
-      const posts = user[0].posts;
-      const post = await posts.find(post => post.id == request.params.postId);
-      const postIndex = await posts.findIndex(x => x.id == post.id);
-      return posts[postIndex].likes;
-    }
-  })
+  //Likes routes
+  server.route({method: 'POST', path: '/users/{userId}/posts/{postId}/likes', options: Likes.create});
+  server.route({method: 'DELETE', path: '/users/{userId}/posts/{postId}/likes', options: Likes.delete});
 
 
-  //Get all likes
-  server.route({
-    method: 'GET',
-    path: '/user/{userId}/post/{postId}/like',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.params.userId});
-      const posts = user[0].posts;
-      const post = await posts.find(post => post.id == request.params.postId);
-      const postIndex = await posts.findIndex(x => x.id == post.id);
-      return posts[postIndex].likes;
-    }
-  })
-
-
-  //Add like
-  server.route({
-    method: 'POST',
-    path: '/users/{userId}/posts/{postId}/likes',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.params.userId});
-      const posts = user[0].posts;
-      const post = await posts.find(post => post.id == request.params.postId);
-      const postIndex = await posts.findIndex(x => x.id == post.id);
-      await posts[postIndex].likes.push(request.auth.credentials.id);
-      await client.users.update({id: request.params.userId, posts})
-      return 'Post liked!';
-    }
-  })
-
-
-  //Delete like
-  server.route({
-    method: 'DELETE',
-    path: '/users/{userId}/posts/{postId}/likes',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.params.userId});
-      const posts = user[0].posts;
-      const post = await posts.find(post => post.id == request.params.postId);
-      const postIndex = await posts.findIndex(x => x.id == post.id);
-      const likeIndex = await posts[postIndex].likes.find(like => like == request.auth.credentials.id);
-      await posts[postIndex].likes.splice(likeIndex, 1);
-      await client.users.update({id: request.params.userId, posts});
-      return 'Like deleted';
-    }
-  })
 
 
   //Get all followers
