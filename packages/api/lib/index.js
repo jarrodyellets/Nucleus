@@ -4,6 +4,7 @@ const User = require('./options/user');
 const Home = require('./options/home');
 const Login = require('./options/login');
 const Blog = require('./options/blog');
+const Comments = require('./options/comment');
 const { dbase } = require('./client');
 const Hapi = require('hapi');
 const Joi = require('joi');
@@ -101,125 +102,34 @@ const init = async () => {
    })
 
   //Home routes
-  server.route({method: 'GET', path: '/', options: Home.home})
-  server.route({method: 'GET', path: '/static/{path*}', options: Home.css})
-  server.route({method: 'GET', path: '/manifest.json', options: Home.manifest})
+  server.route({method: 'GET', path: '/', options: Home.home});
+  server.route({method: 'GET', path: '/static/{path*}', options: Home.css});
+  server.route({method: 'GET', path: '/manifest.json', options: Home.manifest});
 
   //Login routes
-  server.route({method: 'POST', path: '/login', options: Login.login})
-  server.route({method: 'GET', path: '/logout', options: Login.logout})
-  server.route({method: 'GET', path: '/checklogin', options: Login.check})
+  server.route({method: 'POST', path: '/login', options: Login.login});
+  server.route({method: 'GET', path: '/logout', options: Login.logout});
+  server.route({method: 'GET', path: '/checklogin', options: Login.check});
 
   //User routes
-  server.route({method: 'GET', path: '/users', options: User.getAll})
-  server.route({method: 'GET', path: '/users/{username}', options: User.get})
-  server.route({method: 'POST', path: '/users', options: User.create})
-  server.route({method: 'PUT', path: '/users/{username}', options: User.update})
-  server.route({method: 'DELETE', path: '/users/{username}', options: User.delete})
+  server.route({method: 'GET', path: '/users', options: User.getAll});
+  server.route({method: 'GET', path: '/users/{username}', options: User.get});
+  server.route({method: 'POST', path: '/users', options: User.create});
+  server.route({method: 'PUT', path: '/users/{username}', options: User.update});
+  server.route({method: 'DELETE', path: '/users/{username}', options: User.delete});
 
   //Blog post routes
-  server.route({method: 'GET', path: '/users/{userId}/posts/{postId}', options: Blog.get})
-  server.route({method: 'POST', path: '/users/posts', options: Blog.create})
-  server.route({method: 'UPDATE', path: '/users/posts/{postId}', options: Blog.update})
-  server.route({method: 'DELETE', path: '/users/posts/{postId}', options: Blog.delete})
+  server.route({method: 'GET', path: '/users/{userId}/posts/{postId}', options: Blog.get});
+  server.route({method: 'POST', path: '/users/posts', options: Blog.create});
+  server.route({method: 'UPDATE', path: '/users/posts/{postId}', options: Blog.update});
+  server.route({method: 'DELETE', path: '/users/posts/{postId}', options: Blog.delete});
 
-
-
-  //Get all comments
-  server.route({
-    method: 'GET',
-    path: '/users/{userId}/posts/{postId}/comments',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.params.userId});
-      const posts = user[0].posts;
-      const post = await posts.find(post => post.id == request.params.postId);
-      return post.comments;
-    }
-  })
-
-
-  //Get comment
-  server.route({
-    method: 'GET',
-    path:'/users/{userId}/posts/{postId}/comments/{commentId}',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.params.userId});
-      const posts = user[0].posts;
-      const post = await posts.find(post => post.id == request.params.postId);
-      const comment = await post.comments.find(comment => comment.id == request.params.commentId);
-      return comment;
-    }
-  })
-
-
-  //Add comment
-  server.route({
-    method: 'POST',
-    path: '/users/{userId}/posts/{postId}/comments',
-    handler: async (request, h) => {
-      const author = request.auth.credentials.id;
-      const user = await client.users.query({id: request.params.userId});
-      const posts = user[0].posts;
-      const date = Date.now();
-      const post = await posts.findIndex(post => post.id == request.params.postId);
-      await posts[post].comments.push({
-        date,
-        author: author,
-        comment: request.payload.comment,
-        id: author + date
-      });
-      await client.users.update({id: request.params.userId, posts});
-      return 'Comment Added';
-    },
-    options: {
-      validate: {
-        payload: {
-          comment: internals.schema.comments
-        }
-      }
-    }
-  })
-
-
-  //Update comment
-  server.route({
-    method: 'PUT',
-    path: '/users/{userId}/posts/{postId}/comments/{commentId}',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.params.userId});
-      const posts = user[0].posts;
-      const post = await posts.find(post => post.id == request.params.postId);
-      const postIndex = await posts.findIndex(x => x.id == post.id);
-      const comment = await post.comments.findIndex(comment => comment.id == request.params.commentId);
-      posts[postIndex].comments[comment].comment = request.payload.comment;
-      await client.users.update({id: request.auth.credentials.id, posts});
-      return 'Comment updated';
-    },
-    options: {
-      validate: {
-        payload: {
-          comment: internals.schema.comments
-        }
-      }
-    }
-  })
-
-
-  //Delete comment
-  server.route({
-    method: 'DELETE',
-    path: '/users/{userId}/posts/{postId}/comments/{commentId}',
-    handler: async (request, h) => {
-      const user = await client.users.query({id: request.params.userId});
-      const posts = user[0].posts;
-      const post = await posts.find(post => post.id == request.params.postId);
-      const postIndex = await posts.findIndex(x => x.id == post.id);
-      const comment = await post.comments.findIndex(comment => comment.id == request.params.commentId);
-      await posts[postIndex].comments.splice(comment, 1);
-      await client.users.update({id: request.auth.credentials.id, posts});
-      return 'Comment deleted';
-    }
-  })
+  //Comment routes
+  server.route({method: 'GET', path: '/users/{userId}/posts/{postId}/comments', options: Comments.getAll});
+  server.route({method: 'GET', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.get});
+  server.route({method: 'POST', path: '/users/{userId}/posts/{postId}/comments', options: Comments.create});
+  server.route({method: 'PUT', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.update});
+  server.route({method: 'DELETE', path: '/users/{userId}/posts/{postId}/comments{commentId}', options: Comments.delete});
 
 
   //Get all likes

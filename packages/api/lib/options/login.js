@@ -3,6 +3,8 @@
 const { returnClient } = require('../client');
 const Bcrypt = require('bcrypt');
 
+const internals = {};
+
 exports.login = {
   handler: async (request, h) => {
     const client = returnClient();

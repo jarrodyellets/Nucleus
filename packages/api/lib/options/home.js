@@ -1,5 +1,7 @@
 'use strict'
 
+const internals = {};
+
 exports.home = {
   handler: (request, h) => {
       return h.file('index.html');
