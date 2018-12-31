@@ -32,7 +32,8 @@ class SearchPage extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.currentUser
+  user: state.currentUser,
+  currentUser: state.currentUser
 })
 
 export default connect(mapStateToProps, {logOut})(SearchPage);
