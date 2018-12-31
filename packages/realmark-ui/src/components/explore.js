@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ExploreUser from './exploreUser';
 import { searchUser } from '../actions/searchAction';
+import { follow } from '../actions/followAction';
 
 
 class Explore extends Component {
@@ -9,10 +10,10 @@ class Explore extends Component {
     super(props);
 
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleFollow = this.handleFollow.bind(this);
   }
 
   handleSearch(name){
-    console.log(name);
     this.props.searchUser(name)
     .then(() => {
       if(this.props.currentUser.username){
@@ -21,12 +22,19 @@ class Explore extends Component {
     })
   }
 
+  handleFollow(id){
+    this.props.follow(id)
+    .then(() => {
+      console.log(this.props.userData)
+    })
+  }
+
   render(){
     const users = this.props.allUsers;
     const topPosters = users.posts.map((user) => {
       return (
         <div className="exploreMain">
-          <ExploreUser userData={this.props.userData} user={user} id={user.id} handleSearch={this.handleSearch} />
+          <ExploreUser userData={this.props.userData} user={user} id={user.id} handleSearch={this.handleSearch} handleFollow={this.handleFollow}/>
         </div>
       )
     })
@@ -58,4 +66,4 @@ const mapStateToProps = state => ({
   userData: state.user
 })
 
-export default connect(mapStateToProps, {searchUser})(Explore);
+export default connect(mapStateToProps, {searchUser, follow})(Explore);

@@ -1,4 +1,4 @@
-import { SEARCH} from '../actions/types';
+import { SEARCH, FOLLOW } from '../actions/types';
 
 const initialState ={
   firstName: '',
@@ -29,6 +29,11 @@ export default function(state = initialState, action){
         following: action.payload.following,
         id: action.payload.id,
       };
+    case FOLLOW:
+      return {
+        ...state,
+        followers: action.payload.followers
+      }
       default :
         return state;
   }

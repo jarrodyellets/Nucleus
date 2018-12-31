@@ -114,8 +114,8 @@ const init = async () => {
   server.route({method: 'DELETE', path: '/users/{userId}/posts/{postId}/likes', options: Likes.delete});
 
   //Following routes
-  server.route({method: 'POST', path: '/users/following/{username}', options: Following.create});
-  server.route({method: 'DELETE', path: '/users/following/{username}', options: Following.delete});
+  server.route({method: 'POST', path: '/users/following/{userID}', options: Following.create});
+  server.route({method: 'DELETE', path: '/users/following/{userID}', options: Following.delete});
 
 
   try {
