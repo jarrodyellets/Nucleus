@@ -6,3 +6,4 @@ export const LOG_OUT = 'LOG_OUT';
 export const POST = 'POST';
 export const SEARCH = 'SEARCH';
 export const EXPLORE = 'EXPLORE';
+export const FOLLOW = 'FOLLOW';

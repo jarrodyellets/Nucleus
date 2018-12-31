@@ -9,7 +9,7 @@ const ExploreUser = (props) => {
       <div className="profileCardInfoWrapper">
         <div className="profileCardNameWrapper">
           <div className="exploreFullName" onClick={() => {props.handleSearch(props.user.userName)}}>{props.user.firstName} {props.user.lastName}</div>
-          {props.userData.id != props.user.id && <button className="profileCardFollowButton">Follow</button>}
+          {props.userData.id != props.user.id & props.userData.following.indexOf(props.user.id) == -1 ? <button onClick={() => {props.handleFollow(props.user.id)}} className="profileCardFollowButton">Follow</button> : <button onClick={() => {props.handleUnFollow(props.user.id)}} className="profileCardFollowButton">Unfollow</button>}
         </div>
         <div className="profileCardUserName">@{props.user.userName}</div>
         <div className="profileCardContactWrapper">

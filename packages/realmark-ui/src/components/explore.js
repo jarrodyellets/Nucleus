@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ExploreUser from './exploreUser';
 import { searchUser } from '../actions/searchAction';
+import { follow } from '../actions/followAction';
+import { unfollow } from '../actions/unFollowAction';
 
 
 class Explore extends Component {
@@ -9,10 +11,11 @@ class Explore extends Component {
     super(props);
 
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleFollow = this.handleFollow.bind(this);
+    this.handleUnFollow = this.handleUnFollow.bind(this);
   }
 
   handleSearch(name){
-    console.log(name);
     this.props.searchUser(name)
     .then(() => {
       if(this.props.currentUser.username){
@@ -21,19 +24,33 @@ class Explore extends Component {
     })
   }
 
+  handleFollow(id){
+    this.props.follow(id)
+    .then(() => {
+      this.props.history.push('/home')
+    })
+  }
+
+  handleUnFollow(id){
+    this.props.unfollow(id)
+    .then(() => {
+      this.props.history.push('/home')
+    })
+  }
+
   render(){
     const users = this.props.allUsers;
     const topPosters = users.posts.map((user) => {
       return (
         <div className="exploreMain">
-          <ExploreUser userData={this.props.userData} user={user} id={user.id} handleSearch={this.handleSearch} />
+          <ExploreUser userData={this.props.userData} user={user} id={user.id} handleSearch={this.handleSearch} handleFollow={this.handleFollow} handleUnFollow={this.handleUnFollow}/>
         </div>
       )
     })
     const topFollowing = users.followers.map((user) => {
       return (
         <div className="exploreMain">
-          <ExploreUser userData={this.props.userData} user={user} id={user.id} handleSearch={this.handleSearch} />
+          <ExploreUser userData={this.props.userData} user={user} id={user.id} handleSearch={this.handleSearch} handleFollow={this.handleFollow} handleUnFollow={this.handleUnFollow}/>
         </div>
       )
     })
@@ -58,4 +75,4 @@ const mapStateToProps = state => ({
   userData: state.user
 })
 
-export default connect(mapStateToProps, {searchUser})(Explore);
+export default connect(mapStateToProps, {searchUser, follow, unfollow})(Explore);
