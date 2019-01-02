@@ -44,6 +44,7 @@ exports.get = {
         posts: user[0].posts,
         followers: user[0].followers,
         following: user[0].following,
+        timeline: user[0].timeline,
         id: request.auth.artifacts.id,
         login: true,
         loginError: null
@@ -73,7 +74,8 @@ exports.create = {
         location: request.payload.location,
         posts: [],
         followers: [],
-        following: []
+        following: [],
+        timeline: []
       })
       await Bcrypt.hash(request.payload.password, 10, async (err, hash) => {
         if (err) {
@@ -99,6 +101,7 @@ exports.create = {
         posts: [],
         followers: [],
         following: [],
+        timeline: [],
         login: true,
       };
     } else if(userArray.length){

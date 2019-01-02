@@ -8,10 +8,10 @@ const Post = (props) => {
   return (
     <div className="postWrapper">
       <div className="postHeadingWrapper">
-        <img className="postImg" alt="profile" src={props.user.imageURL ? props.user.imageURL : "https://www.jarrodyellets.com/images/profilePlaceholder.png"} />
+        <img className="postImg" alt="profile" src={props.post.imageURL ? props.post.imageURL : "https://www.jarrodyellets.com/images/profilePlaceholder.png"} />
         <div className="postHeadingTextWrapper">
-          <div className="postHeadingTextFullName">{props.user.firstName} {props.user.lastName} <span className="postHeadingTextTime">{minDifference}m</span></div>
-          <div className="postHeadingTextUserName">@{props.user.username}</div>
+          <div className="postHeadingTextFullName">{props.post.firstName} {props.post.lastName} <span className="postHeadingTextTime">{minDifference}m</span></div>
+          <div className="postHeadingTextUserName">@{props.post.username}</div>
         </div>
       </div>
       <div className="postTextWrapper">

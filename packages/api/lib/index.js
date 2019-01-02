@@ -10,6 +10,7 @@ const Blog = require('./options/blog');
 const Comments = require('./options/comment');
 const Following = require('./options/following');
 const Likes = require('./options/likes');
+const Timeline = require('./options/timeline');
 const { dbase } = require('./client');
 
 
@@ -116,6 +117,9 @@ const init = async () => {
   //Following routes
   server.route({method: 'POST', path: '/users/following/{userID}', options: Following.create});
   server.route({method: 'DELETE', path: '/users/following/{userID}', options: Following.delete});
+
+  //Timeline routes
+  server.route({method: 'GET', path: '/users/timeline', options: Timeline.get});
 
 
   try {
