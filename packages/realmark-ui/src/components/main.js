@@ -67,7 +67,8 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  error: state.error
 })
 
 export default withRouter(connect(mapStateToProps, {changeMember, checkLogin, logOut})(App));
