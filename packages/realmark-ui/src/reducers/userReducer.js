@@ -86,7 +86,8 @@ export default function(state = initialState, action){
       case FOLLOW:
         return {
           ...state,
-          following: action.payload.following
+          following: action.payload.following,
+          timeline: action.payload.timeline
         }
       case ERROR:
         return {

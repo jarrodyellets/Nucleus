@@ -12,7 +12,6 @@ export const follow = (id) => dispatch => {
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data);
         dispatch({
           type: FOLLOW,
           payload: data  
