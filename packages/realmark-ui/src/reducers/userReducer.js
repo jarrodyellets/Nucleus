@@ -10,6 +10,7 @@ const initialState ={
   posts: [],
   followers: [],
   following: [],
+  timeline: [],
   id: '',
   login: false,
   loginError: '',
@@ -36,9 +37,6 @@ export default function(state = initialState, action){
         imageURL: action.payload.imageURL,
         location: action.payload.location,
         id: action.payload.id,
-        posts: action.payload.posts,
-        followers: action.payload.followers,
-        following: action.payload.following,
         login: true,
         test: true,
         newUser: true
@@ -57,12 +55,14 @@ export default function(state = initialState, action){
           loginError: action.payload.error,
           posts: action.payload.posts,
           followers: action.payload.followers,
-          following: action.payload.following
+          following: action.payload.following,
+          timeline: action.payload.timeline
         };
       case POST:
         return {
           ...state,
-          posts: action.payload.posts
+          posts: action.payload.posts,
+          timeline: action.payload.timeline
         };
       case LOG_OUT:
         return {
@@ -86,7 +86,8 @@ export default function(state = initialState, action){
       case FOLLOW:
         return {
           ...state,
-          following: action.payload.following
+          following: action.payload.following,
+          timeline: action.payload.timeline
         }
       case ERROR:
         return {

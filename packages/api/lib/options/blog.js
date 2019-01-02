@@ -25,19 +25,26 @@ exports.create = {
     const id = request.auth.artifacts.id;
     let user = await client.users.query({id: id});
     const posts = await user[0].posts;
+    const timeline = await user[0].timeline;
     const date = Date.now();
     const newPost  = {
       date,
       comments: [],
       likes: [],
       post: request.payload.post,
-      id: id + date
+      id: id + date,
+      firstName: user[0].firstName,
+      lastName: user[0].lastName,
+      username: user[0].userName,
+      imageURL: user[0].imageURL
     }
     await posts.unshift(newPost);
-    await client.users.update({id: id, posts});
+    await timeline.unshift(newPost);
+    await client.users.update({id: id, posts, timeline});
     user = await client.users.query({id})
     return {
-      posts: user[0].posts
+      posts: user[0].posts,
+      timeline: user[0].timeline
     }
   },
   validate: {

@@ -7,6 +7,7 @@ import EditContainer from './editContainer';
 
 
 class HomePage extends Component {
+  // eslint-disable-next-line no-useless-constructor
   constructor(props){
     super(props);
 

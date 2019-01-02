@@ -10,6 +10,7 @@ const Blog = require('./options/blog');
 const Comments = require('./options/comment');
 const Following = require('./options/following');
 const Likes = require('./options/likes');
+const Default = require('./options/default');
 const { dbase } = require('./client');
 
 
@@ -78,6 +79,9 @@ const init = async () => {
      }
      return h.continue;
    })
+
+  //Default route
+  server.route({method: 'GET', path: '/{any*}', options: Default.get});
 
   //Home routes
   server.route({method: 'GET', path: '/', options: Home.home});
