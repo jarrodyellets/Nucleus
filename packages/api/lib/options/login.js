@@ -61,6 +61,7 @@ exports.check = {
         posts: user[0].posts,
         followers: user[0].followers,
         following: user[0].following,
+        timeline: user[0].timeline,
         id: request.auth.artifacts.id,
         login: true,
         loginError: null
