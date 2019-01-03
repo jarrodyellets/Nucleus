@@ -18,7 +18,7 @@ class UserProfile extends Component {
           <div className="profileCardWrapper">
             <ProfileCard user={this.props.user} />
           </div>
-          <Posts user={this.props.user} />
+          <Posts posts={this.props.user.posts} />
         </div>
       </div>
     )

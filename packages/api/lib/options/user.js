@@ -45,7 +45,7 @@ exports.get = {
         followers: user[0].followers,
         following: user[0].following,
         timeline: user[0].timeline,
-        id: request.auth.artifacts.id,
+        id: user[0].id,
         login: true,
         loginError: null
       };
