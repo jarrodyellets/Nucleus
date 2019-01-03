@@ -60,7 +60,7 @@ class Nav extends Component {
             <div className="navLinks">
               <div className={this.props.location.pathname === '/home' ? "navLinkActive" : "navLink"} onClick={() => {this.props.handleNav('/home')}} >Home</div>
               <div className="navLink">My Profile</div>
-              <div className="navLink" onClick={this.handleExplore}>Explore</div>
+              <div className={this.props.location.pathname === '/explore' ? "navLinkActive" : "navLink"} onClick={this.handleExplore}>Explore</div>
               <div className="navLink">Mail</div>
             </div>
           </div>
