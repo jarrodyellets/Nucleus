@@ -9,7 +9,7 @@ import HomePage from './homePage';
 import NewPost from './newPost';
 import Nav from './nav';
 import Search from './search';
-import userProfile from './userProfile';
+import UserProfile from './userProfile';
 import Explore from './explore';
 
 class App extends Component {
@@ -58,8 +58,9 @@ class App extends Component {
           <Route path='/home' render={(props) => <HomePage {...props} />} />
           <Route path='/post' render={(props) => <NewPost {...props} user={this.props.user} />} />
           <Route path='/search' component={Search} />
-          <Route path='/user' component={userProfile} />
+          <Route path='/user' render={(props) => <UserProfile {...props} user={this.props.currentUser} />} />
           <Route path='/explore' component={Explore} />
+          <Route path='/myprofile' render={(props) => <UserProfile {...props} user={this.props.user} />} />
         </Switch>
       </div>
     );
@@ -67,7 +68,9 @@ class App extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  currentUser: state.currentUser,
+  error: state.error
 })
 
 export default withRouter(connect(mapStateToProps, {changeMember, checkLogin, logOut})(App));

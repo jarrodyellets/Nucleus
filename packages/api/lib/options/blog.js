@@ -40,6 +40,12 @@ exports.create = {
     }
     await posts.unshift(newPost);
     await timeline.unshift(newPost);
+    await user[0].followers.map( async (follower) => {
+      const user = await client.users.query({id: follower});
+      const timeline = user[0].timeline;
+      await timeline.unshift(newPost);
+      await client.users.update({id: follower, timeline})
+    })
     await client.users.update({id: id, posts, timeline});
     user = await client.users.query({id})
     return {

@@ -1,4 +1,4 @@
-import { SIGN_UP, ERROR, LOG_IN, LOG_OUT, POST, MEMBER, FOLLOW } from '../actions/types';
+import { SIGN_UP, USERERROR, LOG_IN, LOG_OUT, POST, MEMBER, FOLLOW } from '../actions/types';
 
 const initialState ={
   firstName: '',
@@ -81,7 +81,15 @@ export default function(state = initialState, action){
       case MEMBER:
         return {
           ...state,
-          member: action.payload
+          member: action.payload,
+          error: {
+            isUserNameEmpty: false,
+            isFirstNameEmpty: false,
+            isLastNameEmpty: false,
+            isNotEmail: false,
+            isEmailEmpty: false,
+            isPasswordEmpty: false
+          }
         };
       case FOLLOW:
         return {
@@ -89,7 +97,7 @@ export default function(state = initialState, action){
           following: action.payload.following,
           timeline: action.payload.timeline
         }
-      case ERROR:
+      case USERERROR:
         return {
           ...state,
           error: action.payload.error

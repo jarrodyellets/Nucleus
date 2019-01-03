@@ -2,7 +2,7 @@ import React from 'react'
 import Post from './post';
 
 const Posts = (props) => {
-  const posts = props.user.timeline.sort(function(a, b){
+  const posts = props.posts.sort(function(a, b){
     return b.date - a.date
   });
   const post = posts.map((post, i) => {
