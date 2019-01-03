@@ -1,32 +1,24 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { logOut } from '../actions/logoutAction';
+import React from 'react';
 import ProfileCard from './profileCard';
 import Posts from './posts';
+import EditContainer from './editContainer';
 
 
-class UserProfile extends Component {
-  constructor(props){
-    super(props);
-
-  }
-
-  render(){
-    return (
-      <div>
-        <div className="mainWrapper">
-          <div className="profileCardWrapper">
-            <ProfileCard user={this.props.user} />
-          </div>
-          <Posts posts={this.props.user.posts} />
+const UserProfile = (props) => {
+  return (
+    <div>
+      <div className="mainWrapper">
+        <div className="profileCardWrapper">
+          <ProfileCard user={props.user} />
+          {props.location.pathname === '/myprofile' && <EditContainer />}
         </div>
+        <Posts posts={props.user.posts} />
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-const mapStateToProps = state => ({
-  user: state.currentUser
-})
 
-export default connect(mapStateToProps, {logOut})(UserProfile);
+
+
+export default UserProfile;
