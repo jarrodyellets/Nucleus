@@ -466,6 +466,11 @@ body {
   cursor: pointer;
 }
 
+.postUserLikes {
+  cursor: pointer;
+  color: var(--orange);
+}
+
 .newPostWrapper {
   position: relative;
   width: 100%;

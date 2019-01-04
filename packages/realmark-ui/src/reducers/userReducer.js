@@ -102,7 +102,7 @@ export default function(state = initialState, action){
           ...state,
           posts: action.payload.posts,
           timeline: action.payload.timeline
-        }
+        };
       case USERERROR:
         return {
           ...state,
