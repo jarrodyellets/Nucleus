@@ -60,7 +60,7 @@ class App extends Component {
           <Route path='/search' component={Search} />
           <Route path='/user' render={(props) => <UserProfile {...props} user={this.props.currentUser} id={this.props.user.id} />} />
           <Route path='/explore' component={Explore} />
-          <Route path='/myprofile' render={(props) => <UserProfile {...props} user={this.props.user} id={this.props.user.id} />} />
+          <Route path='/myprofile' render={(props) => <UserProfile {...props} user={this.props.currentUser} id={this.props.user.id} />} />
         </Switch>
       </div>
     );

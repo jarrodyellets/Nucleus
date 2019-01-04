@@ -15,6 +15,7 @@ class Nav extends Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleExplore = this.handleExplore.bind(this);
+    this.handleProfile = this.handleProfile.bind(this);
   }
 
   handleSearch(){
@@ -22,8 +23,15 @@ class Nav extends Component {
     .then(() => {
       if(this.props.currentUser.username){
         this.props.handleNav('/search');
-        this.setState({ username: '' })
+        this.setState({ username: '' });
       }
+    })
+  }
+
+  handleProfile(){
+    this.props.searchUser(this.props.user.username)
+    .then(() => {
+      this.props.handleNav('/myprofile');
     })
   }
 
@@ -59,7 +67,7 @@ class Nav extends Component {
           <div className="navLeftWrapper">
             <div className="navLinks">
               <div className={this.props.location.pathname === '/home' ? "navLinkActive" : "navLink"} onClick={() => {this.props.handleNav('/home')}} >Home</div>
-              <div className={this.props.location.pathname === '/myprofile' ? "navLinkActive" : "navLink"} onClick={() => {this.props.handleNav('/myprofile')}}>My Profile</div>
+              <div className={this.props.location.pathname === '/myprofile' ? "navLinkActive" : "navLink"} onClick={() => {this.handleProfile()}}>My Profile</div>
               <div className={this.props.location.pathname === '/explore' ? "navLinkActive" : "navLink"} onClick={this.handleExplore}>Explore</div>
               <div className="navLink">Mail</div>
             </div>
@@ -85,7 +93,8 @@ class Nav extends Component {
 
 const mapStateToProps = state => ({
   currentUser: state.currentUser,
-  allUsers: state.allUsers.allUsers
+  allUsers: state.allUsers.allUsers,
+  user: state.user
 })
 
 export default withRouter(connect(mapStateToProps,{searchUser, explore})(Nav));
