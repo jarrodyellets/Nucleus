@@ -1,4 +1,4 @@
-import { SEARCH, FOLLOW } from '../actions/types';
+import { SEARCH, FOLLOW, LIKE } from '../actions/types';
 
 const initialState ={
   firstName: '',
@@ -33,6 +33,11 @@ export default function(state = initialState, action){
       return {
         ...state,
         followers: action.payload.followers
+      };
+    case LIKE:
+      return {
+        ...state,
+        posts: action.payload.posts
       }
       default :
         return state;
