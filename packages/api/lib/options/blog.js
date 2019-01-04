@@ -32,11 +32,12 @@ exports.create = {
       comments: [],
       likes: [],
       post: request.payload.post,
-      id: id + date,
+      postID: id + date,
       firstName: user[0].firstName,
       lastName: user[0].lastName,
       username: user[0].userName,
-      imageURL: user[0].imageURL
+      imageURL: user[0].imageURL,
+      id: request.auth.artifacts.id
     }
     await posts.unshift(newPost);
     await timeline.unshift(newPost);

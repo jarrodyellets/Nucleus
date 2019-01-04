@@ -4,6 +4,7 @@
   --blue: #18acc3;
   --yellow: #fef7e0;
   --orange: #e37222;
+  --red: #e0245e;
 }
 
 * {
@@ -464,6 +465,11 @@ body {
 
 .postLikes {
   cursor: pointer;
+}
+
+.postUserLikes {
+  cursor: pointer;
+  color: var(--red);
 }
 
 .newPostWrapper {

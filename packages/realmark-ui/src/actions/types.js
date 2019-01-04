@@ -8,3 +8,4 @@ export const POST = 'POST';
 export const SEARCH = 'SEARCH';
 export const EXPLORE = 'EXPLORE';
 export const FOLLOW = 'FOLLOW';
+export const LIKE = 'LIKE';

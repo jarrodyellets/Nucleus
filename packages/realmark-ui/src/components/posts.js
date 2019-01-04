@@ -7,7 +7,7 @@ const Posts = (props) => {
   });
   const post = posts.map((post, i) => {
     return (
-      <Post post={post} key={post.id} />
+      <Post post={post} key={post.id} id={props.id} handleLike={props.handleLike} />
     )
   })
   return (
