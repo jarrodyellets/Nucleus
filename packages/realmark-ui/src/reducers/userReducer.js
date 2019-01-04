@@ -1,4 +1,4 @@
-import { SIGN_UP, USERERROR, LOG_IN, LOG_OUT, POST, MEMBER, FOLLOW } from '../actions/types';
+import { SIGN_UP, USERERROR, LOG_IN, LOG_OUT, POST, MEMBER, FOLLOW, LIKE } from '../actions/types';
 
 const initialState ={
   firstName: '',
@@ -95,6 +95,12 @@ export default function(state = initialState, action){
         return {
           ...state,
           following: action.payload.following,
+          timeline: action.payload.timeline
+        };
+      case LIKE:
+        return {
+          ...state,
+          posts: action.payload.posts,
           timeline: action.payload.timeline
         }
       case USERERROR:

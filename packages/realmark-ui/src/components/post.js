@@ -5,6 +5,7 @@ const Post = (props) => {
   let difference = now - props.post.date;
   const minDifference = Math.floor(difference/1000/60);
 
+  console.log(props.post);
   return (
     <div className="postWrapper">
       <div className="postHeadingWrapper">
@@ -18,7 +19,7 @@ const Post = (props) => {
         <div className="postText">{props.post.post}</div>
       </div>
       <div className="postLikesWrapper">
-        <div className="postLikes">Like</div>
+        <div className="postLikes" onClick={() => {props.handleLike(props.post.id, props.post.postID)}}>Like {props.post.likes && '(' + props.post.likes.length + ')'}</div>
         <div className="postLikes">Comment</div>
       </div>
     </div>
