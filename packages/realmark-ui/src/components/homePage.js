@@ -28,7 +28,7 @@ class HomePage extends Component {
             <ProfileCard user={this.props.user} />
             <EditContainer />
           </div>
-          <Posts posts={this.props.user.timeline} handleLike={this.handleLike} />
+          <Posts posts={this.props.user.timeline} id={this.props.user.id} handleLike={this.handleLike} />
         </div>
       </div>
     )

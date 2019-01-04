@@ -19,7 +19,7 @@ const Post = (props) => {
         <div className="postText">{props.post.post}</div>
       </div>
       <div className="postLikesWrapper">
-        <div className="postLikes" onClick={() => {props.handleLike(props.post.id, props.post.postID)}}>Like {props.post.likes && '(' + props.post.likes.length + ')'}</div>
+        <div className={props.post.likes.includes(props.id) ? "postUserLikes" : "postLikes"} onClick={() => {props.handleLike(props.post.id, props.post.postID)}}>Like {props.post.likes && '(' + props.post.likes.length + ')'}</div>
         <div className="postLikes">Comment</div>
       </div>
     </div>
