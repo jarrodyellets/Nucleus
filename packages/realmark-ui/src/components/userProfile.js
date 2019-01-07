@@ -12,7 +12,7 @@ const UserProfile = (props) => {
           <ProfileCard user={props.user} />
           {props.location.pathname === '/myprofile' && <EditContainer />}
         </div>
-        <Posts posts={props.user.posts} />
+        <Posts posts={props.user.posts} id={props.id} />
       </div>
     </div>
   )
