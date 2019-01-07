@@ -5,7 +5,6 @@ const Post = (props) => {
   let difference = now - props.post.date;
   const minDifference = Math.floor(difference/1000/60);
 
-  console.log(props.post);
   return (
     <div className="postWrapper">
       <div className="postHeadingWrapper">
