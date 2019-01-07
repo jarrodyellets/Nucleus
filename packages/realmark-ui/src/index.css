@@ -453,6 +453,10 @@ body {
   font-size: .9em;
 }
 
+.postText {
+  white-space: pre-wrap;
+}
+
 .postLikesWrapper {
   width: 100%;
   display: flex;

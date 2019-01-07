@@ -12,6 +12,7 @@ export const addLike = (userID, postID) => dispatch => {
     })
     .then(res => res.json())
     .then(data => {
+      console.log(data);
         dispatch({
           type: LIKE,
           payload: data

@@ -21,6 +21,7 @@ class HomePage extends Component {
   }
 
   render(){
+    console.log(this.props.user.timeline)
     return (
       <div> 
         <div className="mainWrapper">
