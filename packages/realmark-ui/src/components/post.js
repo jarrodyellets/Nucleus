@@ -1,4 +1,7 @@
 import React from 'react'
+import ReactMarkdown from 'react-markdown';
+import CodeBlock from './markdown-render/codeblock';
+import CodeInline from './markdown-render/codeinline';
 
 const Post = (props) => {
   const now = Date.now();
@@ -15,7 +18,7 @@ const Post = (props) => {
         </div>
       </div>
       <div className="postTextWrapper">
-        <div className="postText">{props.post.post}</div>
+        <ReactMarkdown source={props.post.post} renderers={{code: CodeBlock, inlineCode: CodeInline}} className="postText" />
       </div>
       <div className="postLikesWrapper">
         <div className={props.post.likes.includes(props.id) ? "postUserLikes" : "postLikes"} onClick={() => {props.handleLike(props.post.id, props.post.postID)}}>Like {props.post.likes && '(' + props.post.likes.length + ')'}</div>
