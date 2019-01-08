@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logOut } from '../actions/logoutAction';
 import { addLike } from '../actions/likeAction';
+import { triggerComment } from '../actions/triggerComment';
 import ProfileCard from './profileCard';
 import Posts from './posts';
 import EditContainer from './editContainer';
@@ -14,6 +15,7 @@ class HomePage extends Component {
     super(props);
 
     this.handleLike = this.handleLike.bind(this);
+    this.handleTrigger = this.handleTrigger.bind(this);
 
   }
 
@@ -21,8 +23,11 @@ class HomePage extends Component {
     this.props.addLike(userID, postID);
   }
 
+  handleTrigger(trigger, post){
+    this.props.triggerComment(trigger, post);
+  }
+
   render(){
-    console.log(this.props.user.timeline)
     return (
       <div> 
         <div className="mainWrapper">
@@ -30,7 +35,7 @@ class HomePage extends Component {
             <ProfileCard user={this.props.user} />
             <EditContainer />
           </div>
-          <Posts posts={this.props.user.timeline} id={this.props.user.id} handleLike={this.handleLike} />
+          <Posts posts={this.props.user.timeline} id={this.props.user.id} handleLike={this.handleLike} handleTrigger={this.handleTrigger}/>
         </div>
         {this.props.trigger.comment && <AddComment post={this.props.trigger.currentPost} />}
       </div>
@@ -43,4 +48,4 @@ const mapStateToProps = state => ({
   trigger: state.trigger
 })
 
-export default connect(mapStateToProps, {logOut, addLike})(HomePage);
+export default connect(mapStateToProps, {logOut, addLike, triggerComment})(HomePage);
