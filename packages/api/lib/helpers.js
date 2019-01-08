@@ -5,7 +5,6 @@ const { returnClient } = require('./client');
 const internals = {}
 
 exports.createTimeline = async (id) => {
-  console.log(internals.client);
   const client = returnClient();
   let user = await client.users.query({id});
   const timeline = [];

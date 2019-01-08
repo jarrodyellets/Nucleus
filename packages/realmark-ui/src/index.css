@@ -463,17 +463,22 @@ body {
   justify-content: space-around;
   align-items: center;
   margin-top: 10px;
-  font-weight: 700;
-  color: #999;
+  padding-top: 5px;
+  border-top: 1px solid #ccc;
+  box-sizing: border-box;
 }
 
 .postLikes {
   cursor: pointer;
+  font-size: .9em;
+  color: #999;
+  font-weight: 700;
 }
 
 .postUserLikes {
   cursor: pointer;
   color: var(--red);
+  font-weight: 700;
 }
 
 .newPostWrapper {
@@ -701,4 +706,26 @@ body {
   cursor: pointer;
   font-size: 1.3em;
   font-weight: 700;
+}
+
+.addCommentWrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 50;
+  overflow: hidden;
+}
+
+.addCommentBlackout {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, .3);
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

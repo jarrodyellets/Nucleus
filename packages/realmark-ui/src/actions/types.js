@@ -9,3 +9,5 @@ export const SEARCH = 'SEARCH';
 export const EXPLORE = 'EXPLORE';
 export const FOLLOW = 'FOLLOW';
 export const LIKE = 'LIKE';
+export const COMMENT = 'COMMENT';
+export const TRIGGER_COMMENT = 'TRIGGER_COMMENT';

@@ -22,7 +22,7 @@ const Post = (props) => {
       </div>
       <div className="postLikesWrapper">
         <div className={props.post.likes.includes(props.id) ? "postUserLikes" : "postLikes"} onClick={() => {props.handleLike(props.post.id, props.post.postID)}}>Like {props.post.likes && '(' + props.post.likes.length + ')'}</div>
-        <div className="postLikes">Comment</div>
+        <div className="postLikes" onClick={() => {props.handleTrigger(true, props.post)}}>Comment</div>
       </div>
     </div>
   )

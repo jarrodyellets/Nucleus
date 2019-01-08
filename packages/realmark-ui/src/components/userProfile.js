@@ -2,6 +2,7 @@ import React from 'react';
 import ProfileCard from './profileCard';
 import Posts from './posts';
 import EditContainer from './editContainer';
+import AddComment from './addComment';
 
 
 const UserProfile = (props) => {
@@ -14,6 +15,7 @@ const UserProfile = (props) => {
         </div>
         <Posts posts={props.user.posts} id={props.id} />
       </div>
+      {this.props.trigger.comment && <AddComment post={props.trigger.currentPost} />}
     </div>
   )
 }

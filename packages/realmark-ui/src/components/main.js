@@ -58,9 +58,9 @@ class App extends Component {
           <Route path='/home' render={(props) => <HomePage {...props} />} />
           <Route path='/post' render={(props) => <NewPost {...props} user={this.props.user} />} />
           <Route path='/search' component={Search} />
-          <Route path='/user' render={(props) => <UserProfile {...props} user={this.props.currentUser} id={this.props.user.id} />} />
+          <Route path='/user' render={(props) => <UserProfile {...props} user={this.props.currentUser} id={this.props.user.id} trigger={this.props.trigger} />} />
           <Route path='/explore' component={Explore} />
-          <Route path='/myprofile' render={(props) => <UserProfile {...props} user={this.props.currentUser} id={this.props.user.id} />} />
+          <Route path='/myprofile' render={(props) => <UserProfile {...props} user={this.props.currentUser} id={this.props.user.id} trigger={this.props.trigger} />} />
         </Switch>
       </div>
     );
@@ -70,7 +70,8 @@ class App extends Component {
 const mapStateToProps = state => ({
   user: state.user,
   currentUser: state.currentUser,
-  error: state.error
+  error: state.error,
+  trigger: state.trigger
 })
 
 export default withRouter(connect(mapStateToProps, {changeMember, checkLogin, logOut})(App));
