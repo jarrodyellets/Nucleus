@@ -35,6 +35,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   background: #e6ecf0;
   color: #131711;
+  overflow: hidden;
 }
 
 .splashWrapper {
@@ -181,6 +182,11 @@ body {
   justify-content: center;
   align-items: center;
   height: 100%;
+  box-sizing: border-box;
+}
+
+.marginRight {
+  left: -10px;
 }
 
 .navLeftWrapper {
@@ -400,6 +406,11 @@ body {
   position: relative;
   width: calc(73% - 10px);
   margin-left: auto;
+}
+
+.noScroll {
+  overflow: hidden;
+  margin-right: 17px;
 }
 
 .postWrapper {
@@ -719,14 +730,15 @@ body {
 }
 
 .addCommentBlackout {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, .7);
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
+  z-index: 50;
 }
 
 .addCommentWindow {
