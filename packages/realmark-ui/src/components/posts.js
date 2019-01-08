@@ -1,5 +1,6 @@
 import React from 'react'
 import Post from './post';
+import LikesContainer from './likesContainer';
 
 
 const Posts = (props) => {
@@ -8,7 +9,10 @@ const Posts = (props) => {
   });
   const post = posts.map((post, i) => {
     return (
-      <Post post={post} key={post.id} id={props.id} handleLike={props.handleLike} handleTrigger={props.handleTrigger} />
+      <div key={props.id}>
+        <Post post={post} key={post.id} id={props.id} handleLike={props.handleLike} handleTrigger={props.handleTrigger} />
+        <LikesContainer post={post} key={post.id} id={props.id} handleLike={props.handleLike} handleTrigger={props.handleTrigger} />
+      </div>
     )
   })
   return (
