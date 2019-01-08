@@ -722,10 +722,58 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, .3);
+  background: rgba(0, 0, 0, .5);
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.addCommentWindow {
+  margin-top: 10vh;
+  width: 600px;
+}
+
+.addCommentHeader {
+  position: relative;
+  display: flex;
+  justify-content: center;
   align-items: center;
+  background: #fafafa;
+  border-bottom: 1px solid #ccc;
+  font-size: 1.3em;
+  font-weight: 700;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.addCommentClose {
+  position: absolute;
+  top: 13px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.addCommentFooter {
+  background: #fafafa;
+  border-top: 1px solid #ccc;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  margin-top: -10px;
+}
+
+.addCommentFooterTop {
+  display: flex;
+  align-items: center;
+  font-size: 1em;
+  padding: 10px;
+  color: #333;
+}
+
+.addCommentFooterBottom {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 10px;
 }
