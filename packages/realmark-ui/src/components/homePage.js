@@ -5,6 +5,7 @@ import { addLike } from '../actions/likeAction';
 import ProfileCard from './profileCard';
 import Posts from './posts';
 import EditContainer from './editContainer';
+import AddComment from './addComment';
 
 
 class HomePage extends Component {
@@ -31,13 +32,15 @@ class HomePage extends Component {
           </div>
           <Posts posts={this.props.user.timeline} id={this.props.user.id} handleLike={this.handleLike} />
         </div>
+        {this.props.trigger.comment && <AddComment post={this.props.trigger.currentPost} />}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  trigger: state.trigger
 })
 
 export default connect(mapStateToProps, {logOut, addLike})(HomePage);
