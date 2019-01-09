@@ -15,7 +15,7 @@ const UserProfile = (props) => {
         </div>
         <Posts posts={props.user.posts} id={props.id} />
       </div>
-      {this.props.trigger.comment && <AddComment post={props.trigger.currentPost} />}
+      {props.trigger.comment && <AddComment post={props.trigger.currentPost} />}
     </div>
   )
 }

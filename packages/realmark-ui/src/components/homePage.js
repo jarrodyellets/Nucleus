@@ -25,6 +25,10 @@ class HomePage extends Component {
 
   handleTrigger(trigger, post){
     this.props.triggerComment(trigger, post);
+    const posts = document.querySelector('html');
+    const nav = document.querySelector('.navWrapper');
+    posts.classList.add('noScroll');
+    nav.classList.add('marginRight');
   }
 
   render(){
