@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Post from './post';
 import { triggerComment } from '../actions/triggerComment';
+import { addComment } from '../actions/commentAction';
 
 class AddComment extends Component {
   constructor(props){
@@ -11,6 +12,8 @@ class AddComment extends Component {
     }
 
     this.handleClose = this.handleClose.bind(this);
+    this.handleComment = this.handleComment.bind(this);
+    this.onChange = this.onChange.bind(this);
 
   }
 
@@ -20,6 +23,23 @@ class AddComment extends Component {
     const nav = document.querySelector('.navWrapper');
     posts.classList.remove('noScroll');
     nav.classList.remove('marginRight');
+  }
+
+  handleComment(){
+    this.props.addComment(this.props.post.id, this.props.post.postID, this.state)
+    .then(() => {
+      this.handleClose();
+      this.setState({
+        comment: ''
+      })
+    })
+
+  }
+
+  onChange(e){
+    this.setState({
+      comment: e.target.value
+    })
   }
 
   render(){
@@ -39,10 +59,10 @@ class AddComment extends Component {
                 <div className="addCommentFooterTopText">Replying to ...</div>
               </div>
               <div className="addCommentFooterMiddle">
-                <textarea className="addCommentFooterMiddleTextArea" placeholder="Share you comment..." />
+                <textarea className="addCommentFooterMiddleTextArea" onChange={this.onChange} value={this.state.comment} placeholder="Share you comment..." />
               </div>
               <div className="addCommentFooterBottom">
-                <button className="newPostButton">Reply</button>
+                <button className="newPostButton commentButton" onClick={() => {this.handleComment()}}>Reply</button>
               </div>
             </div>
           </div>
@@ -56,4 +76,4 @@ const mapStateToProps = state => ({
   user: state.user
 })
 
-export default connect(mapStateToProps, {triggerComment})(AddComment);
+export default connect(mapStateToProps, {triggerComment, addComment})(AddComment);

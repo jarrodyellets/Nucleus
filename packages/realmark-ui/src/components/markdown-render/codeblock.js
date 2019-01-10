@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { github } from 'react-syntax-highlighter/dist/styles/hljs';
+import { atelierForestLight } from 'react-syntax-highlighter/dist/styles/hljs';
 
 class CodeBlock extends Component {
 
@@ -9,11 +9,15 @@ class CodeBlock extends Component {
 
     return (
       <SyntaxHighlighter
-        style={github}
+        style={atelierForestLight}
         customStyle={{
           borderRadius: '0.25em',
           textAlign: 'left',
-          padding: '0.6em 2em calc(0.6em + 1px)',
+          padding: '12px',
+          background: '#e6ecf0',
+          width: '100%',
+          margin: '10px 0',
+          boxSizing: 'border-box'
         }}
         language={language}
       >

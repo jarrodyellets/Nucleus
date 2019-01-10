@@ -1,10 +1,13 @@
 :root {
   --black: #131711;
   --white:  #e6ecf0;
+  --brightWhite: #fafafa;
   --blue: #18acc3;
   --yellow: #fef7e0;
   --orange: #e37222;
   --red: #e0245e;
+  --gray: #535961;
+  --lightGray: #ccc;
 }
 
 * {
@@ -32,8 +35,8 @@ body {
   font-family: 'Source Sans Pro', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: #e6ecf0;
-  color: #131711;
+  background: var(--white);
+  color: var(--black);
   overflow: hidden;
   padding-bottom: 50px;
 }
@@ -53,7 +56,7 @@ body {
 }
 
 .loginWrapper {
-  color: #e6ecf0;
+  color: var(--white);
   width: 90%;
   max-width: 500px;
   flex: 1;
@@ -108,7 +111,7 @@ body {
   border: none;
   border-radius: 3px;
   height: 35px;
-  color: var(--white);
+  color: var(--brightWhite);
   font-size: .8em;
   cursor: pointer;
   margin-top: 10px;
@@ -167,7 +170,7 @@ body {
 .navWrapper {
   width: 100%;
   height: 50px;
-  background: #fafafa;
+  background: var(--brightWhite);
   border-bottom: 1px solid rgba(0, 0, 0, .3);
   position: fixed;
   top: 0;
@@ -244,7 +247,7 @@ body {
   border: none;
   outline: none;
   background: var(--blue);
-  color: #fafafa;
+  color: var(--brightWhite);
   font-weight: 700;
   font-size: .9em;
   height: 40px;
@@ -275,7 +278,7 @@ body {
 }
 
 .profileCardInnerWrapper {
-  background: #fafafa;
+  background: var(--brightWhite);
 }
 
 .profileCardImg {
@@ -303,7 +306,7 @@ body {
   padding: 6px 12px;
   font-size: .9em;
   outline: none;
-  color: #fafafa;
+  color: var(--brightWhite);
   background: var(--blue);
   font-weight: 700;
   border: none;
@@ -316,12 +319,12 @@ body {
 
 .profileCardContact {
   margin-bottom: 10px;
-  color: #888;
+  color: var(--gray);
   cursor: pointer;
 }
 
 .profileCardLocation {
-  color: #888;
+  color: var(--gray);
 }
 
 .far {
@@ -359,7 +362,7 @@ body {
 }
 
 .editWrapper {
-  background: #fafafa;
+  background: var(--brightWhite);
   margin-top: 10px;
   display: flex;
   justify-content: center;
@@ -370,7 +373,7 @@ body {
 
 .editButton {
   outline: none;
-  border: 1px solid #ccc;
+  border: 1px solid var(--lightGray);
   border-radius: 3px;
   width: 100%;
   padding: 6px 12px;
@@ -388,7 +391,7 @@ body {
 
 .searchBoxInput {
   outline: none;
-  border: 1px solid #ccc;
+  border: 1px solid var(--lightGray);
   border-radius: 20px;
   width: calc(100% - 16px);
   padding: 8px;
@@ -399,7 +402,7 @@ body {
   position: absolute;
   bottom: 9px;
   right: 10px;
-  color: #888;
+  color: var(--lightGray);
   cursor: pointer;
 }
 
@@ -414,6 +417,10 @@ body {
   margin-right: 17px;
 }
 
+.postTextWrapper {
+  width: 100%;
+}
+
 .postWrapper {
   width: 100%;
   display: flex;
@@ -422,7 +429,8 @@ body {
   align-items: flex-start;
   padding: 12px;
   box-sizing: border-box;
-  background: #fafafa;
+  background: var(--brightWhite);
+  overflow: hidden;
 }
 
 .postHeadingWrapper {
@@ -437,7 +445,7 @@ body {
   height: 60px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid #ccc;
+  border: 1px solid var(--lightGray);
 }
 
 .postHeadingTextWrapper {
@@ -454,7 +462,7 @@ body {
 }
 
 .postHeadingTextUserName {
-  color: #999999;
+  color: var(--gray);;
   font-size: .9em;
 }
 
@@ -466,6 +474,38 @@ body {
 
 .postText {
   white-space: pre-wrap;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.likesWrapper {
+  width: 100%;
+  border-top: 1px solid var(--lightGray);;
+}
+
+.likesInnerWrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+  box-sizing: border-box;
+  background: var(--brightWhite);
+}
+
+.likesHeart {
+  color: var(--gray);
+  cursor: pointer;
+}
+
+.likesHeartUserLikes {
+  color: var(--red);
+  cursor: pointer;
+}
+
+.likesComment {
+  cursor: pointer;
+  color: var(--gray);
 }
 
 .postLikesWrapper {
@@ -474,16 +514,16 @@ body {
   justify-content: space-around;
   align-items: center;
   padding: 10px;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--lightGray);
   box-sizing: border-box;
-  margin-bottom: 10px;
-  background: #fafafa;
+  margin-bottom: 12px;
+  background: var(--brightWhite);
 }
 
 .postLikes {
   cursor: pointer;
   font-size: .9em;
-  color: #999;
+  color: var(--gray);
   font-weight: 700;
 }
 
@@ -524,7 +564,7 @@ body {
 .newPostImg {
   width: 60px;
   border-radius: 50%;
-  border: 1px solid #ccc;
+  border: 1px solid var(--lightGray);;
 
 }
 
@@ -539,7 +579,7 @@ body {
 .newPostWindowHeaderWrapper {
   position: relative;
   height: 50px;
-  background: #fafafa;
+  background: var(--brightWhite);
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   display: flex;
@@ -573,7 +613,7 @@ body {
   height: 130px;
   margin-left: 20px;
   resize: none;
-  background: #fafafa;
+  background: var(--brightWhite);
   border-radius: 10px;
   border: 1px solid var(--blue);
   padding: 8px;
@@ -612,7 +652,7 @@ body {
 }
 
 .searchInnerWrapper {
-  background: #fafafa;
+  background: var(--brightWhite);
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -631,7 +671,7 @@ body {
   height: 100px;
   object-fit: cover;
   border-radius: 50%;
-  border: 1px solid #ccc;
+  border: 1px solid var(--lightGray);
 }
 
 .searchInfoWrapper {
@@ -663,7 +703,7 @@ body {
   padding: 6px 12px;
   font-size: .9em;
   outline: none;
-  color: #fafafa;
+  color: var(--brightWhite);
   background: var(--blue);
   font-weight: 700;
   border: none;
@@ -696,7 +736,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  background: #fafafa;
+  background: var(--brightWhite);
 }
 
 .exploreImgWrapper {
@@ -711,7 +751,7 @@ body {
   width: 150px;
   height: 150px;
   object-fit: cover;
-  border: 1px solid #ccc;
+  border: 1px solid var(--lightGray);
   border-radius: 50%;
 }
 
@@ -753,8 +793,8 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--white);
-  border-bottom: 1px solid #ccc;
+  background: var(--brightWhite);
+  border-bottom: 1px solid var(--lightGray);
   font-size: 1.2em;
   font-weight: 700;
   height: 50px;
@@ -771,7 +811,7 @@ body {
 
 .addCommentFooter {
   background: var(--white);
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--lightGray);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -781,7 +821,7 @@ body {
   align-items: center;
   font-size: 1em;
   padding: 10px 10px 0 10px;
-  color: #333;
+  color: var(--gray);
 }
 
 .addCommentFooterMiddle {
@@ -790,7 +830,7 @@ body {
 
 .addCommentFooterMiddleTextArea {
   resize: none;
-  background: #fafafa;
+  background: var(--brightWhite);
   width: 100%;
   height: 130px;
   border-radius: 10px;
@@ -803,5 +843,9 @@ body {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  padding-bottom: 10px;
+  padding: 0 10px 10px 10px;
+}
+
+.commentButton {
+  margin-right: 0;
 }
