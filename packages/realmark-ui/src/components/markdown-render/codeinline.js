@@ -15,7 +15,8 @@ class CodeInline extends Component {
           padding: '0.3em 0.3em calc(0.3em + 1px)',
           borderRadius: '0.15em',
           background: '#e6ecf0',
-          margin: '10px 0'
+          margin: '10px 0',
+          width: '100%'
         }}
         language={language}
       >

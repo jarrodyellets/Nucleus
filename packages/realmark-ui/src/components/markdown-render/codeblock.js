@@ -13,9 +13,11 @@ class CodeBlock extends Component {
         customStyle={{
           borderRadius: '0.25em',
           textAlign: 'left',
-          padding: '0.6em 2em calc(0.6em + 1px)',
+          padding: '12px',
           background: '#e6ecf0',
-          margin: '10px 0'
+          width: '100%',
+          margin: '10px 0',
+          boxSizing: 'border-box'
         }}
         language={language}
       >
