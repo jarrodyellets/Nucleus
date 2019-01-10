@@ -42,7 +42,7 @@ class AddComment extends Component {
                 <textarea className="addCommentFooterMiddleTextArea" placeholder="Share you comment..." />
               </div>
               <div className="addCommentFooterBottom">
-                <button className="newPostButton">Reply</button>
+                <button className="newPostButton commentButton">Reply</button>
               </div>
             </div>
           </div>
