@@ -45,7 +45,7 @@ class newPost extends Component {
               <textarea className="newPostTextArea" onChange={this.onChange} value={this.state.post} placeholder="Share your thoughts..."></textarea>
             </div>
             <div className="newPostButtonWrapper">
-              <button className="newPostButton"onClick={() => {this.handlePost()}}>Post</button>
+              <button className="newPostButton" onClick={() => {this.handlePost()}}>Post</button>
             </div>
           </div>
         </div>

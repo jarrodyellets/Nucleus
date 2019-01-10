@@ -1,6 +1,7 @@
 'use strict';
 
 const { returnClient } = require('../client');
+const { createTimeline } = require('../helpers');
 const Joi = require('joi')
 
 const internals = {
@@ -34,18 +35,22 @@ exports.create = {
   handler: async (request, h) => {
     const client = returnClient();
     const author = request.auth.credentials.id;
-    const user = await client.users.query({id: request.params.userId});
+    let user = await client.users.query({id: request.params.userId});
     const posts = user[0].posts;
     const date = Date.now();
-    const post = await posts.findIndex(post => post.id == request.params.postId);
+    const post = await posts.findIndex(post => post.postID == request.params.postId);
     await posts[post].comments.push({
       date,
-      author: author,
+      author,
       comment: request.payload.comment,
       id: author + date
     });
     await client.users.update({id: request.params.userId, posts});
-    return 'Comment Added';
+    user = await client.users.query({id: request.params.userId})
+    const timeline = await createTimeline(request.auth.credentials.id);
+    return {
+      posts: user[0].posts, timeline
+    };
   },
   validate: {
     payload: {
