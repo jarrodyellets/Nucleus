@@ -6,7 +6,7 @@ import { triggerComment } from '../actions/triggerComment';
 import ProfileCard from './profileCard';
 import Posts from './posts';
 import EditContainer from './editContainer';
-import AddComment from './addComment';
+import PostModal from './postModal';
 
 
 class HomePage extends Component {
@@ -41,7 +41,7 @@ class HomePage extends Component {
           </div>
           <Posts posts={this.props.user.timeline} id={this.props.user.id} handleLike={this.handleLike} handleTrigger={this.handleTrigger}/>
         </div>
-        {this.props.trigger.comment && <AddComment post={this.props.trigger.currentPost} />}
+        {this.props.trigger.modal && <PostModal post={this.props.trigger.currentPost} />}
       </div>
     )
   }

@@ -421,6 +421,19 @@ body {
   width: 100%;
 }
 
+.postMainWrapper {
+  background: var(--brightWhite);
+  cursor: pointer;
+}
+
+.postMainWrapper:hover {
+  background: #f5f8fa;
+}
+
+.postMainWrapper:hover > .postWrapper {
+  background: #f5f8fa;
+}
+
 .postWrapper {
   width: 100%;
   display: flex;
@@ -429,8 +442,8 @@ body {
   align-items: flex-start;
   padding: 12px;
   box-sizing: border-box;
-  background: var(--brightWhite);
   overflow: hidden;
+  background: var(--brightWhite);
 }
 
 .postHeadingWrapper {
@@ -490,7 +503,6 @@ body {
   align-items: center;
   padding: 12px;
   box-sizing: border-box;
-  background: var(--brightWhite);
 }
 
 .likesHeart {
@@ -517,14 +529,21 @@ body {
   border-top: 1px solid var(--lightGray);
   box-sizing: border-box;
   margin-bottom: 12px;
-  background: var(--brightWhite);
 }
 
-.postLikes {
+.postLikes, .postComment {
   cursor: pointer;
   font-size: .9em;
   color: var(--gray);
   font-weight: 700;
+}
+
+.postLikes:hover {
+  color: var(--red);
+}
+
+.postComment:hover {
+  color: var(--blue);
 }
 
 .postUserLikes {

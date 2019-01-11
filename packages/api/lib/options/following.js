@@ -1,6 +1,7 @@
 'use strict';
 
 const { returnClient } = require('../client');
+const { createTimeline } = require('../helpers');
 
 const internals = {};
 
@@ -11,14 +12,11 @@ exports.create = {
     const otherUser = await client.users.query({id: request.params.userID})
     const following = user[0].following;
     const followers = otherUser[0].followers;
-    const timeline = user[0].timeline;
-    await otherUser[0].posts.forEach(post => {
-      timeline.push(post)
-    })
     await following.push(request.params.userID);
     await followers.push(user[0].id);
-    await client.users.update({id: request.auth.credentials.id, following, timeline});
+    await client.users.update({id: request.auth.credentials.id, following});
     await client.users.update({id: request.params.userID, followers});
+    const timeline = await createTimeline(request.auth.credentials.id);
     return {following, followers, timeline};
   }
 }
