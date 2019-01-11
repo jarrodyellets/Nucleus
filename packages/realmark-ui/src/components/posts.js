@@ -9,7 +9,7 @@ const Posts = (props) => {
   });
   const post = posts.map((post, i) => {
     return (
-      <div key={props.id}>
+      <div className="postMainWrapper" key={props.id}>
         <Post post={post} key={post.id} id={props.id} handleLike={props.handleLike} handleTrigger={props.handleTrigger} />
         <LikesContainer post={post} key={post.id} id={props.id} handleLike={props.handleLike} handleTrigger={props.handleTrigger} />
       </div>
