@@ -427,11 +427,11 @@ body {
 }
 
 .postMainWrapper:hover {
-  background: #f2f5f7
+  background: #f5f8fa;
 }
 
 .postMainWrapper:hover > .postWrapper {
-  background: #f2f5f7;
+  background: #f5f8fa;
 }
 
 .postWrapper {

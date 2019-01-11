@@ -12,6 +12,7 @@ class AddComment extends Component {
 
     this.handleComment = this.handleComment.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.handleClose = this.handleClose.bind(this);
 
   }
 
@@ -23,7 +24,14 @@ class AddComment extends Component {
         comment: ''
       })
     })
+  }
 
+  handleClose(){
+    this.props.triggerComment(false);
+    const posts = document.querySelector('html');
+    const nav = document.querySelector('.navWrapper');
+    posts.classList.remove('noScroll');
+    nav.classList.remove('marginRight');
   }
 
   onChange(e){

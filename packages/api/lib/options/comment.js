@@ -34,16 +34,23 @@ exports.get = {
 exports.create = {
   handler: async (request, h) => {
     const client = returnClient();
-    const author = request.auth.credentials.id;
+    const author = await client.users.query({id: request.auth.credentials.id});
     let user = await client.users.query({id: request.params.userId});
     const posts = user[0].posts;
     const date = Date.now();
     const post = await posts.findIndex(post => post.postID == request.params.postId);
     await posts[post].comments.push({
       date,
-      author,
+      author: author[0].id,
       comment: request.payload.comment,
-      id: author + date
+      commentId: author[0].id + date,
+      comments: [],
+      likes: [],
+      firstName: author[0].firstName,
+      lastName: author[0].lastName,
+      username: author[0].userName,
+      imageURL: author[0].imageURL,
+      id: request.auth.artifacts.id
     });
     await client.users.update({id: request.params.userId, posts});
     user = await client.users.query({id: request.params.userId})
