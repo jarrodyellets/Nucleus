@@ -1,6 +1,7 @@
 import React from 'react'
 
 const LikesContainer = (props) => {
+  console.log(props.post);
   return (
     <div className="likesWrapper">
       <div className="likesInnerWrapper">
@@ -8,8 +9,8 @@ const LikesContainer = (props) => {
         <div className="likesComment">{props.post.comments.length === 1 ? '1 Comment' : props.post.comments.length +' Comments'}</div>
       </div>
       <div className="postLikesWrapper">
-        <div className="postLikes" onClick={() => {props.handleLike(props.post.id, props.post.postID)}}>{props.post.likes.includes(props.id) ? 'Dislike' : 'Like'}</div>
-        <div className="postComment" onClick={() => {props.handleTrigger(true, props.post)}}>Comment</div>
+        <div className="postLikes" onClick={(e) => {props.handleLike(e, props.post.id, props.post.postID)}}>{props.post.likes.includes(props.id) ? 'Dislike' : 'Like'}</div>
+        <div className="postComment" onClick={(e) => {props.handleTrigger(e, true, props.post)}}>Comment</div>
       </div>
     </div>
   )

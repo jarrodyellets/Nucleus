@@ -23,7 +23,7 @@ class PostDetails extends Component {
     return (
       <div>
         <div className="addCommentHeader">
-          <div className="addCommentHeaderText">Reply to </div>
+          <div className="addCommentHeaderText">{this.props.trigger.comment && 'Reply to ' + this.props.post.firstName + ' ' + this.props.post.lastName} </div>
           <div className="addCommentClose"><i className="fas fa-times" onClick={this.handleClose}></i></div>
         </div>
         <div className="addCommentBody">
@@ -35,7 +35,8 @@ class PostDetails extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  trigger: state.trigger
 })
 
 export default connect(mapStateToProps, {triggerComment})(PostDetails);

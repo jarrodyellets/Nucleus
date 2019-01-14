@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { logOut } from '../actions/logoutAction';
 import { addLike } from '../actions/likeAction';
 import { triggerComment } from '../actions/triggerComment';
+import { triggerModal } from '../actions/triggerModal';
 import ProfileCard from './profileCard';
 import Posts from './posts';
 import EditContainer from './editContainer';
@@ -16,14 +17,17 @@ class HomePage extends Component {
 
     this.handleLike = this.handleLike.bind(this);
     this.handleTrigger = this.handleTrigger.bind(this);
+    this.handleModal = this.handleModal.bind(this);
 
   }
 
-  handleLike(userID, postID){
+  handleLike(event, userID, postID){
+    event.stopPropagation();
     this.props.addLike(userID, postID);
   }
 
-  handleTrigger(trigger, post){
+  handleTrigger(event, trigger, post){
+    event.stopPropagation();
     this.props.triggerComment(trigger, post);
     const posts = document.querySelector('html');
     const nav = document.querySelector('.navWrapper');
@@ -31,7 +35,16 @@ class HomePage extends Component {
     nav.classList.add('marginRight');
   }
 
+  handleModal(trigger, post){
+    this.props.triggerModal(trigger, post);
+    const posts = document.querySelector('html');
+    const nav = document.querySelector('.navWrapper');
+    posts.classList.add('noScroll');
+    nav.classList.add('marginRight');
+  }
+
   render(){
+    console.log(this.props.trigger.modal);
     return (
       <div> 
         <div className="mainWrapper">
@@ -39,7 +52,7 @@ class HomePage extends Component {
             <ProfileCard user={this.props.user} />
             <EditContainer />
           </div>
-          <Posts posts={this.props.user.timeline} id={this.props.user.id} handleLike={this.handleLike} handleTrigger={this.handleTrigger}/>
+          <Posts posts={this.props.user.timeline} id={this.props.user.id} handleLike={this.handleLike} handleTrigger={this.handleTrigger} handleModal={this.handleModal} />
         </div>
         {this.props.trigger.modal && <PostModal post={this.props.trigger.currentPost} />}
       </div>
@@ -52,4 +65,4 @@ const mapStateToProps = state => ({
   trigger: state.trigger
 })
 
-export default connect(mapStateToProps, {logOut, addLike, triggerComment})(HomePage);
+export default connect(mapStateToProps, {logOut, addLike, triggerComment, triggerModal})(HomePage);

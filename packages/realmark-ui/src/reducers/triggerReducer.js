@@ -1,4 +1,4 @@
-import { TRIGGER_COMMENT } from '../actions/types';
+import { TRIGGER_COMMENT, TRIGGER_MODAL } from '../actions/types';
 
 const initialState ={
   comment: false,
@@ -16,6 +16,12 @@ export default function(state = initialState, action){
         modal: action.payload.trigger,
         currentPost: action.payload.post
       };
+    case TRIGGER_MODAL:
+      return {
+        ...state,
+        modal: action.payload.trigger,
+        currentPost: action.payload.post
+      }
       default :
         return state;
   }

@@ -45,7 +45,7 @@ class AddComment extends Component {
       <div>
         <div className="addCommentFooter">
           <div className="addCommentFooterTop">
-            <div className="addCommentFooterTopText">Replying to ...</div>
+            <div className="addCommentFooterTopText">Replying to @{this.props.post.username}</div>
           </div>
           <div className="addCommentFooterMiddle">
             <textarea className="addCommentFooterMiddleTextArea" onChange={this.onChange} value={this.state.comment} placeholder="Share you comment..." />
