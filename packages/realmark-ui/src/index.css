@@ -494,16 +494,16 @@ body {
 
 .likesWrapper {
   width: 100%;
-  border-top: 1px solid var(--lightGray);;
 }
 
 .likesInnerWrapper {
-  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 12px;
+  margin: 0 12px;
   box-sizing: border-box;
+  border-bottom: 1px solid var(--lightGray);
 }
 
 .likesHeart {
@@ -527,7 +527,6 @@ body {
   justify-content: space-around;
   align-items: center;
   padding: 10px;
-  border-top: 1px solid var(--lightGray);
   box-sizing: border-box;
 }
 
@@ -881,4 +880,5 @@ body {
 .commentsMainWrapper {
   background: var(--brightWhite);
   cursor: pointer;
+  border-top: 1px solid var(--lightGray);
 }

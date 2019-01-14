@@ -21,11 +21,13 @@ class HomePage extends Component {
 
   }
 
-  handleLike(userID, postID){
+  handleLike(event, userID, postID){
+    event.stopPropagation();
     this.props.addLike(userID, postID);
   }
 
-  handleTrigger(trigger, post){
+  handleTrigger(event, trigger, post){
+    event.stopPropagation();
     this.props.triggerComment(trigger, post);
     const posts = document.querySelector('html');
     const nav = document.querySelector('.navWrapper');
@@ -42,6 +44,7 @@ class HomePage extends Component {
   }
 
   render(){
+    console.log(this.props.trigger.modal);
     return (
       <div> 
         <div className="mainWrapper">
