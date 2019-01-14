@@ -7,12 +7,12 @@ import DisplayComment from './displayComment';
 const PostModal = (props) => {
   console.log(props.post);
   return (
-    <div className="addCommentWrapper">
-      <div className="addCommentBlackout">
-        <div className="addCommentWindow">
+    <div className="modalWrapper">
+      <div className="modalWindowWrapper">
+        <div className="modalWindow">
           <PostDetails post={props.post} />
           {props.trigger.comment && <AddComment post={props.post} />}
-          {props.trigger.modal & !props.trigger.comment && <DisplayComment comments={props.post.comments} />}
+          {props.trigger.modal & !props.trigger.comment && <DisplayComment comments={props.post.comments} id={props.user.id} />}
         </div>
       </div>
     </div>
@@ -20,6 +20,7 @@ const PostModal = (props) => {
 }
 
 const mapStateToProps = state => ({
+  user: state.user,
   trigger: state.trigger
 })
 

@@ -424,6 +424,7 @@ body {
 .postMainWrapper {
   background: var(--brightWhite);
   cursor: pointer;
+  margin-bottom: 12px;
 }
 
 .postMainWrapper:hover {
@@ -528,7 +529,6 @@ body {
   padding: 10px;
   border-top: 1px solid var(--lightGray);
   box-sizing: border-box;
-  margin-bottom: 12px;
 }
 
 .postLikes, .postComment {
@@ -780,30 +780,35 @@ body {
   font-weight: 700;
 }
 
-.addCommentWrapper {
+.modalWrapper {
   position: fixed;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   width: 100vw;
-  height: 100vh;
+  background: rgba(0, 0, 0, .7);
   z-index: 50;
-  overflow: auto;
 }
 
-.addCommentBlackout {
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, .7);
-  height: 100%;
+.modalWindowWrapper {
+  position: relative;
   width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
-  z-index: 50;
+  overflow-y: auto;
 }
 
-.addCommentWindow {
-  margin-top: 10vh;
+.modalWindow:after {
+  content: "";
+  display: block;
+  height: 100px;
+  width: 100%
+}
+
+.modalWindow {
+  margin: 10vh 0;
   width: 600px;
 }
 
@@ -867,4 +872,13 @@ body {
 
 .commentButton {
   margin-right: 0;
+}
+
+.commentsWrapper {
+  width: 100%;
+}
+
+.commentsMainWrapper {
+  background: var(--brightWhite);
+  cursor: pointer;
 }

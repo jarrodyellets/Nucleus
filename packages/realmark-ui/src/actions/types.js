@@ -11,3 +11,4 @@ export const FOLLOW = 'FOLLOW';
 export const LIKE = 'LIKE';
 export const COMMENT = 'COMMENT';
 export const TRIGGER_COMMENT = 'TRIGGER_COMMENT';
+export const TRIGGER_MODAL = 'TRIGGER_MODAL';
