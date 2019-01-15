@@ -37,7 +37,8 @@ exports.create = {
       lastName: user[0].lastName,
       username: user[0].userName,
       imageURL: user[0].imageURL,
-      id: request.auth.artifacts.id
+      id: request.auth.artifacts.id,
+      path: [id + date]
     }
     await posts.unshift(newPost);
     await timeline.unshift(newPost);
