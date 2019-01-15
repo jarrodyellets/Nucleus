@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Post from './post';
+import LikesContainer from './likesContainer';
 import { triggerComment } from '../actions/triggerComment';
 
 class PostDetails extends Component {
@@ -28,6 +29,7 @@ class PostDetails extends Component {
         </div>
         <div className="addCommentBody">
           <Post post={this.props.post} />
+          <LikesContainer post={this.props.post} id={this.props.id} handleLike={this.handleLike} handleTrigger={this.props.handleTrigger} />
         </div>
       </div>
     )

@@ -39,21 +39,25 @@ exports.create = {
     const posts = user[0].posts;
     const date = Date.now();
     const post = await posts.findIndex(post => post.postID == request.params.postId);
+    let path = [...posts[post].path];
+    await path.push(author[0].id + date);
     await posts[post].comments.push({
       date,
       author: author[0].id,
-      comment: request.payload.comment,
-      commentId: author[0].id + date,
+      post: request.payload.comment,
+      postID: author[0].id + date,
       comments: [],
       likes: [],
       firstName: author[0].firstName,
       lastName: author[0].lastName,
       username: author[0].userName,
       imageURL: author[0].imageURL,
-      id: request.auth.artifacts.id
+      id: user[0].id,
+      path
     });
     await client.users.update({id: request.params.userId, posts});
     user = await client.users.query({id: request.params.userId})
+    await console.log(user[0].posts);
     const timeline = await createTimeline(request.auth.credentials.id);
     return {
       posts: user[0].posts, timeline

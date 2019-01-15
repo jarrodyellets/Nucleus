@@ -412,6 +412,10 @@ body {
   margin-left: auto;
 }
 
+.selectedPost {
+  font-size: 1.3em;
+}
+
 .noScroll {
   overflow: hidden;
   margin-right: 17px;
@@ -494,6 +498,7 @@ body {
 
 .likesWrapper {
   width: 100%;
+  background: var(--brightWhite);
 }
 
 .likesInnerWrapper {
@@ -811,12 +816,25 @@ body {
   width: 600px;
 }
 
+.modalFooter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background: #F1F2F2;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top: 1px solid var(--lightGray);
+  padding: 12px;
+  box-sizing: border-box;
+}
+
 .addCommentHeader {
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  background: var(--brightWhite);
+  background: #F1F2F2;
   border-bottom: 1px solid var(--lightGray);
   font-size: 1.2em;
   font-weight: 700;
@@ -875,6 +893,7 @@ body {
 
 .commentsWrapper {
   width: 100%;
+  background: var(--brightWhite);
 }
 
 .commentsMainWrapper {

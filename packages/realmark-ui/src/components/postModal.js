@@ -5,7 +5,6 @@ import AddComment from './addComment';
 import DisplayComment from './displayComment';
 
 const PostModal = (props) => {
-  console.log(props.post);
   return (
     <div className="modalWrapper">
       <div className="modalWindowWrapper">
@@ -13,6 +12,9 @@ const PostModal = (props) => {
           <PostDetails post={props.post} />
           {props.trigger.comment && <AddComment post={props.post} />}
           {props.trigger.modal & !props.trigger.comment && <DisplayComment comments={props.post.comments} id={props.user.id} />}
+          {props.trigger.modal & !props.trigger.comment && <div className="modalFooter">
+            <img className="navLogo" alt="logo" src="https://www.jarrodyellets.com/images/BlogHubLogo.png"/>
+          </div>}
         </div>
       </div>
     </div>

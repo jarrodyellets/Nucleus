@@ -11,7 +11,11 @@ exports.create = {
     let user = await client.users.query({id: request.params.userId});
     const posts = user[0].posts;
     const postIndex = await posts.findIndex(x => x.postID == request.params.postId);
-    await posts[postIndex].likes.push(request.auth.credentials.id);
+    if (await postIndex === -1){
+      console.log(false)
+    } else {
+      await posts[postIndex].likes.push(request.auth.credentials.id);
+    }
     await client.users.update({id: request.params.userId, posts})
     user = await client.users.query({id: request.params.userId})
     const timeline = await createTimeline(request.auth.credentials.id);
