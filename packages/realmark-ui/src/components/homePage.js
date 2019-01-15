@@ -44,7 +44,6 @@ class HomePage extends Component {
   }
 
   render(){
-    console.log(this.props.trigger.modal);
     return (
       <div> 
         <div className="mainWrapper">

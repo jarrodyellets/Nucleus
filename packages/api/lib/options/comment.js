@@ -43,14 +43,14 @@ exports.create = {
       date,
       author: author[0].id,
       comment: request.payload.comment,
-      commentId: author[0].id + date,
+      postID: author[0].id + date,
       comments: [],
       likes: [],
       firstName: author[0].firstName,
       lastName: author[0].lastName,
       username: author[0].userName,
       imageURL: author[0].imageURL,
-      id: request.auth.artifacts.id
+      id: user[0].id
     });
     await client.users.update({id: request.params.userId, posts});
     user = await client.users.query({id: request.params.userId})

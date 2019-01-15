@@ -4,15 +4,9 @@ import LikesContainer from './likesContainer';
 
 
 class Posts extends Component {
-  constructor(props){
-    super(props);
 
-
-
-  }
 
   render(){
-    console.log(this.props.posts);
     const posts = this.props.posts.sort(function(a, b){
       return b.date - a.date
     });
