@@ -410,10 +410,11 @@ body {
   position: relative;
   width: calc(73% - 10px);
   margin-left: auto;
+  cursor: pointer;
 }
 
-.selectedPost {
-  font-size: 1.3em;
+.postWrapper:hover {
+  background: #f5f8fa;
 }
 
 .noScroll {
@@ -427,12 +428,7 @@ body {
 
 .postMainWrapper {
   background: var(--brightWhite);
-  cursor: pointer;
   margin-bottom: 12px;
-}
-
-.postMainWrapper:hover {
-  background: #f5f8fa;
 }
 
 .postMainWrapper:hover > .postWrapper {
@@ -479,6 +475,11 @@ body {
   font-size: 1.1em;
 }
 
+.postHeadingSelectedTextFullName {
+  font-weight: 700;
+  font-size: 1.3em;
+}
+
 .postHeadingTextUserName {
   color: var(--gray);;
   font-size: .9em;
@@ -494,6 +495,13 @@ body {
   white-space: pre-wrap;
   width: 100%;
   overflow-x: auto;
+}
+
+.postSelectedText {
+  font-size: 1.5em;
+  white-space: pre-wrap;
+  overflow-x: auto;
+  width: 100%;
 }
 
 .likesWrapper {
@@ -821,7 +829,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 50px;
-  background: #F1F2F2;
+  background: var(--white);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   border-top: 1px solid var(--lightGray);
@@ -834,7 +842,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #F1F2F2;
+  background: var(--white);
   border-bottom: 1px solid var(--lightGray);
   font-size: 1.2em;
   font-weight: 700;
