@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logOut } from '../actions/logoutAction';
-import { addLike } from '../actions/likeAction';
+import { addLike, disLike } from '../actions/likeAction';
 import { triggerComment } from '../actions/triggerComment';
 import { triggerModal } from '../actions/triggerModal';
 import { selectedPost } from '../actions/selectedPost';
@@ -20,12 +20,19 @@ class HomePage extends Component {
     this.handleTrigger = this.handleTrigger.bind(this);
     this.handleModal = this.handleModal.bind(this);
     this.handleSelectedPost = this.handleSelectedPost.bind(this);
+    this.handleDislike = this.handleDislike.bind(this);
 
   }
 
-  handleLike(event, userID, postID){
+  handleLike(event, userID, postID, path){
+    console.log(path);
     event.stopPropagation();
-    this.props.addLike(userID, postID);
+    this.props.addLike(userID, postID, path);
+  }
+
+  handleDislike(event, userID, postID, path){
+    event.stopPropagation();
+    this.props.disLike(userID, postID, path);
   }
 
   handleTrigger(event, trigger, post){
@@ -57,7 +64,7 @@ class HomePage extends Component {
             <ProfileCard user={this.props.user} />
             <EditContainer />
           </div>
-          <Posts posts={this.props.user.timeline} id={this.props.user.id} handleLike={this.handleLike} handleTrigger={this.handleTrigger} handleModal={this.handleModal} handleSelectedPost={this.handleSelectedPost}/>
+          <Posts posts={this.props.user.timeline} id={this.props.user.id} handleLike={this.handleLike} handleDislike={this.handleDislike} handleTrigger={this.handleTrigger} handleModal={this.handleModal} handleSelectedPost={this.handleSelectedPost}/>
         </div>
         {this.props.trigger.modal && <PostModal post={this.props.trigger.currentPost} />}
       </div>
@@ -70,4 +77,4 @@ const mapStateToProps = state => ({
   trigger: state.trigger
 })
 
-export default connect(mapStateToProps, {logOut, addLike, triggerComment, triggerModal, selectedPost})(HomePage);
+export default connect(mapStateToProps, {logOut, addLike, disLike, triggerComment, triggerModal, selectedPost})(HomePage);

@@ -4,7 +4,6 @@ import CodeBlock from './markdown-render/codeblock';
 import CodeInline from './markdown-render/codeinline';
 
 const Comment = (props) => {
-  console.log(props);
   const now = Date.now();
   let difference = now - props.comment.date;
   const minDifference = Math.floor(difference/1000/60);

@@ -4,13 +4,21 @@ import Post from './post';
 import LikesContainer from './likesContainer';
 import { triggerComment } from '../actions/triggerComment';
 import { selectedPost } from '../actions/selectedPost';
+import { addLike } from '../actions/likeAction';
 
 class PostDetails extends Component {
   constructor(props){
     super(props);
 
     this.handleClose = this.handleClose.bind(this);
+    this.handleLike = this.handleLike.bind(this);
 
+  }
+
+  handleLike(event, userID, postID, path){
+    console.log(path);
+    event.stopPropagation();
+    this.props.addLike(userID, postID, path);
   }
 
   handleClose(){
@@ -31,7 +39,7 @@ class PostDetails extends Component {
         </div>
         <div className="addCommentBody">
           <Post post={this.props.post} selectedPost={this.props.trigger.selectedPost} />
-          <LikesContainer post={this.props.post} id={this.props.id} handleLike={this.handleLike} handleTrigger={this.props.handleTrigger} />
+          <LikesContainer post={this.props.post} id={this.props.user.id} handleLike={this.handleLike} handleTrigger={this.props.handleTrigger} />
         </div>
       </div>
     )
@@ -43,4 +51,4 @@ const mapStateToProps = state => ({
   trigger: state.trigger
 })
 
-export default connect(mapStateToProps, {triggerComment, selectedPost})(PostDetails);
+export default connect(mapStateToProps, {triggerComment, selectedPost, addLike})(PostDetails);

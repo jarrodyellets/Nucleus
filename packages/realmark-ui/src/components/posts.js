@@ -15,7 +15,7 @@ class Posts extends Component {
       return (
         <div className="postMainWrapper" key={this.props.id} onClick={() => {this.props.handleModal(true, post); this.props.handleSelectedPost(post.postID)}}>
           <Post post={post} key={post.id} id={this.props.id} handleLike={this.props.handleLike} handleTrigger={this.props.handleTrigger} selectedPost={this.props.trigger.selectedPost}/>
-          <LikesContainer post={post} key={post.id} id={this.props.id} handleLike={this.props.handleLike} handleTrigger={this.props.handleTrigger} />
+          <LikesContainer post={post} key={post.id} id={this.props.id} handleLike={this.props.handleLike} handleDislike={this.props.handleDislike} handleTrigger={this.props.handleTrigger} />
         </div>
       )
     })
