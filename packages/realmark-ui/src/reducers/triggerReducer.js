@@ -1,4 +1,4 @@
-import { TRIGGER_COMMENT, TRIGGER_MODAL, SELECTED_POST } from '../actions/types';
+import { TRIGGER_COMMENT, TRIGGER_MODAL, SELECTED_POST, LIKE } from '../actions/types';
 
 const initialState ={
   comment: false,
@@ -27,6 +27,11 @@ export default function(state = initialState, action){
       return {
         ...state,
         selectedPost: action.payload
+      }
+    case LIKE:
+      return {
+        ...state,
+        currentPost: action.payload.post
       }
       default :
         return state;

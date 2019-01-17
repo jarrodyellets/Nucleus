@@ -25,7 +25,6 @@ class HomePage extends Component {
   }
 
   handleLike(event, userID, postID, path){
-    console.log(path);
     event.stopPropagation();
     this.props.addLike(userID, postID, path);
   }
@@ -57,6 +56,7 @@ class HomePage extends Component {
   }
 
   render(){
+    console.log(this.props.trigger.currentPost);
     return (
       <div> 
         <div className="mainWrapper">

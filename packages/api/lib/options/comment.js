@@ -60,7 +60,7 @@ exports.create = {
     await console.log(user[0].posts);
     const timeline = await createTimeline(request.auth.credentials.id);
     return {
-      posts: user[0].posts, timeline
+      posts: user[0].posts, post: user[0].posts[post], timeline
     };
   },
   validate: {

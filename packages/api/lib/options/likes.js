@@ -20,7 +20,8 @@ exports.create = {
     user = await client.users.query({id: request.params.userId})
     const timeline = await createTimeline(request.auth.credentials.id);
     return {
-      posts: user[0].posts, timeline};
+      posts: user[0].posts, post: user[0].posts[postIndex], timeline
+    };
   }
 }
 
@@ -36,7 +37,7 @@ exports.delete = {
     user = await client.users.query({id: request.params.userID});
     const timeline = await createTimeline(request.auth.credentials.id);
     return {
-      posts: user[0].posts, timeline
+      posts: user[0].posts, post: user[0].posts[postIndex], timeline
     };
   }
 }
