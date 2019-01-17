@@ -56,7 +56,6 @@ class HomePage extends Component {
   }
 
   render(){
-    console.log(this.props.trigger.currentPost);
     return (
       <div> 
         <div className="mainWrapper">

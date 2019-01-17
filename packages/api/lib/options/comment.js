@@ -57,7 +57,6 @@ exports.create = {
     });
     await client.users.update({id: request.params.userId, posts});
     user = await client.users.query({id: request.params.userId})
-    await console.log(user[0].posts);
     const timeline = await createTimeline(request.auth.credentials.id);
     return {
       posts: user[0].posts, post: user[0].posts[post], timeline
