@@ -12,9 +12,9 @@ class DisplayComment extends Component {
 
   }
 
-  handleLike(event, userID, postID){
+  handleLike(event, userID, postID, path){
     event.stopPropagation();
-    this.props.addLike(userID, postID);
+    this.props.addLike(userID, postID, path);
   }
 
   render(){
@@ -25,7 +25,7 @@ class DisplayComment extends Component {
       return (
         <div className="commentsMainWrapper" key={this.props.id} onClick={() => {this.props.handleModal(true, comment)}}>
           <Comment comment={comment} handleLike={this.props.handleLike} handleTrigger={this.props.handleTrigger} />
-          <LikesContainer post={comment} id={this.props.id} handleLike={this.handleLike} handleTrigger={this.props.handleTrigger} />
+          <LikesContainer post={comment} id={this.props.user.id} handleLike={this.handleLike} handleTrigger={this.props.handleTrigger} />
         </div>
       )
     })
@@ -37,4 +37,8 @@ class DisplayComment extends Component {
   }
 }
 
-export default connect(null, {addLike})(DisplayComment);
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps, {addLike})(DisplayComment);
