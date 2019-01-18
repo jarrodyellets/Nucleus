@@ -1,7 +1,7 @@
 'use strict';
 
 const { returnClient } = require('../client');
-const { createTimeline } = require('../helpers');
+const { createTimeline, findComment } = require('../helpers');
 
 const internals = {};
 
@@ -14,12 +14,7 @@ exports.create = {
     let postIndex = await posts.findIndex(x => x.postID == request.params.postId);
     const parentPost = await posts.findIndex(p => p.postID == path[0]);
     if (await postIndex === -1){
-      let comment = posts[0].comments;
-      for(let i = 1; i < path.length; i++){
-        let commentID = path[i];
-        postIndex = await comment.findIndex(y => y.postID == commentID);
-        comment = comment[postIndex];
-      }
+      let comment = await findComment(posts, path);
       await comment.likes.push(request.auth.credentials.id);
     } else {
       await posts[postIndex].likes.push(request.auth.credentials.id);

@@ -4,6 +4,7 @@ import Comment from './comment';
 import LikesContainer from './likesContainer';
 import { addLike } from '../actions/likeAction';
 
+
 class DisplayComment extends Component {
   constructor(props){
     super(props);
@@ -17,6 +18,8 @@ class DisplayComment extends Component {
     this.props.addLike(userID, postID, path);
   }
 
+
+
   render(){
     const comments = this.props.comments.sort(function(a, b){
       return a.date - b.date
@@ -24,7 +27,7 @@ class DisplayComment extends Component {
     const comment = comments.map((comment, i) => {
       return (
         <div className="commentsMainWrapper" key={this.props.id} onClick={() => {this.props.handleModal(true, comment)}}>
-          <Comment comment={comment} handleLike={this.props.handleLike} handleTrigger={this.props.handleTrigger} />
+          <Comment comment={comment} handleLike={this.props.handleLike} currentPost={this.props.currentPost} handleTrigger={this.props.handleTrigger} handleSearch={this.props.handleSearch} />
           <LikesContainer post={comment} id={this.props.user.id} handleLike={this.handleLike} handleTrigger={this.props.handleTrigger} />
         </div>
       )
@@ -38,7 +41,8 @@ class DisplayComment extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  currentPost: state.trigger.currentPost
 })
 
 export default connect(mapStateToProps, {addLike})(DisplayComment);

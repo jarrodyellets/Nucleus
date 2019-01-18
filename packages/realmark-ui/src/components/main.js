@@ -58,9 +58,9 @@ class App extends Component {
           <Route path='/home' render={(props) => <HomePage {...props} />} />
           <Route path='/post' render={(props) => <NewPost {...props} user={this.props.user} />} />
           <Route path='/search' component={Search} />
-          <Route path='/user' render={(props) => <UserProfile {...props} user={this.props.currentUser} id={this.props.user.id} trigger={this.props.trigger} />} />
+          <Route path='/user' render={(props) => <UserProfile {...props} user={this.props.currentUser} id={this.props.user.id} trigger={this.props.trigger} reload={false} />} />
           <Route path='/explore' component={Explore} />
-          <Route path='/myprofile' render={(props) => <UserProfile {...props} user={this.props.currentUser} id={this.props.user.id} trigger={this.props.trigger} />} />
+          <Route path='/myprofile' onClick={this.forceUpdate} render={(props) => <UserProfile {...props} user={this.props.user} id={this.props.user.id} trigger={this.props.trigger} reload={true} />} />
         </Switch>
       </div>
     );
