@@ -57,9 +57,10 @@ exports.create = {
     });
     await client.users.update({id: request.params.userId, posts});
     user = await client.users.query({id: request.params.userId})
+    const signedUser = await client.users.query({id: request.auth.credentials.id})
     const timeline = await createTimeline(request.auth.credentials.id);
     return {
-      posts: user[0].posts, post: user[0].posts[post], timeline
+      posts: user[0].posts, post: user[0].posts[post], signedPosts: signedUser[0].posts, timeline
     };
   },
   validate: {

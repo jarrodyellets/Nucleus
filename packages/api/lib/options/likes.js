@@ -21,9 +21,10 @@ exports.create = {
     }
     await client.users.update({id: request.params.userId, posts})
     user = await client.users.query({id: request.params.userId})
+    const signedUser = await client.users.query({id: request.auth.credentials.id})
     const timeline = await createTimeline(request.auth.credentials.id);
     return {
-      posts: user[0].posts, post: user[0].posts[parentPost], timeline
+      posts: user[0].posts, post: user[0].posts[parentPost], signedPosts: signedUser[0].posts, timeline
     };
   }
 }
@@ -38,9 +39,10 @@ exports.delete = {
     await posts[postIndex].likes.splice(likeIndex, 1);
     await client.users.update({id: request.params.userId, posts});
     user = await client.users.query({id: request.params.userID});
+    const signedUser = await client.users.query({id: request.auth.credentials.id})
     const timeline = await createTimeline(request.auth.credentials.id);
     return {
-      posts: user[0].posts, post: user[0].posts[postIndex], timeline
+      posts: user[0].posts, post: user[0].posts[postIndex], signedPosts: signedUser[0].posts, timeline
     };
   }
 }

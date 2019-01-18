@@ -78,8 +78,7 @@ class UserProfile extends Component {
             <ProfileCard user={this.props.user} />
             {this.props.location.pathname === '/myprofile' && <EditContainer />}
           </div>
-          {this.props.reload && <Posts posts={this.props.user.posts} id={this.props.id} handleLike={this.handleLike} handleDislike={this.handleDislike} handleTrigger={this.handleTrigger} handleModal={this.handleModal} handleSelectedPost={this.handleSelectedPost}/>}
-          {!this.props.reload && <Posts reload={false} posts={this.props.user.posts} id={this.props.id} handleLike={this.handleLike} handleDislike={this.handleDislike} handleTrigger={this.handleTrigger} handleModal={this.handleModal} handleSelectedPost={this.handleSelectedPost}/>}
+          <Posts reload={this.props.reload} posts={this.props.user.posts} id={this.props.id} handleLike={this.handleLike} handleDislike={this.handleDislike} handleTrigger={this.handleTrigger} handleModal={this.handleModal} handleSelectedPost={this.handleSelectedPost}/>
         </div>
         {this.props.trigger.modal && <PostModal post={this.props.trigger.currentPost} />}
       </div>
