@@ -8,6 +8,7 @@
   --red: #e0245e;
   --gray: #535961;
   --lightGray: #ccc;
+  --linkBlue: #41abeb;
 }
 
 * {
@@ -921,6 +922,14 @@ body {
 .commentTextReplyTo {
   font-size: 1em;
   color: var(--gray);
+}
+
+.commentReplyUsername {
+  color: var(--linkBlue);
+}
+
+.commentReplyUsername:hover {
+  text-decoration: underline;
 }
 
 .commentButton {

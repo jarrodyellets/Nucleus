@@ -18,7 +18,7 @@ const Comment = (props) => {
             <div className="commentHeadingTextUserName">@{props.comment.username}</div>
             <div className="commentHeadingTextTime">{minDifference}m</div>
           </div>
-          <div className="commentTextReplyTo">Replying to @{props.currentPost.username}</div>
+          <div className="commentTextReplyTo">Replying to <span className="commentReplyUsername" onClick={() => {props.handleSearch(props.currentPost.username)}}>@{props.currentPost.username}</span></div>
         </div>
       </div>
       <div className="postTextWrapper">
