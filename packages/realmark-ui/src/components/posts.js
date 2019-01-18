@@ -6,7 +6,6 @@ import LikesContainer from './likesContainer';
 
 class Posts extends Component {
 
-
   render(){
     const posts = this.props.posts.sort(function(a, b){
       return b.date - a.date
