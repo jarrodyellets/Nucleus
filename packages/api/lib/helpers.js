@@ -21,3 +21,13 @@ exports.createTimeline = async (id) => {
   user = await client.users.query({id});
   return user[0].timeline
 }
+
+exports.findComment = async (posts, path) => {
+  let comment = posts[0].comments;
+  for(let i = 1; i < path.length; i++){
+    let commentID = path[i];
+    const postIndex = await comment.findIndex(y => y.postID == commentID);
+    comment = comment[postIndex];
+  }
+  return comment;
+}
