@@ -17,7 +17,9 @@ class AddComment extends Component {
   }
 
   handleComment(){
-    this.props.addComment(this.props.post.id, this.props.post.postID, this.state)
+    const post = this.props.post
+    console.log(post);
+    this.props.addComment(post.id, post.postID, this.state.comment, post.path)
     .then(() => {
       this.handleClose();
       this.setState({

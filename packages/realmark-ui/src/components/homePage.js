@@ -82,7 +82,7 @@ class HomePage extends Component {
           </div>
           <Posts posts={this.props.posts} id={this.props.id} handleLike={this.handleLike} handleDislike={this.handleDislike} handleTrigger={this.handleTrigger} handleModal={this.handleModal} handleSelectedPost={this.handleSelectedPost}/>
         </div>
-        {this.props.trigger.modal && <PostModal post={this.props.trigger.currentPost} handleSearch={this.handleSearch} />}
+        {this.props.trigger.modal && <PostModal post={this.props.trigger.currentPost} handleSearch={this.handleSearch} handleTrigger={this.handleTrigger} handleModal={this.handleModal}/>}
       </div>
     )
   }

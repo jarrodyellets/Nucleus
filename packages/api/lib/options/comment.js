@@ -1,7 +1,7 @@
 'use strict';
 
 const { returnClient } = require('../client');
-const { createTimeline } = require('../helpers');
+const { createTimeline, findComment } = require('../helpers');
 const Joi = require('joi')
 
 const internals = {
@@ -33,15 +33,14 @@ exports.get = {
 
 exports.create = {
   handler: async (request, h) => {
+    console.log(request.payload.comment);
     const client = returnClient();
     const author = await client.users.query({id: request.auth.credentials.id});
     let user = await client.users.query({id: request.params.userId});
     const posts = user[0].posts;
     const date = Date.now();
-    const post = await posts.findIndex(post => post.postID == request.params.postId);
-    let path = [...posts[post].path];
-    await path.push(author[0].id + date);
-    await posts[post].comments.push({
+    let path = request.payload.path;
+    const newComment = {
       date,
       author: author[0].id,
       post: request.payload.comment,
@@ -54,20 +53,28 @@ exports.create = {
       imageURL: author[0].imageURL,
       id: user[0].id,
       path
-    });
-    await client.users.update({id: request.params.userId, posts});
+    }
+    const postIndex = await posts.findIndex(post => post.postID == request.params.postId);
+    if (await postIndex === -1){
+      let comment = await findComment(posts, path);
+      await comment.comments.push(newComment);
+    } else {
+      await posts[postIndex].comments.push(newComment);
+    }
+    await path.push(author[0].id + date);
+    await client.users.update({id: request.params.userId, posts, path});
     user = await client.users.query({id: request.params.userId})
     const signedUser = await client.users.query({id: request.auth.credentials.id})
     const timeline = await createTimeline(request.auth.credentials.id);
     return {
-      posts: user[0].posts, post: user[0].posts[post], signedPosts: signedUser[0].posts, timeline
+      posts: user[0].posts, post: user[0].posts[postIndex], signedPosts: signedUser[0].posts, timeline
     };
   },
-  validate: {
-    payload: {
-      comment: internals.schema.comments
-    }
-  }
+  // validate: {
+  //   payload: {
+  //     comment: internals.schema.comments
+  //   }
+  // }
 }
 
 exports.update = {

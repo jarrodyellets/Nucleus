@@ -17,7 +17,8 @@ class CodeBlock extends Component {
           background: '#e6ecf0',
           width: '100%',
           margin: '10px 0',
-          boxSizing: 'border-box'
+          boxSizing: 'border-box',
+          fontSize: '14px'
         }}
         language={language}
       >
