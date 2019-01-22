@@ -26,7 +26,7 @@ class DisplayComment extends Component {
     });
     const comment = comments.map((comment, i) => {
       return (
-        <div className="commentsMainWrapper" key={this.props.id} onClick={() => {this.props.handleModal(true, comment)}}>
+        <div className="commentsMainWrapper" key={this.props.id} onClick={() => {this.props.handleModal(true, comment); this.props.handleSelectedPost(comment.postID)}}>
           <Comment comment={comment} handleLike={this.props.handleLike} currentPost={this.props.currentPost} handleTrigger={this.props.handleTrigger} handleSearch={this.props.handleSearch} />
           <LikesContainer post={comment} id={this.props.user.id} handleLike={this.handleLike} handleTrigger={this.props.handleTrigger} />
         </div>
