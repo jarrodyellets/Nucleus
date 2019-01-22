@@ -80,18 +80,16 @@ class HomePage extends Component {
             <ProfileCard user={this.props.user} />
             <EditContainer />
           </div>
-          <Posts posts={this.props.user.timeline} id={this.props.user.id} handleLike={this.handleLike} handleDislike={this.handleDislike} handleTrigger={this.handleTrigger} handleModal={this.handleModal} handleSelectedPost={this.handleSelectedPost}/>
+          <Posts posts={this.props.posts} id={this.props.id} handleLike={this.handleLike} handleDislike={this.handleDislike} handleTrigger={this.handleTrigger} handleModal={this.handleModal} handleSelectedPost={this.handleSelectedPost}/>
         </div>
-        {this.props.trigger.modal && <PostModal post={this.props.trigger.currentPost} handleSearch={this.handleSearch} />}
+        {this.props.trigger.modal && <PostModal handleSelectedPost={this.handleSelectedPost} post={this.props.trigger.currentPost} handleSearch={this.handleSearch} handleTrigger={this.handleTrigger} handleModal={this.handleModal}/>}
       </div>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  user: state.user,
   trigger: state.trigger,
-  currentUser: state.currentUser
 })
 
 export default connect(mapStateToProps, {logOut, addLike, disLike, triggerComment, triggerModal, selectedPost, searchUser})(HomePage);

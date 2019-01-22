@@ -100,7 +100,8 @@ export default function(state = initialState, action){
       case LIKE:
         return {
           ...state,
-          timeline: action.payload.timeline
+          timeline: action.payload.timeline,
+          posts: action.payload.signedPosts
         };
       case USERERROR:
         return {

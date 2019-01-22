@@ -32,7 +32,7 @@ class newPost extends Component {
     return (
       <div className="newPostWrapper">
         <div className="newPostInnerWrapper">
-          <HomePage />
+          <HomePage user={this.props.user} id={this.props.user.id} posts={this.props.user.timeline} />
         </div>
         <div className="newPostBlackoutWrapper">
           <div className="newPostTextWindow">

@@ -7,7 +7,6 @@ const Comment = (props) => {
   const now = Date.now();
   let difference = now - props.comment.date;
   const minDifference = Math.floor(difference/1000/60);
-  console.log(props);
   return (
     <div className="postWrapper">
       <div className="postHeadingWrapper">
