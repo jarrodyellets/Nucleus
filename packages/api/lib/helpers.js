@@ -24,10 +24,13 @@ exports.createTimeline = async (id) => {
 
 exports.findComment = async (posts, path) => {
   let comment = posts[0].comments;
+  let post
+  console.log(comment)
   for(let i = 1; i < path.length; i++){
     let commentID = path[i];
     const postIndex = await comment.findIndex(y => y.postID == commentID);
-    comment = comment[postIndex];
+    post = comment[postIndex]
+    comment = comment[postIndex].comments;
   }
-  return comment;
+  return post;
 }

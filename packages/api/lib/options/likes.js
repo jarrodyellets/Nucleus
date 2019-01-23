@@ -15,6 +15,7 @@ exports.create = {
     const parentPost = await posts.findIndex(p => p.postID == path[0]);
     if (await postIndex === -1){
       let comment = await findComment(posts, path);
+      await console.log(comment);
       await comment.likes.push(request.auth.credentials.id);
     } else {
       await posts[postIndex].likes.push(request.auth.credentials.id);
