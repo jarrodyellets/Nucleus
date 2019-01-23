@@ -36,15 +36,16 @@ class PostDetails extends Component {
   }
 
   render(){
+    console.log(this.props.trigger);
     return (
       <div>
         <div className="addCommentHeader">
-          <div className="addCommentHeaderText">{this.props.trigger.comment && 'Reply to ' + this.props.post.firstName + ' ' + this.props.post.lastName} </div>
+          <div className="addCommentHeaderText">{this.props.trigger.comment && 'Reply to ' + this.props.trigger.currentPost.firstName + ' ' + this.props.trigger.currentPost.lastName} </div>
           <div className="addCommentClose"><i className="fas fa-times" onClick={this.handleClose}></i></div>
         </div>
         <div className="addCommentBody">
-          <Post post={this.props.post} selectedPost={this.props.trigger.selectedPost} />
-          <LikesContainer post={this.props.post} id={this.props.user.id} handleDislike={this.handleDislike} handleLike={this.handleLike} handleTrigger={this.props.handleTrigger} />
+          <Post post={this.props.trigger.currentPost} selectedPost={this.props.trigger.selectedPost} />
+          <LikesContainer post={this.props.trigger.currentPost} id={this.props.user.id} handleDislike={this.handleDislike} handleLike={this.handleLike} handleTrigger={this.props.handleTrigger} />
         </div>
       </div>
     )
