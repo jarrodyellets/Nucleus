@@ -13,8 +13,8 @@ export default function(state = initialState, action){
     case TRIGGER_COMMENT:
       return {
         ...state,
-        comment: action.payload.trigger,
-        modal: action.payload.trigger,
+        comment: action.payload.comment,
+        modal: action.payload.modal,
         currentPost: action.payload.post
       };
     case TRIGGER_MODAL:

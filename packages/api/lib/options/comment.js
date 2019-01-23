@@ -33,13 +33,14 @@ exports.get = {
 
 exports.create = {
   handler: async (request, h) => {
-    console.log(request.payload.comment);
     const client = returnClient();
     const author = await client.users.query({id: request.auth.credentials.id});
     let user = await client.users.query({id: request.params.userId});
     const posts = user[0].posts;
     const date = Date.now();
     let path = request.payload.path;
+    let comment;
+    const parentPost = await posts.findIndex(p => p.postID == path[0]);
     const newComment = {
       date,
       author: author[0].id,
@@ -56,9 +57,10 @@ exports.create = {
     }
     const postIndex = await posts.findIndex(post => post.postID == request.params.postId);
     if (await postIndex === -1){
-      let comment = await findComment(posts, path);
+      comment = await findComment(posts, path);
       await comment.comments.push(newComment);
     } else {
+      comment = await user[0].posts[parentPost]
       await posts[postIndex].comments.push(newComment);
     }
     await path.push(author[0].id + date);
@@ -67,7 +69,7 @@ exports.create = {
     const signedUser = await client.users.query({id: request.auth.credentials.id})
     const timeline = await createTimeline(request.auth.credentials.id);
     return {
-      posts: user[0].posts, post: user[0].posts[postIndex], signedPosts: signedUser[0].posts, timeline
+      posts: user[0].posts, post: comment, signedPosts: signedUser[0].posts, timeline
     };
   },
   // validate: {

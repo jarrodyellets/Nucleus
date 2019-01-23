@@ -1,8 +1,8 @@
 import { TRIGGER_COMMENT } from './types';
 
-export const triggerComment = (trigger, post) => dispatch => {
+export const triggerComment = (comment, modal, post) => dispatch => {
   dispatch({
     type: TRIGGER_COMMENT,
-    payload: {trigger, post}
+    payload: {comment, modal, post}
   });
 }

@@ -36,9 +36,9 @@ class HomePage extends Component {
     this.props.disLike(userID, postID, path);
   }
 
-  handleTrigger(event, trigger, post){
+  handleTrigger(event, comment, modal, post){
     event.stopPropagation();
-    this.props.triggerComment(trigger, post);
+    this.props.triggerComment(comment, modal, post);
     const posts = document.querySelector('html');
     const nav = document.querySelector('.navWrapper');
     posts.classList.add('noScroll');

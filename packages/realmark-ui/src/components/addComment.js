@@ -20,8 +20,8 @@ class AddComment extends Component {
     const post = this.props.post
     console.log(post);
     this.props.addComment(post.id, post.postID, this.state.comment, post.path)
-    .then(() => {
-      this.handleClose();
+    .then((e) => {
+      this.props.triggerComment(false, true, this.props.trigger.currentPost);
       this.setState({
         comment: ''
       })
@@ -62,7 +62,8 @@ class AddComment extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  trigger: state.trigger
 })
 
 export default connect(mapStateToProps, {triggerComment, addComment})(AddComment);
