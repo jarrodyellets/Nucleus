@@ -18,7 +18,6 @@ class AddComment extends Component {
 
   handleComment(){
     const post = this.props.post
-    console.log(post);
     this.props.addComment(post.id, post.postID, this.state.comment, post.path)
     .then((e) => {
       this.props.triggerComment(false, true, this.props.trigger.currentPost);

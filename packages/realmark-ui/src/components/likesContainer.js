@@ -1,6 +1,7 @@
 import React from 'react'
 
 const LikesContainer = (props) => {
+  console.log(props.post);
   return (
     <div className="likesWrapper">
       <div className="likesInnerWrapper">
