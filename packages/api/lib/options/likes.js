@@ -11,7 +11,7 @@ exports.create = {
     let user = await client.users.query({id: request.params.userId});
     let path = request.payload.path
     const posts = user[0].posts;
-    let comment
+    let comment;
     let postIndex = await posts.findIndex(x => x.postID == request.params.postId);
     const parentPost = await posts.findIndex(p => p.postID == path[0]);
     if (await postIndex === -1){
@@ -37,7 +37,7 @@ exports.delete = {
     let user = await client.users.query({id: request.params.userId});
     let path = request.payload.path
     const posts = user[0].posts;
-    let comment
+    let comment;
     let postIndex = await posts.findIndex(x => x.postID == request.params.postId);
     const parentPost = await posts.findIndex(p => p.postID == path[0]);
     if (await postIndex === -1){
