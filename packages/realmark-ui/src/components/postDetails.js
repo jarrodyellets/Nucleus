@@ -36,7 +36,6 @@ class PostDetails extends Component {
   }
 
   render(){
-    console.log(this.props.trigger);
     return (
       <div>
         <div className="addCommentHeader">

@@ -72,11 +72,12 @@ exports.create = {
       posts: user[0].posts, post: comment, signedPosts: signedUser[0].posts, timeline
     };
   },
-  // validate: {
-  //   payload: {
-  //     comment: internals.schema.comments
-  //   }
-  // }
+  validate: {
+    payload: Joi.object({
+      comment: internals.schema.comments,
+      path: Joi.array()
+    })
+  }
 }
 
 exports.update = {

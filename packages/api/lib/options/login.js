@@ -11,13 +11,13 @@ exports.login = {
     const client = returnClient();
     let { username, password } = request.payload;
     let user = await client.users.query({userName: username});
-    const timeline = await createTimeline(user[0].id)
     if(user.length < 1){
       return {login: false, error: "Invalid Username", id: null};
     } else if (!await Bcrypt.compare(password, user[0].password)){
       return {login: false, error: "Invalid Password", id: null}
     }
     request.cookieAuth.set({ id: user[0].id })
+    const timeline = await createTimeline(user[0].id)
     return {
       userName: user[0].userName,
       firstName: user[0].firstName,

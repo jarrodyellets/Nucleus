@@ -12,7 +12,6 @@ export const addComment = (id, postID, comment, path) => dispatch => {
       })
       .then(res => res.json())
       .then(data => {
-        console.log(data)
         dispatch({
           type: LIKE,
           payload: data  
