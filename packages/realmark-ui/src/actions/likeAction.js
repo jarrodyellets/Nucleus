@@ -1,6 +1,6 @@
 import { LIKE } from './types';
 
-export const addLike = (userID, postID, path, currentPost) => dispatch => {
+export const addLike = (userID, postID, path) => dispatch => {
   return new Promise((resolve, reject) => {
     fetch('http://localhost:8000/users/' + userID + '/posts/' + postID + '/likes', {
       method: 'POST',
