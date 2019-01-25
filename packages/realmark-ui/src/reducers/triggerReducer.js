@@ -5,6 +5,7 @@ const initialState ={
   currentPost: {},
   modal: false,
   post: false,
+  edit: false,
   selectedPost: ''
 }
 

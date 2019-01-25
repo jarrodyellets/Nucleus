@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { changeMember } from '../actions/memberAction';
-import { checkLogin } from '../actions/checkLogin';
-import { logOut } from '../actions/logoutAction';
+import { changeMember, checkLogin, logOut } from '../actions/userActions';
 import Splash from './splash';
 import HomePage from './homePage';
 import NewPost from './newPost';

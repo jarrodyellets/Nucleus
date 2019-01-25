@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logOut } from '../actions/logoutAction';
+import { logOut } from '../actions/userActions';
 
 class SearchPage extends Component {
   constructor(props) {

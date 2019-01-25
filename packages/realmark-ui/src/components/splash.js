@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogIn from './logIn';
 import SignUp from './signUp';
-import { signUpUser } from '../actions/signUpAction';
-import { logIn } from '../actions/loginAction';
+import { signUpUser, logIn } from '../actions/userActions';
 
 class Splash extends Component {
   constructor(props) {

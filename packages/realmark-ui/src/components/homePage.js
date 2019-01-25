@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { logOut } from '../actions/logoutAction';
+import { logOut } from '../actions/userActions';
 import { addLike, disLike } from '../actions/likeAction';
-import { triggerComment } from '../actions/triggerComment';
-import { triggerModal } from '../actions/triggerModal';
+import { triggerComment, triggerModal } from '../actions/triggerActions';
 import { selectedPost } from '../actions/selectedPost';
 import { searchUser } from '../actions/searchAction';
 import { follow, unfollow } from '../actions/followAction';

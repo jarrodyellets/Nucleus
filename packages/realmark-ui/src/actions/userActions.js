@@ -1,12 +1,12 @@
-import { SIGN_UP, USERERROR, LOG_IN, ERROR, LOG_OUT } from "./types";
+import { SIGN_UP, USERERROR, LOG_IN, ERROR, LOG_OUT, MEMBER } from './types';
 
 export const signUpUser = data => dispatch => {
   console.log(data);
   return new Promise((resolve, reject) => {
-    fetch("http://localhost:8000/users", {
-      method: "POST",
+    fetch('http://localhost:8000/users', {
+      method: 'POST',
       headers: {
-        "content-type": "application/json"
+        'content-type': 'application/json'
       },
       body: JSON.stringify(data)
     })
@@ -32,10 +32,10 @@ export const signUpUser = data => dispatch => {
 
 export const logIn = data => dispatch => {
   return new Promise((resolve, reject) => {
-    fetch("http://localhost:8000/login", {
-      method: "POST",
+    fetch('http://localhost:8000/login', {
+      method: 'POST',
       headers: {
-        "content-type": "application/json"
+        'content-type': 'application/json'
       },
       body: JSON.stringify(data)
     })
@@ -53,7 +53,7 @@ export const logIn = data => dispatch => {
           });
           dispatch({
             type: ERROR,
-            payload: ""
+            payload: ''
           });
         }
         resolve();
@@ -63,8 +63,8 @@ export const logIn = data => dispatch => {
 
 export const logOut = () => dispatch => {
   return new Promise((resolve, reject) => {
-    fetch("http://localhost:8000/logout", {
-      credentials: "include"
+    fetch('http://localhost:8000/logout', {
+      credentials: 'include'
     })
       .then(res => res.json())
       .then(data => {
@@ -74,5 +74,30 @@ export const logOut = () => dispatch => {
         });
         resolve();
       });
+  });
+};
+
+export const checkLogin = () => dispatch => {
+  return new Promise((resolve, reject) => {
+    fetch('http://localhost:8000/checklogin', {
+      credentials: 'include'
+    })
+      .then(res => res.json())
+      .then(data => {
+        if (data.login) {
+          dispatch({
+            type: LOG_IN,
+            payload: data
+          });
+        }
+        resolve();
+      });
+  });
+};
+
+export const changeMember = member => dispatch => {
+  dispatch({
+    type: MEMBER,
+    payload: member
   });
 };

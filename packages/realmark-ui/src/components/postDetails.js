@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Post from './post';
 import LikesContainer from './likesContainer';
-import { triggerComment } from '../actions/triggerComment';
+import { triggerComment } from '../actions/triggerActions';
 import { selectedPost } from '../actions/selectedPost';
 import { addLike, disLike } from '../actions/likeAction';
 

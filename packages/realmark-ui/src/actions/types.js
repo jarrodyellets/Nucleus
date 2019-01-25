@@ -12,4 +12,5 @@ export const LIKE = 'LIKE';
 export const COMMENT = 'COMMENT';
 export const TRIGGER_COMMENT = 'TRIGGER_COMMENT';
 export const TRIGGER_MODAL = 'TRIGGER_MODAL';
+export const TRIGGER_EDIT = 'TRIGGER_EDIT';
 export const SELECTED_POST = 'SELECTED_POST';
