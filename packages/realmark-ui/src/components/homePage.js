@@ -73,12 +73,14 @@ class HomePage extends Component {
   }
 
   render(){
+    console.log(this.props.location);
     return (
       <div> 
         <div className="mainWrapper">
           <div className="profileCardWrapper">
             <ProfileCard user={this.props.user} />
-            <EditContainer />
+            {this.props.location.pathname === '/home' || this.props.location.pathname === '/myprofile' ? <EditContainer class={"editButton"} text={"Edit Profile"} /> : null}
+            {this.props.location.pathname === '/user' ? this.props.signedUser.following.indexOf(this.props.user.id) === -1 ? <EditContainer class={"editButton"} text={"Follow"} /> : <EditContainer class={"editButton"} text={"Unfollow"} /> : null}
           </div>
           <Posts posts={this.props.posts} id={this.props.id} handleLike={this.handleLike} handleDislike={this.handleDislike} handleTrigger={this.handleTrigger} handleModal={this.handleModal} handleSelectedPost={this.handleSelectedPost}/>
         </div>

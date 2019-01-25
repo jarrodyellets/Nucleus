@@ -57,7 +57,7 @@ class App extends Component {
           <Route path='/home' render={(props) => <HomePage {...props} user={this.props.user} id={this.props.user.id} posts={this.props.user.timeline}/>} />
           <Route path='/post' render={(props) => <NewPost {...props} user={this.props.user} id={this.props.user.id} posts={this.props.user.timeline} />} />
           <Route path='/search' component={Search} />
-          <Route path='/user' render={(props) => <HomePage {...props} user={this.props.currentUser} id={this.props.user.id} posts={this.props.currentUser.posts} />} />
+          <Route path='/user' render={(props) => <HomePage {...props} user={this.props.currentUser} signedUser={this.props.user} id={this.props.user.id} posts={this.props.currentUser.posts} />} />
           <Route path='/explore' component={Explore} />
           <Route path='/myprofile' render={(props) => <HomePage {...props} user={this.props.user} id={this.props.user.id} posts={this.props.user.posts} />} />
         </Switch>
