@@ -948,6 +948,29 @@ body {
 }
 
 .editForm {
-  max-width: 900px;
-  margin: 50px auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.editFormLabel {
+  font-size: .9em;
+  margin-bottom: 3px;
+}
+
+.editInput {
+  background: var(--white);
+  font-size: .8em;
+  border: none;
+  border-radius: 3px;
+  height: 15px;
+  margin-bottom: 10px;
+  outline: none;
+  padding: 10px;
+}
+
+.editInput:-webkit-autofill,
+.editInput:-webkit-autofill:hover, 
+.editInput:-webkit-autofill:focus, 
+.editInput:-webkit-autofill:active  {
+    -webkit-box-shadow: 0 0 0 30px var(--white) inset !important;
 }

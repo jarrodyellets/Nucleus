@@ -94,10 +94,16 @@ class HomePage extends Component {
         <div className="mainWrapper">
           <div className="profileCardWrapper">
             {this.props.trigger.edit ? <EditProfile /> : <ProfileCard user={this.props.user} />}
-            {this.props.location.pathname === '/home' || this.props.location.pathname === '/myprofile' ? (
-              <EditContainer handle={this.handleProfile} user={this.props.user} class={'editButton'} text={'Edit Profile'} />
+            {(this.props.location.pathname === '/home') & !this.props.trigger.edit ||
+            (this.props.location.pathname === '/myprofile') & !this.props.trigger.edit ? (
+              <EditContainer
+                handle={this.handleProfile}
+                user={this.props.user}
+                class={'editButton'}
+                text={'Edit Profile'}
+              />
             ) : null}
-            {this.props.location.pathname === '/user' ? (
+            {(this.props.location.pathname === '/user') & !this.props.trigger.edit ? (
               this.props.signedUser.following.indexOf(this.props.user.id) === -1 ? (
                 <EditContainer handle={this.handleFollow} user={this.props.user} class={'editButton'} text={'Follow'} />
               ) : (

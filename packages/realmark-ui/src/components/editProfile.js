@@ -34,55 +34,55 @@ class EditProfile extends Component {
             }
           />
           <div className="profileCardInfoWrapper">
-            <div className="loginForm">
-              <label className="loginFormLabel">First Name:</label>
+            <div className="editForm">
+              <label className="editFormLabel">First Name:</label>
               <input
-                className="loginInput"
+                className="editInput"
                 type="text"
                 name="firstName"
                 value={this.state.firstName}
                 onChange={this.handleChange}
                 placeholder="Enter first name"
               />
-              <label className="loginFormLabel">Last Name:</label>
+              <label className="editFormLabel">Last Name:</label>
               <input
-                className="loginInput"
+                className="editInput"
                 type="text"
                 name="lastName"
                 value={this.state.lastName}
                 onChange={this.handleChange}
                 placeholder="Enter last name"
               />
-              <label className="loginFormLabel">Profile Image URL:</label>
+              <label className="editFormLabel">Profile Image URL:</label>
               <input
-                className="loginInput"
+                className="editInput"
                 type="text"
                 name="imageURL"
                 value={this.state.imageURL}
                 onChange={this.handleChange}
                 placeholder="Enter image URL"
               />
-              <label className="loginFormLabel">Location:</label>
+              <label className="editFormLabel">Location:</label>
               <input
-                className="loginInput"
+                className="editInput"
                 type="text"
                 name="location"
                 value={this.state.location}
                 onChange={this.handleChange}
                 placeholder="Enter location"
               />
-              <label className="loginFormLabel">Email:</label>
+              <label className="editFormLabel">Email:</label>
               <input
-                className="loginInput"
+                className="editInput"
                 type="text"
                 name="email"
                 value={this.state.email}
                 onChange={this.handleChange}
                 placeholder="Enter email"
               />
-              <label className="loginFormLabel">Username:</label>
+              <label className="editFormLabel">Username:</label>
               <input
-                className="loginInput"
+                className="editInput"
                 type="text"
                 name="username"
                 value={this.state.username}
