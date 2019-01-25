@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logOut } from '../actions/userActions';
 import { addLike, disLike } from '../actions/likeAction';
-import { triggerComment, triggerModal } from '../actions/triggerActions';
+import { triggerComment, triggerModal, triggerEdit } from '../actions/triggerActions';
 import { selectedPost } from '../actions/selectedPost';
 import { searchUser } from '../actions/searchAction';
 import { follow, unfollow } from '../actions/followAction';
@@ -10,6 +10,7 @@ import ProfileCard from './profileCard';
 import Posts from './posts';
 import EditContainer from './editContainer';
 import PostModal from './postModal';
+import EditProfile from './editProfile';
 
 class HomePage extends Component {
   constructor(props) {
@@ -84,16 +85,15 @@ class HomePage extends Component {
   }
 
   handleProfile() {
-    this.props.history.push('/editprofile')
+    this.props.triggerEdit(true);
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
         <div className="mainWrapper">
           <div className="profileCardWrapper">
-            <ProfileCard user={this.props.user} />
+            {this.props.trigger.edit ? <EditProfile /> : <ProfileCard user={this.props.user} />}
             {this.props.location.pathname === '/home' || this.props.location.pathname === '/myprofile' ? (
               <EditContainer handle={this.handleProfile} user={this.props.user} class={'editButton'} text={'Edit Profile'} />
             ) : null}
@@ -149,6 +149,7 @@ export default connect(
     selectedPost,
     searchUser,
     follow,
-    unfollow
+    unfollow,
+    triggerEdit
   }
 )(HomePage);

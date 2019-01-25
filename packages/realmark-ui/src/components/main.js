@@ -77,7 +77,6 @@ class App extends Component {
           />
           <Route path="/explore" component={Explore} />
           <Route path="/myprofile" render={props => (<HomePage {...props} user={this.props.user} id={this.props.user.id} posts={this.props.user.posts} /> )} />
-          <Route path="/editprofile" render={props => (<EditProfile {...props} />)} />
         </Switch>
       </div>
     );

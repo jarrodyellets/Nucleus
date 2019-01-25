@@ -34,31 +34,61 @@ class EditProfile extends Component {
             }
           />
           <div className="profileCardInfoWrapper">
-            <div className="profileCardFullName">
-            <input  className="loginInput" type="text" name="firstName" value={this.state.firstName} onChange={this.handleChange} placeholder="Enter First Name"/> {this.props.user.lastName}
-            </div>
-            <div className="profileCardUserName">@{this.props.user.username}</div>
-            <div className="profileCardContactWrapper">
-              <div className="profileCardContact">
-                <i className="far fa-envelope fa-icon" /> {this.props.user.email}
-              </div>
-              <div className="profileCardLocation">
-                <i className="fas fa-map-pin fa-icon" /> {this.props.user.location}
-              </div>
-            </div>
-            <div className="profileCardPostsWrapper">
-              <div className="profileCardInnerPostsWrapper">
-                <div className="profileCardHeading">Posts:</div>
-                <div className="profileCardNumbers">{this.props.user.posts.length}</div>
-              </div>
-              <div className="profileCardInnerPostsWrapper">
-                <div className="profileCardHeading">Following:</div>
-                <div className="profileCardNumbers">{this.props.user.following.length}</div>
-              </div>
-              <div className="profileCardInnerPostsWrapper">
-                <div className="profileCardHeading">Followers:</div>
-                <div className="profileCardNumbers">{this.props.user.followers.length}</div>
-              </div>
+            <div className="loginForm">
+              <label className="loginFormLabel">First Name:</label>
+              <input
+                className="loginInput"
+                type="text"
+                name="firstName"
+                value={this.state.firstName}
+                onChange={this.handleChange}
+                placeholder="Enter first name"
+              />
+              <label className="loginFormLabel">Last Name:</label>
+              <input
+                className="loginInput"
+                type="text"
+                name="lastName"
+                value={this.state.lastName}
+                onChange={this.handleChange}
+                placeholder="Enter last name"
+              />
+              <label className="loginFormLabel">Profile Image URL:</label>
+              <input
+                className="loginInput"
+                type="text"
+                name="imageURL"
+                value={this.state.imageURL}
+                onChange={this.handleChange}
+                placeholder="Enter image URL"
+              />
+              <label className="loginFormLabel">Location:</label>
+              <input
+                className="loginInput"
+                type="text"
+                name="location"
+                value={this.state.location}
+                onChange={this.handleChange}
+                placeholder="Enter location"
+              />
+              <label className="loginFormLabel">Email:</label>
+              <input
+                className="loginInput"
+                type="text"
+                name="email"
+                value={this.state.email}
+                onChange={this.handleChange}
+                placeholder="Enter email"
+              />
+              <label className="loginFormLabel">Username:</label>
+              <input
+                className="loginInput"
+                type="text"
+                name="username"
+                value={this.state.username}
+                onChange={this.handleChange}
+                placeholder="Enter username"
+              />
             </div>
           </div>
         </div>

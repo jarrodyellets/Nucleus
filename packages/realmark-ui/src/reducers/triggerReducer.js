@@ -1,4 +1,4 @@
-import { TRIGGER_COMMENT, TRIGGER_MODAL, SELECTED_POST, LIKE } from '../actions/types';
+import { TRIGGER_COMMENT, TRIGGER_MODAL, TRIGGER_EDIT, SELECTED_POST, LIKE } from '../actions/types';
 
 const initialState ={
   comment: false,
@@ -33,6 +33,11 @@ export default function(state = initialState, action){
       return {
         ...state,
         currentPost: action.payload.currentPost
+      }
+    case TRIGGER_EDIT:
+      return {
+        ...state,
+        edit: action.payload.edit
       }
       default :
         return state;
