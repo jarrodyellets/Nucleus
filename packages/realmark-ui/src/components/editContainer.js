@@ -1,11 +1,17 @@
-import React from 'react'
+import React from 'react';
 
-const EditContainer = (props) => {
+const EditContainer = props => {
   return (
-        <div className="editWrapper">
-            <button className="editButton">Edit Profile</button>
-        </div>
-  )
-}
+    <div className="editWrapper">
+      <button
+        onClick={() => {
+          props.handle(props.user.id);
+        }}
+        className={props.class}>
+        {props.text}
+      </button>
+    </div>
+  );
+};
 
 export default EditContainer;

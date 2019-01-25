@@ -8,10 +8,9 @@ const internals = {
 
 const returnClient = () => {
   return internals.client;
-}
+};
 
 const dbase = async () => {
-
   const server = await Db.server();
 
   await server.start();
@@ -23,20 +22,20 @@ const dbase = async () => {
 
   await internals.client.create();
 
-  const create = ({
+  const create = {
     id: {
       type: 'uuid'
     }
-  });
+  };
 
   await internals.client.table('users', {
     create
   });
 
   return internals.client;
-}
+};
 
 module.exports = {
   dbase,
   returnClient
-}
+};

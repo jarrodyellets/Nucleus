@@ -3,8 +3,8 @@
 const internals = {};
 
 exports.get = {
-  handler: async(request, h) => {
-    return h.redirect('/')
+  handler: async (request, h) => {
+    return h.redirect('/');
   },
   auth: false
-}
+};

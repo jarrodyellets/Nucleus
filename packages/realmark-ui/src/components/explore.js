@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ExploreUser from './exploreUser';
 import { searchUser } from '../actions/searchAction';
-import { follow } from '../actions/followAction';
-import { unfollow } from '../actions/unFollowAction';
-
+import { follow, unfollow } from '../actions/followAction';
 
 class Explore extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.handleSearch = this.handleSearch.bind(this);
@@ -15,57 +13,64 @@ class Explore extends Component {
     this.handleUnFollow = this.handleUnFollow.bind(this);
   }
 
-  handleSearch(name){
-    this.props.searchUser(name)
-    .then(() => {
-      if(this.props.currentUser.username){
+  handleSearch(name) {
+    this.props.searchUser(name).then(() => {
+      if (this.props.currentUser.username) {
         this.props.history.push('/user');
       }
-    })
+    });
   }
 
-  handleFollow(id){
-    this.props.follow(id)
-    .then(() => {
-      this.props.history.push('/home')
-    })
+  handleFollow(id) {
+    this.props.follow(id).then(() => {
+      this.props.history.push('/home');
+    });
   }
 
-  handleUnFollow(id){
-    this.props.unfollow(id)
-    .then(() => {
-      this.props.history.push('/home')
-    })
+  handleUnFollow(id) {
+    this.props.unfollow(id).then(() => {
+      this.props.history.push('/home');
+    });
   }
 
-  render(){
+  render() {
     const users = this.props.allUsers;
-    const topPosters = users.posts.map((user) => {
+    const topPosters = users.posts.map(user => {
       return (
         <div className="exploreMain">
-          <ExploreUser userData={this.props.userData} user={user} id={user.id} handleSearch={this.handleSearch} handleFollow={this.handleFollow} handleUnFollow={this.handleUnFollow}/>
+          <ExploreUser
+            userData={this.props.userData}
+            user={user}
+            id={user.id}
+            handleSearch={this.handleSearch}
+            handleFollow={this.handleFollow}
+            handleUnFollow={this.handleUnFollow}
+          />
         </div>
-      )
-    })
-    const topFollowing = users.followers.map((user) => {
+      );
+    });
+    const topFollowing = users.followers.map(user => {
       return (
         <div className="exploreMain">
-          <ExploreUser userData={this.props.userData} user={user} id={user.id} handleSearch={this.handleSearch} handleFollow={this.handleFollow} handleUnFollow={this.handleUnFollow}/>
+          <ExploreUser
+            userData={this.props.userData}
+            user={user}
+            id={user.id}
+            handleSearch={this.handleSearch}
+            handleFollow={this.handleFollow}
+            handleUnFollow={this.handleUnFollow}
+          />
         </div>
-      )
-    })
-    return(
+      );
+    });
+    return (
       <div className="exploreWrapper">
-          <div className="exploreHeader">Top Users</div>
-          <div className="exploreUserWrapper">
-            {topPosters}
-          </div>
-          <div className="exploreHeader">Most Followed</div>
-          <div className="exploreUserWrapper">
-            {topFollowing}
-          </div>
+        <div className="exploreHeader">Top Users</div>
+        <div className="exploreUserWrapper">{topPosters}</div>
+        <div className="exploreHeader">Most Followed</div>
+        <div className="exploreUserWrapper">{topFollowing}</div>
       </div>
-    )
+    );
   }
 }
 
@@ -73,6 +78,9 @@ const mapStateToProps = state => ({
   allUsers: state.allUsers.allUsers,
   currentUser: state.currentUser,
   userData: state.user
-})
+});
 
-export default connect(mapStateToProps, {searchUser, follow, unfollow})(Explore);
+export default connect(
+  mapStateToProps,
+  { searchUser, follow, unfollow }
+)(Explore);

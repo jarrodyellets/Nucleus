@@ -2,11 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import LogIn from './logIn';
 import SignUp from './signUp';
-import { signUpUser } from '../actions/signUpAction';
-import { logIn } from '../actions/loginAction';
+import { signUpUser, logIn } from '../actions/userActions';
 
 class Splash extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       firstName: '',
@@ -16,7 +15,7 @@ class Splash extends Component {
       password: '',
       imageURL: '',
       location: ''
-    }
+    };
 
     this.onChange = this.onChange.bind(this);
     this.handleData = this.handleData.bind(this);
@@ -25,75 +24,98 @@ class Splash extends Component {
   }
 
   onChange(e) {
-    this.setState({[e.target.name]: e.target.value})
+    this.setState({ [e.target.name]: e.target.value });
   }
 
-  handleData(){
+  handleData() {
     const data = this.state;
-    this.props.signUpUser(data)
-    .then(() => {
+    this.props.signUpUser(data).then(() => {
       const user = this.props.userData;
-      let error = Object.keys(user.error).filter(function(key) {return user.error[key] === true});
-      if(error.length === 0){
-        console.log(this.props.userData)
+      let error = Object.keys(user.error).filter(function(key) {
+        return user.error[key] === true;
+      });
+      if (error.length === 0) {
+        console.log(this.props.userData);
         this.props.history.push('/home');
       }
-    })
+    });
   }
 
   handleLogin() {
     const user = {
       username: this.state.username,
       password: this.state.password
-    }
-    this.props.logIn(user)
-    .then(() => {
-      if(!this.props.error.error){
-        this.props.history.push('/home')
+    };
+    this.props.logIn(user).then(() => {
+      if (!this.props.error.error) {
+        this.props.history.push('/home');
       }
-    })
+    });
   }
 
   handleKeyPress(e) {
-    if(e.charCode === 13) {
+    if (e.charCode === 13) {
       e.preventDefault();
       e.stopPropagation();
       const user = {
         username: this.state.username,
         password: this.state.password
-      }
-      this.props.logIn(user)
-      .then(() => {
-        if(!this.props.error.error){
+      };
+      this.props.logIn(user).then(() => {
+        if (!this.props.error.error) {
           this.props.history.push('/home');
         }
-      })
+      });
     }
   }
 
-  render(){
+  render() {
     return (
       <div className="splashWrapper">
         <div className="loginWrapper">
           <div className="loginHeader">
             <div className="loginLogo">
-              <div className="loginLogoTitle"><img className="splashLogo" alt="logo" src="https://www.jarrodyellets.com/images/BlogHubLogo.png"/>Nucleus</div>
+              <div className="loginLogoTitle">
+                <img className="splashLogo" alt="logo" src="https://www.jarrodyellets.com/images/BlogHubLogo.png" />
+                Nucleus
+              </div>
               <div className="loginLogoDescription">Watch the World Happen Live.</div>
             </div>
-            <div className="loginTitle">{this.props.userData.member ? "Login:" : "Sign Up:"}</div>
+            <div className="loginTitle">{this.props.userData.member ? 'Login:' : 'Sign Up:'}</div>
           </div>
           <div className="loginFormWrapper">
-            {this.props.userData.member ? <LogIn userData={this.props.userData} error={this.props.error} handleMember={this.props.handleMember} onChange={this.onChange} handleKeyPress={this.handleKeyPress} handleLogin={this.handleLogin}/> : <SignUp user={this.state} userData={this.props.userData} handleData={this.handleData} handleKeyPress={this.handleKeyPress} onChange={this.onChange} handleMember={this.props.handleMember} />}
+            {this.props.userData.member ? (
+              <LogIn
+                userData={this.props.userData}
+                error={this.props.error}
+                handleMember={this.props.handleMember}
+                onChange={this.onChange}
+                handleKeyPress={this.handleKeyPress}
+                handleLogin={this.handleLogin}
+              />
+            ) : (
+              <SignUp
+                user={this.state}
+                userData={this.props.userData}
+                handleData={this.handleData}
+                handleKeyPress={this.handleKeyPress}
+                onChange={this.onChange}
+                handleMember={this.props.handleMember}
+              />
+            )}
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => ({
   userData: state.user,
   error: state.error
-})
+});
 
-export default connect(mapStateToProps, {signUpUser, logIn})(Splash);
+export default connect(
+  mapStateToProps,
+  { signUpUser, logIn }
+)(Splash);
