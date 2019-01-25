@@ -5,27 +5,26 @@ import HomePage from './homePage';
 import { addPost } from '../actions/postAction';
 
 class newPost extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
       post: ''
-    }
+    };
 
     this.onChange = this.onChange.bind(this);
     this.handlePost = this.handlePost.bind(this);
   }
 
-  onChange(e){
+  onChange(e) {
     this.setState({
       post: e.target.value
-    })
+    });
   }
 
-  handlePost(){
-    this.props.addPost(this.state)
-    .then(() => {
-      this.props.history.push('/home')
-    })
+  handlePost() {
+    this.props.addPost(this.state).then(() => {
+      this.props.history.push('/home');
+    });
   }
 
   render() {
@@ -38,21 +37,38 @@ class newPost extends Component {
           <div className="newPostTextWindow">
             <div className="newPostWindowHeaderWrapper">
               <div className="newPostWindowHeader">Compose New Post</div>
-              <Link to='/home'><div className="newPostWindowClose"><i className="fas fa-times"></i></div></Link>
+              <Link to="/home">
+                <div className="newPostWindowClose">
+                  <i className="fas fa-times" />
+                </div>
+              </Link>
             </div>
             <div className="newPostWindowPostWrapper">
               <img className="newPostImg" src={this.props.user.imageURL} alt="profile" />
-              <textarea className="newPostTextArea" onChange={this.onChange} value={this.state.post} placeholder="Share your thoughts..."></textarea>
+              <textarea
+                className="newPostTextArea"
+                onChange={this.onChange}
+                value={this.state.post}
+                placeholder="Share your thoughts..."
+              />
             </div>
             <div className="newPostButtonWrapper">
-              <button className="newPostButton" onClick={() => {this.handlePost()}}>Post</button>
+              <button
+                className="newPostButton"
+                onClick={() => {
+                  this.handlePost();
+                }}>
+                Post
+              </button>
             </div>
           </div>
         </div>
       </div>
-    )
+    );
   }
 }
 
-
-export default connect(null, {addPost})(newPost);
+export default connect(
+  null,
+  { addPost }
+)(newPost);

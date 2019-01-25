@@ -7,26 +7,25 @@ import { selectedPost } from '../actions/selectedPost';
 import { addLike, disLike } from '../actions/likeAction';
 
 class PostDetails extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
 
     this.handleClose = this.handleClose.bind(this);
     this.handleLike = this.handleLike.bind(this);
     this.handleDislike = this.handleDislike.bind(this);
-
   }
 
-  handleLike(event, userID, postID, path){
+  handleLike(event, userID, postID, path) {
     event.stopPropagation();
     this.props.addLike(userID, postID, path);
   }
 
-  handleDislike(event, userID, postID, path){
+  handleDislike(event, userID, postID, path) {
     event.stopPropagation();
     this.props.disLike(userID, postID, path);
   }
 
-  handleClose(){
+  handleClose() {
     this.props.triggerComment(false);
     this.props.selectedPost('');
     const posts = document.querySelector('html');
@@ -35,25 +34,42 @@ class PostDetails extends Component {
     nav.classList.remove('marginRight');
   }
 
-  render(){
+  render() {
     return (
       <div>
         <div className="addCommentHeader">
-          <div className="addCommentHeaderText">{this.props.trigger.comment && 'Reply to ' + this.props.trigger.currentPost.firstName + ' ' + this.props.trigger.currentPost.lastName} </div>
-          <div className="addCommentClose"><i className="fas fa-times" onClick={this.handleClose}></i></div>
+          <div className="addCommentHeaderText">
+            {this.props.trigger.comment &&
+              'Reply to ' +
+                this.props.trigger.currentPost.firstName +
+                ' ' +
+                this.props.trigger.currentPost.lastName}{' '}
+          </div>
+          <div className="addCommentClose">
+            <i className="fas fa-times" onClick={this.handleClose} />
+          </div>
         </div>
         <div className="addCommentBody">
           <Post post={this.props.trigger.currentPost} selectedPost={this.props.trigger.selectedPost} />
-          <LikesContainer post={this.props.trigger.currentPost} id={this.props.user.id} handleDislike={this.handleDislike} handleLike={this.handleLike} handleTrigger={this.props.handleTrigger} />
+          <LikesContainer
+            post={this.props.trigger.currentPost}
+            id={this.props.user.id}
+            handleDislike={this.handleDislike}
+            handleLike={this.handleLike}
+            handleTrigger={this.props.handleTrigger}
+          />
         </div>
       </div>
-    )
+    );
   }
 }
 
 const mapStateToProps = state => ({
   user: state.user,
   trigger: state.trigger
-})
+});
 
-export default connect(mapStateToProps, {triggerComment, selectedPost, addLike, disLike})(PostDetails);
+export default connect(
+  mapStateToProps,
+  { triggerComment, selectedPost, addLike, disLike }
+)(PostDetails);
