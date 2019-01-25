@@ -10,6 +10,7 @@ import NewPost from './newPost';
 import Nav from './nav';
 import Search from './search';
 import Explore from './explore';
+import EditProfile from './editProfile';
 
 class App extends Component {
   constructor(props) {
@@ -77,12 +78,8 @@ class App extends Component {
             )}
           />
           <Route path="/explore" component={Explore} />
-          <Route
-            path="/myprofile"
-            render={props => (
-              <HomePage {...props} user={this.props.user} id={this.props.user.id} posts={this.props.user.posts} />
-            )}
-          />
+          <Route path="/myprofile" render={props => (<HomePage {...props} user={this.props.user} id={this.props.user.id} posts={this.props.user.posts} /> )} />
+          <Route path="/editprofile" render={props => (<EditProfile {...props} />)} />
         </Switch>
       </div>
     );

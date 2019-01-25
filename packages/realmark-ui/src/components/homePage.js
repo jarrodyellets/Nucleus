@@ -24,6 +24,7 @@ class HomePage extends Component {
     this.handleSearch = this.handleSearch.bind(this);
     this.handleFollow = this.handleFollow.bind(this);
     this.handleUnFollow = this.handleUnFollow.bind(this);
+    this.handleProfile = this.handleProfile.bind(this);
   }
 
   handleLike(event, userID, postID, path) {
@@ -83,6 +84,10 @@ class HomePage extends Component {
     });
   }
 
+  handleProfile() {
+    this.props.history.push('/editprofile')
+  }
+
   render() {
     console.log(this.props);
     return (
@@ -91,7 +96,7 @@ class HomePage extends Component {
           <div className="profileCardWrapper">
             <ProfileCard user={this.props.user} />
             {this.props.location.pathname === '/home' || this.props.location.pathname === '/myprofile' ? (
-              <EditContainer class={'editButton'} text={'Edit Profile'} />
+              <EditContainer handle={this.handleProfile} user={this.props.user} class={'editButton'} text={'Edit Profile'} />
             ) : null}
             {this.props.location.pathname === '/user' ? (
               this.props.signedUser.following.indexOf(this.props.user.id) === -1 ? (
