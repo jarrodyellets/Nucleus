@@ -6,6 +6,7 @@ import { triggerComment } from '../actions/triggerComment';
 import { triggerModal } from '../actions/triggerModal';
 import { selectedPost } from '../actions/selectedPost';
 import { searchUser } from '../actions/searchAction';
+import { follow, unfollow } from '../actions/followAction';
 import ProfileCard from './profileCard';
 import Posts from './posts';
 import EditContainer from './editContainer';
@@ -23,6 +24,8 @@ class HomePage extends Component {
     this.handleSelectedPost = this.handleSelectedPost.bind(this);
     this.handleDislike = this.handleDislike.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
+    this.handleFollow = this.handleFollow.bind(this);
+    this.handleUnFollow = this.handleUnFollow.bind(this);
 
   }
 
@@ -72,15 +75,29 @@ class HomePage extends Component {
     })
   }
 
+  handleFollow(id){
+    this.props.follow(id)
+    .then(() => {
+      this.props.history.push('/home')
+    })
+  }
+
+  handleUnFollow(id){
+    this.props.unfollow(id)
+    .then(() => {
+      this.props.history.push('/home')
+    })
+  }
+
   render(){
-    console.log(this.props.location);
+    console.log(this.props);
     return (
       <div> 
         <div className="mainWrapper">
           <div className="profileCardWrapper">
             <ProfileCard user={this.props.user} />
             {this.props.location.pathname === '/home' || this.props.location.pathname === '/myprofile' ? <EditContainer class={"editButton"} text={"Edit Profile"} /> : null}
-            {this.props.location.pathname === '/user' ? this.props.signedUser.following.indexOf(this.props.user.id) === -1 ? <EditContainer class={"editButton"} text={"Follow"} /> : <EditContainer class={"editButton"} text={"Unfollow"} /> : null}
+            {this.props.location.pathname === '/user' ? this.props.signedUser.following.indexOf(this.props.user.id) === -1 ? <EditContainer handle={this.handleFollow} user={this.props.user} class={"editButton"} text={"Follow"} /> : <EditContainer handle={this.handleUnFollow} user={this.props.user} class={"editButton"} text={"Unfollow"} /> : null}
           </div>
           <Posts posts={this.props.posts} id={this.props.id} handleLike={this.handleLike} handleDislike={this.handleDislike} handleTrigger={this.handleTrigger} handleModal={this.handleModal} handleSelectedPost={this.handleSelectedPost}/>
         </div>
@@ -94,4 +111,4 @@ const mapStateToProps = state => ({
   trigger: state.trigger,
 })
 
-export default connect(mapStateToProps, {logOut, addLike, disLike, triggerComment, triggerModal, selectedPost, searchUser})(HomePage);
+export default connect(mapStateToProps, {logOut, addLike, disLike, triggerComment, triggerModal, selectedPost, searchUser, follow, unfollow})(HomePage);

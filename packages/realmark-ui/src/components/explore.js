@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ExploreUser from './exploreUser';
 import { searchUser } from '../actions/searchAction';
-import { follow } from '../actions/followAction';
-import { unfollow } from '../actions/unFollowAction';
+import { follow, unfollow } from '../actions/followAction';
 
 
 class Explore extends Component {
