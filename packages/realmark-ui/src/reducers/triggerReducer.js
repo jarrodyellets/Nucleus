@@ -31,7 +31,7 @@ export default function(state = initialState, action){
     case LIKE:
       return {
         ...state,
-        currentPost: action.payload.post
+        currentPost: action.payload.currentPost
       }
       default :
         return state;

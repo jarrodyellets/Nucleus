@@ -57,7 +57,7 @@ exports.create = {
     }
     const postIndex = await posts.findIndex(post => post.postID == request.params.postId);
     if (await postIndex === -1){
-      comment = await findComment(posts, path);
+      comment = await findComment(posts, path).post;
       await comment.comments.push(newComment);
     } else {
       comment = await user[0].posts[parentPost]
@@ -69,7 +69,7 @@ exports.create = {
     const signedUser = await client.users.query({id: request.auth.credentials.id})
     const timeline = await createTimeline(request.auth.credentials.id);
     return {
-      posts: user[0].posts, post: comment, signedPosts: signedUser[0].posts, timeline
+      posts: user[0].posts, post: comment, currentPost: comment, signedPosts: signedUser[0].posts, timeline
     };
   },
   validate: {

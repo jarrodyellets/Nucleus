@@ -22,15 +22,21 @@ exports.createTimeline = async (id) => {
   return user[0].timeline
 }
 
-exports.findComment = async (posts, path) => {
+exports.findComment = (posts, path) => {
   let comment = posts[0].comments;
   let post;
   let currentPost;
   for(let i = 1; i < path.length; i++){
     let commentID = path[i];
-    let postIndex = await comment.findIndex(y => y.postID == commentID);
-    post = comment[postIndex]
-    comment = comment[postIndex].comments
+    let postIndex = comment.findIndex(y => y.postID == commentID);
+    post = comment[postIndex];
+    comment = comment[postIndex].comments;
+    if(i == path.length - 2){
+      currentPost = post;
+    }
+    if(path.length == 2){
+      currentPost = posts[0];
+    }
   }
-  return post;
+  return {post, currentPost};
 }
