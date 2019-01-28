@@ -149,29 +149,29 @@ exports.create = {
 exports.update = {
   handler: async (request, h) => {
     const client = returnClient();
-    const emailArray = await client.users.query({
-      email: request.payload.email
+    await client.users.update({
+      id: request.auth.credentials.id,
+      userName: request.payload.username,
+      firstName: request.payload.firstName,
+      lastName: request.payload.lastName,
+      email: request.payload.email,
+      location: request.payload.location,
+      imageURL: request.payload.imageURL
     });
-    if (!emailArray.length) {
-      await client.users.update({
-        id: request.auth.credentials.id,
-        firstName: request.payload.firstName,
-        lastName: request.payload.lastName,
-        email: request.payload.email
-      });
-      const updatedUser = await client.users.query({
-        id: request.auth.credentials.id
-      });
-      return updatedUser;
-    } else {
-      return 'Email already exists';
-    }
+    const updatedUser = await client.users.query({
+      id: request.auth.credentials.id
+    });
+    return updatedUser;
   },
   validate: {
     payload: {
+      username: internals.schema.userName,
+      password: internals.schema.password,
       firstName: internals.schema.firstName,
       lastName: internals.schema.lastName,
-      email: internals.schema.email
+      email: internals.schema.email,
+      imageURL: internals.schema.imageURL,
+      location: internals.schema.location
     }
   }
 };
@@ -179,8 +179,8 @@ exports.update = {
 exports.delete = {
   handler: async (request, h) => {
     const client = returnClient();
-    const userName = request.auth.credentials.name;
-    await client.users.remove(request.params.id);
+    const userName = request.params.username;
+    await client.users.remove(request.auth.credentials.id);
     return 'User: ' + userName + ' deleted.';
   }
 };
