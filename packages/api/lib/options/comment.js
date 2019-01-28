@@ -15,7 +15,7 @@ exports.getAll = {
     const client = returnClient();
     const user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
-    const post = await posts.find(post => post.id == request.params.postId);
+    const post = await posts.find(post => post.postID == request.params.postId);
     return post.comments;
   }
 };
@@ -25,9 +25,9 @@ exports.get = {
     const client = returnClient();
     const user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
-    const post = await posts.find(post => post.id == request.params.postId);
+    const post = await posts.find(post => post.postID == request.params.postId);
     const comment = await post.comments.find(
-      comment => comment.id == request.params.commentId
+      comment => comment.postID == request.params.commentId
     );
     return comment;
   }
@@ -97,10 +97,10 @@ exports.update = {
     const client = returnClient();
     const user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
-    const post = await posts.find(post => post.id == request.params.postId);
-    const postIndex = await posts.findIndex(x => x.id == post.id);
+    const post = await posts.find(post => post.postID == request.params.postId);
+    const postIndex = await posts.findIndex(x => x.postID == post.postID);
     const comment = await post.comments.findIndex(
-      comment => comment.id == request.params.commentId
+      comment => comment.postID == request.params.commentId
     );
     posts[postIndex].comments[comment].comment = request.payload.comment;
     await client.users.update({ id: request.auth.credentials.id, posts });
@@ -118,10 +118,10 @@ exports.delete = {
     const client = returnClient();
     const user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
-    const post = await posts.find(post => post.id == request.params.postId);
-    const postIndex = await posts.findIndex(x => x.id == post.id);
+    const post = await posts.find(post => post.postID == request.params.postId);
+    const postIndex = await posts.findIndex(x => x.postID == post.postID);
     const comment = await post.comments.findIndex(
-      comment => comment.id == request.params.commentId
+      comment => comment.postID == request.params.commentId
     );
     await posts[postIndex].comments.splice(comment, 1);
     await client.users.update({ id: request.auth.credentials.id, posts });
