@@ -59,7 +59,7 @@ class App extends Component {
           <Route
             path="/post"
             render={props => (
-              <NewPost {...props} user={this.props.user} id={this.props.user.id} posts={this.props.user.timeline} />
+              <NewPost {...props} location={this.props.location} user={this.props.user} id={this.props.user.id} posts={this.props.user.timeline} />
             )}
           />
           <Route path="/search" component={Search} />

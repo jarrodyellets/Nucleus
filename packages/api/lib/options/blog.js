@@ -1,6 +1,7 @@
 'use strict';
 
 const { returnClient } = require('../client');
+const { createTimeline } = require('../helpers');
 const Joi = require('joi');
 
 const internals = {
@@ -41,14 +42,11 @@ exports.create = {
       path: [id + date]
     };
     await posts.unshift(newPost);
-    await timeline.unshift(newPost);
-    await user[0].followers.map(async follower => {
-      const user = await client.users.query({ id: follower });
-      const timeline = user[0].timeline;
-      await timeline.unshift(newPost);
-      await client.users.update({ id: follower, timeline });
-    });
     await client.users.update({ id: id, posts, timeline });
+    await createTimeline(id);
+    await user[0].followers.map(async follower => {
+      await createTimeline(follower);
+    });
     user = await client.users.query({ id });
     return {
       posts: user[0].posts,
@@ -65,13 +63,16 @@ exports.create = {
 exports.update = {
   handler: async (request, h) => {
     const client = returnClient();
-    const user = await client.users.query({ id: request.auth.credentials.id });
-    const posts = user[0].posts;
-    const post = await posts.find(post => post.id == request.params.postId);
-    const postIndex = await posts.findIndex(x => x.id == post.id);
+    let user = await client.users.query({ id: request.auth.credentials.id });
+    let posts = user[0].posts;
+    const post = await posts.find(post => post.postID == request.params.postId);
+    const postIndex = await posts.findIndex(x => x.postID == post.postID);
     posts[postIndex].post = request.payload.post;
     await client.users.update({ id: request.auth.credentials.id, posts });
-    return 'Post updated';
+    await createTimeline(request.auth.credentials.id);
+    user = await client.users.query({id: request.auth.credentials.id})
+    posts = user[0].posts;
+    return posts[postIndex];
   },
   validate: {
     payload: {
@@ -85,10 +86,11 @@ exports.delete = {
     const client = returnClient();
     const user = await client.users.query({ id: request.auth.credentials.id });
     const posts = user[0].posts;
-    const post = await posts.find(post => post.id == request.params.postId);
-    const postIndex = await posts.findIndex(x => x.id == post.id);
+    const post = await posts.find(post => post.postID == request.params.postId);
+    const postIndex = await posts.findIndex(x => x.postID == post.postID);
     await posts.splice(postIndex, 1);
     await client.users.update({ id: request.auth.credentials.id, posts });
+    await createTimeline(request.auth.credentials.id);
     return 'Post deleted';
   }
 };
