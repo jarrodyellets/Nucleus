@@ -104,7 +104,6 @@ const init = async () => {
   server.route({method: 'DELETE', path: '/users/posts/{postId}', options: Blog.delete});
 
   //Comment routes
-  server.route({method: 'GET', path: '/users/{userId}/posts/{postId}/comments', options: Comments.getAll});
   server.route({method: 'GET', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.get});
   server.route({method: 'POST', path: '/users/{userId}/posts/{postId}/comments', options: Comments.create});
   server.route({method: 'PUT', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.update});
