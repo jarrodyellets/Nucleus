@@ -1,6 +1,5 @@
 'use strict';
 
-const { returnClient } = require('../client');
 const { createTimeline } = require('../helpers');
 const Bcrypt = require('bcrypt');
 
@@ -8,7 +7,7 @@ const internals = {};
 
 exports.login = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client
     let { username, password } = request.payload;
     let user = await client.users.query({ userName: username });
     if (user.length < 1) {
@@ -17,7 +16,7 @@ exports.login = {
       return { login: false, error: 'Invalid Password', id: null };
     }
     request.cookieAuth.set({ id: user[0].id });
-    const timeline = await createTimeline(user[0].id);
+    const timeline = await createTimeline(user[0].id, client);
     return {
       userName: user[0].userName,
       firstName: user[0].firstName,
@@ -48,12 +47,12 @@ exports.logout = {
 
 exports.check = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client
     if (request.auth.isAuthenticated) {
       const user = await client.users.query({
         id: request.auth.credentials.id
       });
-      const timeline = await createTimeline(request.auth.credentials.id);
+      const timeline = await createTimeline(request.auth.credentials.id, client);
       return {
         userName: user[0].userName,
         firstName: user[0].firstName,

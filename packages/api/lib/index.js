@@ -17,13 +17,6 @@ const { dbase } = require('./client');
 //Deaclare internals
 const interanals = {};
 
-
-//Database server
-const database = async () => {
-  await dbase();
-  await init();
-}
-
 //API server
 const server = Hapi.server({
   port: 8000,
@@ -39,6 +32,9 @@ const server = Hapi.server({
 });
 
 const init = async () => {
+  const client = await dbase();
+  server.app.client = client
+  server.bind(client);
   await server.register(require('hapi-auth-cookie'));
   await server.register([{
     plugin: require('inert')
@@ -53,6 +49,7 @@ const init = async () => {
   });
 
    server.auth.default('session');
+ 
 
 
    //Validation error handling
@@ -123,7 +120,7 @@ const init = async () => {
 
 
   try {
-    await server.start()
+    await server.start();
     console.log('Server started on %s', server.info.uri);
   } catch (err) {
     console.log(err);
@@ -131,4 +128,4 @@ const init = async () => {
   }
 }
 
-database();
+init();

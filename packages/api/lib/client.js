@@ -6,10 +6,6 @@ const internals = {
   client: {}
 };
 
-const returnClient = () => {
-  return internals.client;
-};
-
 const dbase = async () => {
   const server = await Db.server();
 
@@ -35,7 +31,4 @@ const dbase = async () => {
   return internals.client;
 };
 
-module.exports = {
-  dbase,
-  returnClient
-};
+module.exports = {dbase};

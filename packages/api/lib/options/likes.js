@@ -1,13 +1,12 @@
 'use strict';
 
-const { returnClient } = require('../client');
 const { createTimeline, findComment } = require('../helpers');
 
 const internals = {};
 
 exports.create = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client;
     let user = await client.users.query({ id: request.params.userId });
     let path = request.payload.path;
     const posts = user[0].posts;
@@ -31,7 +30,7 @@ exports.create = {
     const signedUser = await client.users.query({
       id: request.auth.credentials.id
     });
-    const timeline = await createTimeline(request.auth.credentials.id);
+    const timeline = await createTimeline(request.auth.credentials.id, client);
     return {
       posts: user[0].posts,
       post: comment,
@@ -44,7 +43,7 @@ exports.create = {
 
 exports.delete = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client;
     let user = await client.users.query({ id: request.params.userId });
     let path = request.payload.path;
     const posts = user[0].posts;
@@ -70,7 +69,7 @@ exports.delete = {
     const signedUser = await client.users.query({
       id: request.auth.credentials.id
     });
-    const timeline = await createTimeline(request.auth.credentials.id);
+    const timeline = await createTimeline(request.auth.credentials.id, client);
     return {
       posts: user[0].posts,
       post: comment,

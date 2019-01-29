@@ -1,6 +1,5 @@
 'use strict';
 
-const { returnClient } = require('../client');
 const { createTimeline, findComment } = require('../helpers');
 const Joi = require('joi');
 
@@ -12,7 +11,7 @@ const internals = {
 
 exports.getAll = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client;
     const user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
     const post = await posts.find(post => post.postID == request.params.postId);
@@ -22,7 +21,7 @@ exports.getAll = {
 
 exports.get = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client;
     const user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
     const post = await posts.find(post => post.postID == request.params.postId);
@@ -35,7 +34,7 @@ exports.get = {
 
 exports.create = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client;
     const author = await client.users.query({
       id: request.auth.credentials.id
     });
@@ -75,7 +74,7 @@ exports.create = {
     const signedUser = await client.users.query({
       id: request.auth.credentials.id
     });
-    const timeline = await createTimeline(request.auth.credentials.id);
+    const timeline = await createTimeline(request.auth.credentials.id, client);
     return {
       posts: user[0].posts,
       post: comment,
@@ -94,7 +93,7 @@ exports.create = {
 
 exports.update = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client;
     const user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
     const post = await posts.find(post => post.postID == request.params.postId);
@@ -115,7 +114,7 @@ exports.update = {
 
 exports.delete = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client;
     const user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
     const post = await posts.find(post => post.postID == request.params.postId);

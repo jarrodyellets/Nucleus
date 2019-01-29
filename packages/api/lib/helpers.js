@@ -1,11 +1,8 @@
 'use strict';
 
-const { returnClient } = require('./client');
-
 const internals = {};
 
-exports.createTimeline = async id => {
-  const client = returnClient();
+exports.createTimeline = async (id, client) => {
   let user = await client.users.query({ id });
   const timeline = [];
   for (let u of user[0].following) {
