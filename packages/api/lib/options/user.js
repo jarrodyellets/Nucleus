@@ -1,6 +1,5 @@
 'use strict';
 
-const { returnClient } = require('../client');
 const Joi = require('joi');
 const Bcrypt = require('bcrypt');
 
@@ -34,7 +33,7 @@ const internals = {
 
 exports.getAll = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client
     const users = await client.users.query();
     return users;
   }
@@ -42,7 +41,7 @@ exports.getAll = {
 
 exports.get = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client
     const name = request.params.username;
     const user = await client.users.query({ userName: name });
     if (user != []) {
@@ -69,7 +68,7 @@ exports.get = {
 
 exports.create = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client
     let userArray = await client.users.query({
       userName: request.payload.username
     });
@@ -148,7 +147,7 @@ exports.create = {
 
 exports.update = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client
     await client.users.update({
       id: request.auth.credentials.id,
       userName: request.payload.username,
@@ -178,7 +177,7 @@ exports.update = {
 
 exports.delete = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client
     const userName = request.params.username;
     await client.users.remove(request.auth.credentials.id);
     return 'User: ' + userName + ' deleted.';

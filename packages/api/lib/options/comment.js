@@ -1,6 +1,5 @@
 'use strict';
 
-const { returnClient } = require('../client');
 const { createTimeline, findComment } = require('../helpers');
 const Joi = require('joi');
 
@@ -10,32 +9,28 @@ const internals = {
   }
 };
 
-exports.getAll = {
-  handler: async (request, h) => {
-    const client = returnClient();
-    const user = await client.users.query({ id: request.params.userId });
-    const posts = user[0].posts;
-    const post = await posts.find(post => post.postID == request.params.postId);
-    return post.comments;
-  }
-};
-
 exports.get = {
   handler: async (request, h) => {
-    const client = returnClient();
+    console.log(request);
+    const client = request.server.app.client;
     const user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
+    let comment
     const post = await posts.find(post => post.postID == request.params.postId);
-    const comment = await post.comments.find(
-      comment => comment.postID == request.params.commentId
-    );
+    if(!post){
+      comment = await findComment(posts, request.payload.path);
+    } else {
+      comment = await post.comments.find(
+        comment => comment.postID == request.params.commentId
+      );
+    }
     return comment;
   }
 };
 
 exports.create = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client;
     const author = await client.users.query({
       id: request.auth.credentials.id
     });
@@ -75,7 +70,7 @@ exports.create = {
     const signedUser = await client.users.query({
       id: request.auth.credentials.id
     });
-    const timeline = await createTimeline(request.auth.credentials.id);
+    const timeline = await createTimeline(request.auth.credentials.id, client);
     return {
       posts: user[0].posts,
       post: comment,
@@ -94,28 +89,37 @@ exports.create = {
 
 exports.update = {
   handler: async (request, h) => {
-    const client = returnClient();
-    const user = await client.users.query({ id: request.params.userId });
+    const client = request.server.app.client;
+    let user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
-    const post = await posts.find(post => post.postID == request.params.postId);
-    const postIndex = await posts.findIndex(x => x.postID == post.postID);
-    const comment = await post.comments.findIndex(
-      comment => comment.postID == request.params.commentId
-    );
-    posts[postIndex].comments[comment].comment = request.payload.comment;
-    await client.users.update({ id: request.auth.credentials.id, posts });
-    return 'Comment updated';
-  },
-  validate: {
-    payload: {
-      comment: internals.schema.comments
+    let comment;
+    let path = request.payload.path;
+    const postIndex = await posts.findIndex(x => x.postID == request.params.postId);
+    if ((await postIndex) === -1) {
+      comment = await findComment(posts, path).post
+      comment.post = request.payload.post;
+    } else {
+      comment = await posts[postIndex].comments.findIndex(
+        comment => comment.postID == request.params.commentId
+      );
+      posts[postIndex].comments[comment].comment = request.payload.comment;
     }
-  }
+    
+    await client.users.update({ id: request.auth.credentials.id, posts});
+    await createTimeline(request.params.userId, client);
+    user = await client.users.query({id: request.params.userId});
+    return comment;
+  },
+  // validate: {
+  //   payload: {
+  //     comment: internals.schema.comments
+  //   }
+  // }
 };
 
 exports.delete = {
   handler: async (request, h) => {
-    const client = returnClient();
+    const client = request.server.app.client;
     const user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
     const post = await posts.find(post => post.postID == request.params.postId);

@@ -1,11 +1,8 @@
 'use strict';
 
-const { returnClient } = require('./client');
-
 const internals = {};
 
-exports.createTimeline = async id => {
-  const client = returnClient();
+exports.createTimeline = async (id, client) => {
   let user = await client.users.query({ id });
   const timeline = [];
   for (let u of user[0].following) {
@@ -26,10 +23,14 @@ exports.findComment = (posts, path) => {
   let comment = posts[0].comments;
   let post;
   let currentPost;
+  console.log(path.length);
+  console.log(path);
   for (let i = 1; i < path.length; i++) {
     let commentID = path[i];
+    console.log(commentID);
     let postIndex = comment.findIndex(y => y.postID == commentID);
     post = comment[postIndex];
+    console.log(post);
     comment = comment[postIndex].comments;
     if (i == path.length - 2) {
       currentPost = post;
