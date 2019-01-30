@@ -9,6 +9,25 @@ const internals = {
   }
 };
 
+exports.get = {
+  handler: async (request, h) => {
+    const path = request.query.path.split(',');
+    const client = request.server.app.client;
+    const user = await client.users.query({ id: request.params.userId });
+    const posts = user[0].posts;
+    let comment
+    const post = await posts.find(post => post.postID == request.params.postId);
+    if(!post){
+      comment = await findComment(posts, path).post;
+    } else {
+      comment = await post.comments.find(
+        comment => comment.postID == request.params.commentId
+      );
+    }
+    return comment;
+  }
+};
+
 exports.create = {
   handler: async (request, h) => {
     const client = request.server.app.client;
