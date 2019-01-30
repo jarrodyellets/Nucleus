@@ -9,25 +9,6 @@ const internals = {
   }
 };
 
-exports.get = {
-  handler: async (request, h) => {
-    console.log(request.payload);
-    const client = request.server.app.client;
-    const user = await client.users.query({ id: request.params.userId });
-    const posts = user[0].posts;
-    let comment
-    const post = await posts.find(post => post.postID == request.params.postId);
-    if(!post){
-      comment = await findComment(posts, request.payload.path);
-    } else {
-      comment = await post.comments.find(
-        comment => comment.postID == request.params.commentId
-      );
-    }
-    return comment;
-  }
-};
-
 exports.create = {
   handler: async (request, h) => {
     const client = request.server.app.client;
