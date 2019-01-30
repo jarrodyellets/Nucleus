@@ -107,7 +107,7 @@ const init = async () => {
   server.route({method: 'GET', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.get});
   server.route({method: 'POST', path: '/users/{userId}/posts/{postId}/comments', options: Comments.create});
   server.route({method: 'PUT', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.update});
-  server.route({method: 'DELETE', path: '/users/{userId}/posts/{postId}/comments{commentId}', options: Comments.delete});
+  server.route({method: 'DELETE', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.delete});
 
   //Likes routes
   server.route({method: 'POST', path: '/users/{userId}/posts/{postId}/likes', options: Likes.create});

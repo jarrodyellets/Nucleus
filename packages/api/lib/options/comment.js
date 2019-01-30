@@ -11,14 +11,14 @@ const internals = {
 
 exports.get = {
   handler: async (request, h) => {
-    console.log(request);
+    const path = request.query.path.split(',');
     const client = request.server.app.client;
     const user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
     let comment
     const post = await posts.find(post => post.postID == request.params.postId);
     if(!post){
-      comment = await findComment(posts, request.payload.path);
+      comment = await findComment(posts, path).post;
     } else {
       comment = await post.comments.find(
         comment => comment.postID == request.params.commentId
@@ -104,17 +104,17 @@ exports.update = {
       );
       posts[postIndex].comments[comment].comment = request.payload.comment;
     }
-    
     await client.users.update({ id: request.auth.credentials.id, posts});
     await createTimeline(request.params.userId, client);
     user = await client.users.query({id: request.params.userId});
     return comment;
   },
-  // validate: {
-  //   payload: {
-  //     comment: internals.schema.comments
-  //   }
-  // }
+  validate: {
+    payload: Joi.object({
+      comment: internals.schema.comments,
+      path: Joi.array()
+    })
+  }
 };
 
 exports.delete = {
@@ -122,13 +122,22 @@ exports.delete = {
     const client = request.server.app.client;
     const user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
+    let comment;
+    let postIndex;
     const post = await posts.find(post => post.postID == request.params.postId);
-    const postIndex = await posts.findIndex(x => x.postID == post.postID);
-    const comment = await post.comments.findIndex(
-      comment => comment.postID == request.params.commentId
-    );
-    await posts[postIndex].comments.splice(comment, 1);
+    if(!post){
+      comment = await findComment(posts, request.payload.path);
+      postIndex = await comment.currentPost.comments.findIndex(x => x.postID == request.params.commentId);
+      comment.currentPost.comments.splice(postIndex, 1);
+    } else {
+      comment = await post.comments.findIndex(
+        comment => comment.postID == request.params.commentId
+      );
+      postIndex = await posts.findIndex(x => x.postID == post.postID);
+      await posts[postIndex].comments.splice(comment, 1);
+    }
     await client.users.update({ id: request.auth.credentials.id, posts });
-    return 'Comment deleted';
+    await createTimeline(request.params.userId, client);
+    return 'Comment Deleted';
   }
 };
