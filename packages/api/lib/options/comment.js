@@ -80,6 +80,9 @@ exports.create = {
     };
   },
   validate: {
+    failAction: async (request, h, err) => {
+      console.log(err)
+    },
     payload: Joi.object({
       comment: internals.schema.comments,
       path: Joi.array()
@@ -110,6 +113,9 @@ exports.update = {
     return comment;
   },
   validate: {
+    failAction: async (request, h, err) => {
+      console.log(err)
+    },
     payload: Joi.object({
       comment: internals.schema.comments,
       path: Joi.array()
@@ -120,7 +126,7 @@ exports.update = {
 exports.delete = {
   handler: async (request, h) => {
     const client = request.server.app.client;
-    const user = await client.users.query({ id: request.params.userId });
+    let user = await client.users.query({ id: request.params.userId });
     const posts = user[0].posts;
     let comment;
     let postIndex;
@@ -138,6 +144,7 @@ exports.delete = {
     }
     await client.users.update({ id: request.auth.credentials.id, posts });
     await createTimeline(request.params.userId, client);
-    return 'Comment Deleted';
+    user = await client.users.query({id: request.auth.credentials.id})
+    return {posts: user[0].posts, timeline: user[0].timeline};
   }
 };

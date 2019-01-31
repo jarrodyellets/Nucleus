@@ -1,5 +1,6 @@
 export const MEMBER = 'MEMBER';
 export const SIGN_UP = 'SIGN UP';
+export const UPDATE_USER = 'UPDATE_USER';
 export const ERROR = 'ERROR';
 export const USERERROR = 'USERERROR';
 export const LOG_IN = 'LOG_IN';

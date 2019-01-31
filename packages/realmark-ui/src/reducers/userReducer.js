@@ -1,10 +1,11 @@
-import { SIGN_UP, USERERROR, LOG_IN, LOG_OUT, POST, MEMBER, FOLLOW, LIKE } from '../actions/types';
+import { SIGN_UP, UPDATE_USER, USERERROR, LOG_IN, LOG_OUT, POST, MEMBER, FOLLOW, LIKE } from '../actions/types';
 
 const initialState ={
   firstName: '',
   lastName: '',
   email: '',
   username: '',
+  bio: '',
   imageURL: '',
   location: '',
   posts: [],
@@ -36,6 +37,7 @@ export default function(state = initialState, action){
         username: action.payload.userName,
         imageURL: action.payload.imageURL,
         location: action.payload.location,
+        bio: action.payload.bio,
         id: action.payload.id,
         login: true,
         test: true,
@@ -50,6 +52,7 @@ export default function(state = initialState, action){
           username: action.payload.userName,
           imageURL: action.payload.imageURL,
           location: action.payload.location,
+          bio: action.payload.bio,
           id: action.payload.id,
           login: action.payload.login,
           loginError: action.payload.error,
@@ -108,6 +111,17 @@ export default function(state = initialState, action){
           ...state,
           error: action.payload.error
       };
+      case UPDATE_USER:
+        return {
+          ...state,
+          firstName: action.payload.firstName,
+          lastName: action.payload.lastName,
+          email: action.payload.email,
+          bio: action.payload.bio,
+          username: action.payload.userName,
+          imageURL: action.payload.imageURL,
+          location: action.payload.location,
+        }
       default :
         return state;
   }

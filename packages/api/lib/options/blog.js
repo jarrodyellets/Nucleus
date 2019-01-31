@@ -53,6 +53,9 @@ exports.create = {
     };
   },
   validate: {
+    failAction: async (request, h, err) => {
+      console.log(err)
+    },
     payload: {
       post: internals.schema.posts
     }
@@ -74,6 +77,9 @@ exports.update = {
     return posts[postIndex];
   },
   validate: {
+    failAction: async (request, h, err) => {
+      console.log(err)
+    },
     payload: {
       post: internals.schema.posts
     }
