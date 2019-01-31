@@ -274,7 +274,6 @@ body {
 .profileCardWrapper {
   width: 243px;
   margin-left: 0;
-  position: fixed;
   z-index: 5;
 }
 
@@ -311,6 +310,7 @@ body {
   background: var(--blue);
   font-weight: 700;
   border: none;
+  border-radius: 3px;
   cursor: pointer;
 }
 
@@ -974,3 +974,23 @@ body {
 .editInput:-webkit-autofill:active  {
     -webkit-box-shadow: 0 0 0 30px var(--white) inset !important;
 }
+
+.editButtonWrapper {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin: 10px 0;
+  padding: 10px;
+  background: var(--brightWhite);
+}
+
+.editProButton {
+  width: 45%;
+  padding: 6px 12px;
+  outline: none;
+  border: 1px solid var(--lightGray);
+  border-radius: 3px;
+  cursor: pointer;
+  background: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+}
+

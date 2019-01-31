@@ -1,7 +1,6 @@
-import { SIGN_UP, USERERROR, LOG_IN, ERROR, LOG_OUT, MEMBER } from './types';
+import { SIGN_UP, UPDATE_USER, USERERROR, LOG_IN, ERROR, LOG_OUT, MEMBER } from './types';
 
 export const signUpUser = data => dispatch => {
-  console.log(data);
   return new Promise((resolve, reject) => {
     fetch('http://localhost:8000/users', {
       method: 'POST',
@@ -12,7 +11,6 @@ export const signUpUser = data => dispatch => {
     })
       .then(res => res.json())
       .then(user => {
-        console.log(user);
         if (!user.error) {
           dispatch({
             type: SIGN_UP,
@@ -99,5 +97,25 @@ export const changeMember = member => dispatch => {
   dispatch({
     type: MEMBER,
     payload: member
+  });
+};
+
+export const updateUser = (data, username) => dispatch => {
+  return new Promise((resolve, reject) => {
+    fetch('http://localhost:8000/users/' + username, {
+      method: 'PUT',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(data)
+    })
+      .then(res => res.json())
+      .then(user => {
+        dispatch({
+          type: UPDATE_USER,
+          payload: user[0]
+        });
+        resolve();
+      });
   });
 };

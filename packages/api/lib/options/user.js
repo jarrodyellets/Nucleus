@@ -165,7 +165,6 @@ exports.update = {
   validate: {
     payload: {
       username: internals.schema.userName,
-      password: internals.schema.password,
       firstName: internals.schema.firstName,
       lastName: internals.schema.lastName,
       email: internals.schema.email,
