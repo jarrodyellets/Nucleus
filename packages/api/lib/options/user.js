@@ -21,13 +21,13 @@ const internals = {
       .email()
       .required(),
     posts: Joi.string()
-      .min(1)
-      .max(100),
+      .min(1),
     comments: Joi.string().min(1),
     followers: Joi.string(),
     following: Joi.string(),
     imageURL: Joi.string(),
-    location: Joi.string()
+    location: Joi.string(),
+    bio: Joi.string()
   }
 };
 
@@ -53,6 +53,7 @@ exports.get = {
         imageURL: user[0].imageURL,
         location: user[0].location,
         posts: user[0].posts,
+        bio: user[0].bio,
         followers: user[0].followers,
         following: user[0].following,
         timeline: user[0].timeline,
@@ -83,6 +84,7 @@ exports.create = {
         email: request.payload.email,
         imageURL: request.payload.imageURL,
         location: request.payload.location,
+        bio: request.payload.bio,
         posts: [],
         followers: [],
         following: [],
@@ -115,6 +117,7 @@ exports.create = {
         email: request.payload.email,
         imageURL: request.payload.imageURL,
         location: request.payload.location,
+        bio: request.payload.bio,
         id: userArray[0].id,
         posts: [],
         followers: [],
@@ -130,6 +133,9 @@ exports.create = {
   },
   auth: false,
   validate: {
+    failAction: async (request, h, err) => {
+      console.log(err)
+    },
     payload: {
       username: internals.schema.userName,
       password: internals.schema.password,
@@ -137,7 +143,8 @@ exports.create = {
       lastName: internals.schema.lastName,
       email: internals.schema.email,
       imageURL: internals.schema.imageURL,
-      location: internals.schema.location
+      location: internals.schema.location,
+      bio: internals.schema.bio
     },
     failAction: (request, h, err) => {
       throw err;
@@ -155,7 +162,8 @@ exports.update = {
       lastName: request.payload.lastName,
       email: request.payload.email,
       location: request.payload.location,
-      imageURL: request.payload.imageURL
+      imageURL: request.payload.imageURL,
+      bio: request.payload.bio
     });
     const updatedUser = await client.users.query({
       id: request.auth.credentials.id
@@ -163,13 +171,16 @@ exports.update = {
     return updatedUser;
   },
   validate: {
+    failAction: async (request, h, err) => {
+      console.log(err)
+    },
     payload: {
-      username: internals.schema.userName,
       firstName: internals.schema.firstName,
       lastName: internals.schema.lastName,
       email: internals.schema.email,
       imageURL: internals.schema.imageURL,
-      location: internals.schema.location
+      location: internals.schema.location,
+      bio: internals.schema.bio
     }
   }
 };

@@ -80,6 +80,9 @@ exports.create = {
     };
   },
   validate: {
+    failAction: async (request, h, err) => {
+      console.log(err)
+    },
     payload: Joi.object({
       comment: internals.schema.comments,
       path: Joi.array()
@@ -110,6 +113,9 @@ exports.update = {
     return comment;
   },
   validate: {
+    failAction: async (request, h, err) => {
+      console.log(err)
+    },
     payload: Joi.object({
       comment: internals.schema.comments,
       path: Joi.array()

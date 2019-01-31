@@ -25,6 +25,7 @@ class ProfileCard extends Component {
             </div>
             <div className="profileCardUserName">@{this.props.user.username}</div>
             <div className="profileCardContactWrapper">
+              <div className="profileCardBio">{this.props.user.bio}</div>
               <div className="profileCardContact">
                 <i className="far fa-envelope fa-icon" /> {this.props.user.email}
               </div>

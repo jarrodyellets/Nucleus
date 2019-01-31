@@ -318,6 +318,10 @@ body {
   margin: 20px 0;
 }
 
+.profileCardBio {
+  margin-bottom: 20px;
+}
+
 .profileCardContact {
   margin-bottom: 10px;
   color: var(--gray);
@@ -955,6 +959,19 @@ body {
 .editFormLabel {
   font-size: .9em;
   margin-bottom: 3px;
+}
+
+.editTextInput {
+  background: var(--white);
+  height: 45px;
+  font-size: .8em;
+  font-family: 'Source Sans Pro', sans-serif;
+  border: none;
+  border-radius: 3px;
+  margin-bottom: 10px;
+  outline: none;
+  padding: 10px;
+  resize: none;
 }
 
 .editInput {

@@ -10,9 +10,9 @@ class EditProfile extends Component {
       firstName: this.props.user.firstName,
       lastName: this.props.user.lastName,
       email: this.props.user.email,
-      username: this.props.user.username,
       imageURL: this.props.user.imageURL,
-      location: this.props.user.location
+      location: this.props.user.location,
+      bio: this.props.user.bio
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -77,6 +77,15 @@ class EditProfile extends Component {
                 onChange={this.handleChange}
                 placeholder="Enter image URL"
               />
+              <label className="editFormLabel">Bio:</label>
+              <textarea
+                className="editTextInput"
+                type="text"
+                name="bio"
+                value={this.state.bio}
+                onChange={this.handleChange}
+                placeholder="Enter bio"
+              />
               <label className="editFormLabel">Location:</label>
               <input
                 className="editInput"
@@ -94,15 +103,6 @@ class EditProfile extends Component {
                 value={this.state.email}
                 onChange={this.handleChange}
                 placeholder="Enter email"
-              />
-              <label className="editFormLabel">Username:</label>
-              <input
-                className="editInput"
-                type="text"
-                name="username"
-                value={this.state.username}
-                onChange={this.handleChange}
-                placeholder="Enter username"
               />
             </div>
           </div>

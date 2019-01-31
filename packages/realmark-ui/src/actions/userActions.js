@@ -101,6 +101,7 @@ export const changeMember = member => dispatch => {
 };
 
 export const updateUser = (data, username) => dispatch => {
+  console.log(data);
   return new Promise((resolve, reject) => {
     fetch('http://localhost:8000/users/' + username, {
       method: 'PUT',
