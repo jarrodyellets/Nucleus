@@ -14,7 +14,8 @@ class Splash extends Component {
       username: '',
       password: '',
       imageURL: '',
-      location: ''
+      location: '',
+      bio: ''
     };
 
     this.onChange = this.onChange.bind(this);

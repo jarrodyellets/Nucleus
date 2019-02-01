@@ -32,14 +32,13 @@ body {
   position: relative;
   margin: 0;
   padding: 0;
-  top: 0;
+  top: 0px;
   font-family: 'Source Sans Pro', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background: var(--white);
   color: var(--black);
-  overflow: hidden;
-  padding-bottom: 50px;
+  min-height: 100vh;
 }
 
 .splashWrapper {
@@ -104,7 +103,21 @@ body {
   height: 15px;
   margin-bottom: 10px;
   outline: none;
-  padding: 10px;
+  padding: 6px 8px;
+  font-size: inherit;
+}
+
+.loginTextArea {
+  background: var(--yellow);
+  border: none;
+  resize: none;
+  border-radius: 3px;
+  height: 45px;
+  margin-bottom: 10px;
+  outline: none;
+  padding: 6px 8px;
+  font-family: inherit;
+  font-size: inherit;
 }
 
 .loginButton {
@@ -269,9 +282,11 @@ body {
   margin: 10px auto 0 auto;
   display: flex;
   align-items: flex-start;
+  overflow-y: auto;
 }
 
 .profileCardWrapper {
+  position: relative;
   width: 243px;
   margin-left: 0;
   z-index: 5;
@@ -589,11 +604,12 @@ body {
   align-items: flex-start;
   width: 100%;
   height: 100%;
+  padding-bottom: 50px;
   top: -10px;
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, .4);
+  background: rgba(0, 0, 0, .7);
   z-index: 50;
 }
 
