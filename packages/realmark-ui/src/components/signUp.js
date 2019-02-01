@@ -41,6 +41,15 @@ const SignUp = props => {
         onChange={props.onChange}
         placeholder="Enter image URL"
       />
+      <label className="loginFormLabel">Bio:</label>
+      <textarea
+        className="loginTextArea"
+        type="text"
+        name="bio"
+        value={props.user.bio}
+        onChange={props.onChange}
+        placeholder="Enter bio"
+      />
       <label className="loginFormLabel">Location:</label>
       <input
         className="loginInput"
