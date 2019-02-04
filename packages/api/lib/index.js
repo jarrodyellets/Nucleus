@@ -2,7 +2,6 @@
 
 const Hapi = require('hapi');
 const Path = require('path');
-const _ = require('underscore');
 const User = require('./options/user');
 const Home = require('./options/home');
 const Login = require('./options/login');
@@ -12,6 +11,7 @@ const Following = require('./options/following');
 const Likes = require('./options/likes');
 const Default = require('./options/default');
 const { dbase } = require('./client');
+const { checkSignUpErrors } = require('./helpers');
 
 
 //Deaclare internals
@@ -59,20 +59,8 @@ const init = async () => {
        return h.continue;
      }
      if (request.route.method == 'post' && request.route.path == '/users'){
-      const isUserNameEmpty = _.where(response.details, {message: '"username" is not allowed to be empty'}).length > 0;
-      const isFirstNameEmpty = _.where(response.details, {message: '"firstName" is not allowed to be empty'}).length > 0;
-      const isLastNameEmpty = _.where(response.details, {message: '"lastName" is not allowed to be empty'}).length > 0;
-      const isNotEmail = _.where(response.details, {message: '"email" must be a valid email'}).length > 0;
-      const isEmailEmpty = _.where(response.details, {message: '"email" is not allowed to be empty'}).length > 0;
-      const isPasswordEmpty = _.where(response.details, {message: '"password" is not allowed to be empty'}).length > 0;
-      return {error: {
-        isUserNameEmpty,
-        isFirstNameEmpty,
-        isLastNameEmpty,
-        isNotEmail,
-        isEmailEmpty,
-        isPasswordEmpty
-      }}
+      const errors = checkSignUpErrors(response.details)
+      return errors;
      }
      return h.continue;
    })
