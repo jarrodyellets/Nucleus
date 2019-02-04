@@ -39,7 +39,6 @@ exports.findComment = (posts, path) => {
 };
 
 exports.checkSignUpErrors = (details) => {
-  console.log(details);
   const isUserNameEmpty = (details[0].message === '"username" is required');
   const isFirstNameEmpty = (details[0].message === '"firstName" is required');
   const isLastNameEmpty = (details[0].message === '"lastName" is required');
