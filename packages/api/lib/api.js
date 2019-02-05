@@ -36,7 +36,7 @@ exports.server = async () => {
 
     server.app.client = await dbase();
 
-    server.ext('onPreResponse', internals.onPreResponse);
+    // server.ext('onPreResponse', internals.onPreResponse);
 
     await internals.auth(server);
     await internals.files(server);

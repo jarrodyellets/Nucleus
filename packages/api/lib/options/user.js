@@ -73,6 +73,8 @@ exports.get = {
 exports.create = {
     handler: async (request, h) => {
 
+        console.log(request.payload);
+
         const client = request.server.app.client;
         let userArray = await client.users.query({
             userName: request.payload.username
