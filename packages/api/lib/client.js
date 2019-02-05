@@ -3,32 +3,33 @@
 const Db = require('@realmark/db');
 
 const internals = {
-  client: {}
+    client: {}
 };
 
 const dbase = async () => {
-  const server = await Db.server();
 
-  await server.start();
+    const server = await Db.server();
 
-  internals.client = new Db.Client({
-    location: server.info.uri,
-    database: 'blog'
-  });
+    await server.start();
 
-  await internals.client.create();
+    internals.client = new Db.Client({
+        location: server.info.uri,
+        database: 'blog'
+    });
 
-  const create = {
-    id: {
-      type: 'uuid'
-    }
-  };
+    await internals.client.create();
 
-  await internals.client.table('users', {
-    create
-  });
+    const create = {
+        id: {
+            type: 'uuid'
+        }
+    };
 
-  return internals.client;
+    await internals.client.table('users', {
+        create
+    });
+
+    return internals.client;
 };
 
-module.exports = {dbase};
+module.exports = { dbase };

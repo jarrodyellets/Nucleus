@@ -14,9 +14,13 @@
     "path": "^0.12.7",
     "underscore": "^1.9.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "code": "^5.2.4",
+    "lab": "^18.0.1"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "lab -a code -t 100 -L --lint-fix",
+    "test-cov-html": "lab -a code -r html -o coverage.html"
   },
   "repository": {
     "type": "git",
