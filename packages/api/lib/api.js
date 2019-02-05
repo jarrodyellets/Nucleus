@@ -20,104 +20,107 @@ const internals = {};
 //API server
 
 exports.server = async () => {
-  
-  const server = Hapi.server({
-    port: 8000,
-    routes: {
-      files: {
-        relativeTo: Path.join(__dirname, '..', '..', 'realmark-ui', 'build')
-      },
-      response: {
-        emptyStatusCode: 204
-      },
-      cors: true,
-    }
-  });
 
-  server.app.client = await dbase();
+    const server = Hapi.server({
+        port: 8000,
+        routes: {
+            files: {
+                relativeTo: Path.join(__dirname, '..', '..', 'realmark-ui', 'build')
+            },
+            response: {
+                emptyStatusCode: 204
+            },
+            cors: true
+        }
+    });
 
-  server.ext('onPreResponse', internals.onPreResponse);
+    server.app.client = await dbase();
 
-  await internals.auth(server);
-  await internals.files(server);
+    // server.ext('onPreResponse', internals.onPreResponse);
 
-  //Default route
-  server.route({method: 'GET', path: '/{any*}', options: Default.get});
+    await internals.auth(server);
+    await internals.files(server);
 
-  //Home routes
-  server.route({method: 'GET', path: '/', options: Home.home});
-  server.route({method: 'GET', path: '/static/{path*}', options: Home.css});
-  server.route({method: 'GET', path: '/manifest.json', options: Home.manifest});
+    //Default route
+    server.route({ method: 'GET', path: '/{any*}', options: Default.get });
 
-  //Login routes
-  server.route({method: 'POST', path: '/login', options: Login.login});
-  server.route({method: 'GET', path: '/logout', options: Login.logout});
-  server.route({method: 'GET', path: '/checklogin', options: Login.check});
+    //Home routes
+    server.route({ method: 'GET', path: '/', options: Home.home });
+    server.route({ method: 'GET', path: '/static/{path*}', options: Home.css });
+    server.route({ method: 'GET', path: '/manifest.json', options: Home.manifest });
 
-  //User routes
-  server.route({method: 'GET', path: '/users', options: User.getAll});
-  server.route({method: 'GET', path: '/users/{username}', options: User.get});
-  server.route({method: 'POST', path: '/users', options: User.create});
-  server.route({method: 'PUT', path: '/users/{username}', options: User.update});
-  server.route({method: 'DELETE', path: '/users/{username}', options: User.delete});
+    //Login routes
+    server.route({ method: 'POST', path: '/login', options: Login.login });
+    server.route({ method: 'GET', path: '/logout', options: Login.logout });
+    server.route({ method: 'GET', path: '/checklogin', options: Login.check });
 
-  //Blog post routes
-  server.route({method: 'GET', path: '/users/{userId}/posts/{postId}', options: Blog.get});
-  server.route({method: 'POST', path: '/users/posts', options: Blog.create});
-  server.route({method: 'PUT', path: '/users/posts/{postId}', options: Blog.update});
-  server.route({method: 'DELETE', path: '/users/posts/{postId}', options: Blog.delete});
+    //User routes
+    server.route({ method: 'GET', path: '/users', options: User.getAll });
+    server.route({ method: 'GET', path: '/users/{username}', options: User.get });
+    server.route({ method: 'POST', path: '/users', options: User.create });
+    server.route({ method: 'PUT', path: '/users/{username}', options: User.update });
+    server.route({ method: 'DELETE', path: '/users/{username}', options: User.delete });
 
-  //Comment routes
-  server.route({method: 'GET', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.get});
-  server.route({method: 'POST', path: '/users/{userId}/posts/{postId}/comments', options: Comments.create});
-  server.route({method: 'PUT', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.update});
-  server.route({method: 'DELETE', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.delete});
+    //Blog post routes
+    server.route({ method: 'GET', path: '/users/{userId}/posts/{postId}', options: Blog.get });
+    server.route({ method: 'POST', path: '/users/posts', options: Blog.create });
+    server.route({ method: 'PUT', path: '/users/posts/{postId}', options: Blog.update });
+    server.route({ method: 'DELETE', path: '/users/posts/{postId}', options: Blog.delete });
 
-  //Likes routes
-  server.route({method: 'POST', path: '/users/{userId}/posts/{postId}/likes', options: Likes.create});
-  server.route({method: 'DELETE', path: '/users/{userId}/posts/{postId}/likes', options: Likes.delete});
+    //Comment routes
+    server.route({ method: 'GET', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.get });
+    server.route({ method: 'POST', path: '/users/{userId}/posts/{postId}/comments', options: Comments.create });
+    server.route({ method: 'PUT', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.update });
+    server.route({ method: 'DELETE', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.delete });
 
-  //Following routes
-  server.route({method: 'POST', path: '/users/following/{userID}', options: Following.create});
-  server.route({method: 'DELETE', path: '/users/following/{userID}', options: Following.delete});
+    //Likes routes
+    server.route({ method: 'POST', path: '/users/{userId}/posts/{postId}/likes', options: Likes.create });
+    server.route({ method: 'DELETE', path: '/users/{userId}/posts/{postId}/likes', options: Likes.delete });
 
-  await server.start();
+    //Following routes
+    server.route({ method: 'POST', path: '/users/following/{userID}', options: Following.create });
+    server.route({ method: 'DELETE', path: '/users/following/{userID}', options: Following.delete });
 
-  return server;
+    await server.start();
+
+    return server;
 };
 
 internals.auth = async (server) => {
 
-  await server.register(require('hapi-auth-cookie'));
+    await server.register(require('hapi-auth-cookie'));
 
-  server.auth.strategy('session', 'cookie', { 
-    password: 'RDXcdNWW6649jd9TKsQNsbSwfzNHrBBa',
-    cookie: 'session',
-    isSecure: false,
-    redirectTo: '/'
-  });
+    server.auth.strategy('session', 'cookie', {
+        password: 'RDXcdNWW6649jd9TKsQNsbSwfzNHrBBa',
+        cookie: 'session',
+        isSecure: false,
+        redirectTo: '/'
+    });
 
-  server.auth.default('session');
+    server.auth.default('session');
 };
 
 
 internals.files = async (server) => {
 
-  await server.register(require('inert'));
-}
+    await server.register(require('inert'));
+};
 
 
 internals.onPreResponse = async (request, h) => {
+
     const response = request.response;
-    if(!response.isBoom){
-      return h.continue;
+    if (!response.isBoom){
+        return h.continue;
     }
-    if (request.route.method == 'post' && request.route.path == '/users'){
-     const errors = await checkSignUpErrors(response.details);
-     return errors;
+
+    if (request.route.method === 'post' && request.route.path === '/users'){
+        const errors = await checkSignUpErrors(response.details);
+        return errors;
     }
+
     return h.continue;
-}
+};
 
 
- 
+
