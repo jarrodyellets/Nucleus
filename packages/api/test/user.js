@@ -30,16 +30,17 @@ describe('Sign Up', () => {
         };
         const res1 = await Server.inject(url);
 
+        const id = await res1.result.id;
+
         expect(res1.result).to.equal({
             userName: 'jarrod',
-            password: 'hello',
             firstName: 'Jarrod',
             lastName: 'Yellets',
             email: 'jarrod524@gmail.com',
             imageURL: 'https://www.jarrodyellets.com/images/penPro.jpg',
             location: 'Brussels',
             bio: 'Web Developer',
-            id: String,
+            id,
             posts: [],
             followers: [],
             following: [],
