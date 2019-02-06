@@ -2,4 +2,9 @@
 
 const { server } = require('./api');
 
-server();
+const start = async () => {
+    const provision = await server();
+    await provision.start()
+}
+
+start();
