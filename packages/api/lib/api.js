@@ -81,8 +81,6 @@ exports.server = async () => {
     server.route({ method: 'POST', path: '/users/following/{userID}', options: Following.create });
     server.route({ method: 'DELETE', path: '/users/following/{userID}', options: Following.delete });
 
-    await server.start();
-
     return server;
 };
 

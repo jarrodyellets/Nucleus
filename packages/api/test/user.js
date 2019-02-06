@@ -9,11 +9,12 @@ const internals = {};
 const { describe, it } = exports.lab = Lab.script();
 const expect = Code.expect;
 
-describe('Sign Up', () => {
+describe('User', () => {
 
     it('sign up new user', async (flags) => {
 
-        const Server  = await server();
+        const Server = await server();
+
         const url = {
             method: 'POST',
             url: '/users',
@@ -28,6 +29,7 @@ describe('Sign Up', () => {
                 bio: 'Web Developer'
             }
         };
+
         const res1 = await Server.inject(url);
 
         const id = await res1.result.id;
@@ -50,5 +52,32 @@ describe('Sign Up', () => {
 
 
     });
+
+    it('Logs user in', async (flags) => {
+
+        const Server = await server();
+
+        const url = {
+            method: 'POST',
+            url: '/login',
+            payload: {
+                username: 'frye',
+                password: 'hello'
+            }
+        };
+
+        const res2 = await Server.inject(url);
+
+        expect(res2.result).to.contain({
+            userName: 'frye',
+            firstName: 'Cameron',
+            lastName: 'Frye',
+            email: 'cameron@nothinggood.com'
+        });
+
+    });
 });
+
+
+
 
