@@ -19,7 +19,7 @@ const internals = {};
 
 //API server
 
-exports.server = async () => {
+exports.server = async (seed) => {
 
     const server = Hapi.server({
         port: 8000,
@@ -34,7 +34,7 @@ exports.server = async () => {
         }
     });
 
-    server.app.client = await dbase();
+    server.app.client = await dbase(seed);
 
     // server.ext('onPreResponse', internals.onPreResponse);
 
@@ -80,6 +80,21 @@ exports.server = async () => {
     //Following routes
     server.route({ method: 'POST', path: '/users/following/{userID}', options: Following.create });
     server.route({ method: 'DELETE', path: '/users/following/{userID}', options: Following.delete });
+
+    await server.inject({
+        method: 'POST',
+        url: '/user',
+        payload: {
+            username: 'roger',
+            password: 'hello',
+            firstName: 'Roger',
+            lastName: 'Rabbit',
+            email: 'roger@acme.com',
+            imageURL: 'https://vignette.wikia.nocookie.net/disney/images/b/b6/Rogerpoint.png/revision/latest?cb=20131219044547',
+            location: 'Toon Town',
+            bio: 'Actor'
+        }
+    });
 
     return server;
 };

@@ -9,6 +9,8 @@ exports.login = {
     handler: async (request, h) => {
 
         const client = request.server.app.client;
+        const test = await client.users.query({ userName: 'roger' });
+        await console.log(test);
         const { username, password } = request.payload;
         const user = await client.users.query({ userName: username });
         if (user.length < 1) {

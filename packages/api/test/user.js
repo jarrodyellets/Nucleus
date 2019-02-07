@@ -13,7 +13,7 @@ describe('User', () => {
 
     it('sign up new user', async (flags) => {
 
-        const Server = await server();
+        const Server = await server(false);
 
         const url = {
             method: 'POST',
@@ -55,24 +55,21 @@ describe('User', () => {
 
     it('Logs user in', async (flags) => {
 
-        const Server = await server();
+        const Server = await server(true);
 
         const url = {
             method: 'POST',
             url: '/login',
             payload: {
-                username: 'frye',
+                username: 'roger',
                 password: 'hello'
             }
         };
 
         const res2 = await Server.inject(url);
 
-        expect(res2.result).to.contain({
-            userName: 'frye',
-            firstName: 'Cameron',
-            lastName: 'Frye',
-            email: 'cameron@nothinggood.com'
+        await expect(res2.result).to.contain({
+            userName: 'roger'
         });
 
     });
