@@ -36,7 +36,7 @@ exports.server = async (seed) => {
 
     server.app.client = await dbase(seed);
 
-    // server.ext('onPreResponse', internals.onPreResponse);
+    server.ext('onPreResponse', internals.onPreResponse);
 
     await internals.auth(server);
     await internals.files(server);
@@ -81,20 +81,6 @@ exports.server = async (seed) => {
     server.route({ method: 'POST', path: '/users/following/{userID}', options: Following.create });
     server.route({ method: 'DELETE', path: '/users/following/{userID}', options: Following.delete });
 
-    await server.inject({
-        method: 'POST',
-        url: '/user',
-        payload: {
-            username: 'roger',
-            password: 'hello',
-            firstName: 'Roger',
-            lastName: 'Rabbit',
-            email: 'roger@acme.com',
-            imageURL: 'https://vignette.wikia.nocookie.net/disney/images/b/b6/Rogerpoint.png/revision/latest?cb=20131219044547',
-            location: 'Toon Town',
-            bio: 'Actor'
-        }
-    });
 
     return server;
 };
@@ -127,12 +113,9 @@ internals.onPreResponse = async (request, h) => {
         return h.continue;
     }
 
-    if (request.route.method === 'post' && request.route.path === '/users'){
-        const errors = await checkSignUpErrors(response.details);
-        return errors;
-    }
+    const errors = await checkSignUpErrors(response.details);
+    return errors;
 
-    return h.continue;
 };
 
 

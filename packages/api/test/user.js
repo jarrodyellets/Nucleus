@@ -53,6 +53,40 @@ describe('User', () => {
 
     });
 
+    it('user forgets email', async (flags) => {
+
+        const Server = await server(false);
+
+        const url = {
+            method: 'POST',
+            url: '/users',
+            payload: {
+                username: 'jarrod',
+                password: 'hello',
+                firstName: 'Jarrod',
+                lastName: 'Yellets',
+                imageURL: 'https://www.jarrodyellets.com/images/penPro.jpg',
+                location: 'Brussels',
+                bio: 'Web Developer'
+            }
+        };
+
+        const res2 = await Server.inject(url);
+
+        expect(res2.result).to.equal({
+            error: {
+                isUserNameEmpty: false,
+                isFirstNameEmpty: false,
+                isLastNameEmpty: false,
+                isNotEmail: false,
+                isEmailEmpty: true,
+                isPasswordEmpty: false
+            }
+        });
+
+
+    });
+
     it('Logs user in', async (flags) => {
 
         const Server = await server(true);
@@ -66,9 +100,9 @@ describe('User', () => {
             }
         };
 
-        const res2 = await Server.inject(url);
+        const res3 = await Server.inject(url);
 
-        await expect(res2.result).to.contain({
+        await expect(res3.result).to.contain({
             userName: 'roger'
         });
 
