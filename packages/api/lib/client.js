@@ -1,12 +1,13 @@
 'use strict';
 
 const Db = require('@realmark/db');
+const Bcrypt = require('bcrypt');
 
 const internals = {
     client: {}
 };
 
-const dbase = async () => {
+const dbase = async (seed) => {
 
     const server = await Db.server();
 
@@ -29,7 +30,27 @@ const dbase = async () => {
         create
     });
 
+    seed && await internals.seed();
+
     return internals.client;
+};
+
+internals.seed = async () => {
+
+    await internals.client.users.insert({
+        userName: 'roger',
+        firstName: 'Roger',
+        lastName: 'Rabbit',
+        email: 'roger@acme.com',
+        imageURL: 'https://vignette.wikia.nocookie.net/disney/images/b/b6/Rogerpoint.png/revision/latest?cb=20131219044547',
+        location: 'Toon Town',
+        bio: 'Actor',
+        posts: [],
+        followers: [],
+        following: [],
+        timeline: [],
+        password: Bcrypt.hashSync('hello', 10)
+    });
 };
 
 module.exports = { dbase };

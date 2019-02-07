@@ -19,7 +19,7 @@ const internals = {};
 
 //API server
 
-exports.server = async () => {
+exports.server = async (seed) => {
 
     const server = Hapi.server({
         port: 8000,
@@ -34,9 +34,9 @@ exports.server = async () => {
         }
     });
 
-    server.app.client = await dbase();
+    server.app.client = await dbase(seed);
 
-    // server.ext('onPreResponse', internals.onPreResponse);
+    server.ext('onPreResponse', internals.onPreResponse);
 
     await internals.auth(server);
     await internals.files(server);
@@ -81,6 +81,7 @@ exports.server = async () => {
     server.route({ method: 'POST', path: '/users/following/{userID}', options: Following.create });
     server.route({ method: 'DELETE', path: '/users/following/{userID}', options: Following.delete });
 
+
     return server;
 };
 
@@ -112,12 +113,9 @@ internals.onPreResponse = async (request, h) => {
         return h.continue;
     }
 
-    if (request.route.method === 'post' && request.route.path === '/users'){
-        const errors = await checkSignUpErrors(response.details);
-        return errors;
-    }
+    const errors = await checkSignUpErrors(response.details);
+    return errors;
 
-    return h.continue;
 };
 
 
