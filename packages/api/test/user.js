@@ -30,11 +30,11 @@ describe('User', () => {
             }
         };
 
-        const res1 = await Server.inject(url);
+        const res = await Server.inject(url);
 
-        const id = await res1.result.id;
+        const id = await res.result.id;
 
-        expect(res1.result).to.equal({
+        expect(res.result).to.equal({
             userName: 'jarrod',
             firstName: 'Jarrod',
             lastName: 'Yellets',
@@ -71,9 +71,9 @@ describe('User', () => {
             }
         };
 
-        const res2 = await Server.inject(url);
+        const res = await Server.inject(url);
 
-        expect(res2.result).to.equal({
+        expect(res.result).to.equal({
             error: {
                 isUserNameEmpty: false,
                 isFirstNameEmpty: false,
@@ -104,9 +104,32 @@ describe('User', () => {
             credentials: user
         };
 
-        const res3 = await Server.inject(url);
+        const res = await Server.inject(url);
 
-        await expect(res3.result).to.part.include([{ userName: 'roger' }]);
+        await expect(res.result).to.part.include([{ userName: 'roger' }]);
+
+    });
+
+    it('Gets specific user', async () => {
+
+        const Server = await server(true);
+
+        const user = {
+            roger: {
+                username: 'roger',
+                password: 'hello'
+            }
+        };
+
+        const url = {
+            method: 'GET',
+            url: '/users/roger',
+            credentials: user
+        };
+
+        const res = await Server.inject(url);
+
+        await expect(res.result).to.include({ userName: 'roger' });
 
     });
 });
