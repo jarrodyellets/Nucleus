@@ -13,9 +13,9 @@ describe('User', () => {
 
     it('sign up new user', async (flags) => {
 
-        const Server = await server(false);
+        const Server = await server(true);
 
-        const url = {
+        const url1 = {
             method: 'POST',
             url: '/users',
             payload: {
@@ -30,11 +30,44 @@ describe('User', () => {
             }
         };
 
-        const res = await Server.inject(url);
+        const url2 = {
+            method: 'POST',
+            url: '/users',
+            payload: {
+                username: 'roger',
+                password: 'hello',
+                firstName: 'Roger',
+                lastName: 'Rabbit',
+                email: 'roger@acme.com',
+                imageURL: 'https://www.jarrodyellets.com/images/penPro.jpg',
+                location: 'Toon Town',
+                bio: 'Actor'
+            }
+        };
 
-        const id = await res.result.id;
+        const url3 = {
+            method: 'POST',
+            url: '/users',
+            payload: {
+                username: 'jessica',
+                password: 'hello',
+                firstName: 'Jessica',
+                lastName: 'Rabbit',
+                email: 'roger@acme.com',
+                imageURL: 'https://www.jarrodyellets.com/images/penPro.jpg',
+                location: 'Toon Town',
+                bio: 'Actor'
+            }
+        };
 
-        expect(res.result).to.equal({
+
+        const res1 = await Server.inject(url1);
+        const res2 = await Server.inject(url2);
+        const res3 = await Server.inject(url3);
+
+        const id = await res1.result.id;
+
+        expect(res1.result).to.equal({
             userName: 'jarrod',
             firstName: 'Jarrod',
             lastName: 'Yellets',
@@ -49,6 +82,8 @@ describe('User', () => {
             timeline: [],
             login: true
         });
+        expect(res2.result).to.equal({ error: 'Username already exists' });
+        expect(res3.result).to.equal({ error: 'Email already exists' });
 
 
     });
@@ -91,12 +126,7 @@ describe('User', () => {
 
         const Server = await server(true);
 
-        const user = {
-            roger: {
-                username: 'roger',
-                password: 'hello'
-            }
-        };
+        const user = { id: '12345' };
 
         const url = {
             method: 'GET',
@@ -114,23 +144,59 @@ describe('User', () => {
 
         const Server = await server(true);
 
-        const user = {
-            roger: {
-                username: 'roger',
-                password: 'hello'
-            }
-        };
+        const user = { id: '12345' };
 
-        const url = {
+        const url1 = {
             method: 'GET',
             url: '/users/roger',
             credentials: user
         };
 
+        const url2 = {
+            method: 'GET',
+            url: '/users/jarrod',
+            credentials: user
+        };
+
+        const res1 = await Server.inject(url1);
+        const res2 = await Server.inject(url2);
+
+        await expect(res1.result).to.include({ userName: 'roger' });
+        await expect(res2.result).to.equal({ error: 'No results' });
+
+    });
+
+    it('Updates user', async (flags) => {
+
+        const Server = await server(true);
+
+        const user = { id: '12345' };
+
+        const url = {
+            method: 'PUT',
+            url: '/users/roger',
+            credentials: user,
+            payload: {
+                firstName: 'Roger',
+                lastName: 'Rabbit',
+                email: 'roger@toontown.com',
+                imageURL: 'https://vignette.wikia.nocookie.net/disney/images/b/b6/Rogerpoint.png/revision/latest?cb=20131219044547',
+                location: 'Toon Town',
+                bio: 'Actor'
+            }
+        };
+
         const res = await Server.inject(url);
 
-        await expect(res.result).to.include({ userName: 'roger' });
-
+        expect(res.result).to.part.include([{
+            userName: 'roger',
+            firstName: 'Roger',
+            lastName: 'Rabbit',
+            email: 'roger@toontown.com',
+            imageURL: 'https://vignette.wikia.nocookie.net/disney/images/b/b6/Rogerpoint.png/revision/latest?cb=20131219044547',
+            location: 'Toon Town',
+            bio: 'Actor'
+        }]);
     });
 });
 

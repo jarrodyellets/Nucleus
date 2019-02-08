@@ -49,7 +49,8 @@ internals.seed = async () => {
         followers: [],
         following: [],
         timeline: [],
-        password: Bcrypt.hashSync('hello', 10)
+        password: Bcrypt.hashSync('hello', 10),
+        id: '12345'
     });
 };
 

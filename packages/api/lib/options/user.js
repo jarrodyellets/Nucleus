@@ -46,7 +46,8 @@ exports.get = {
         const client = request.server.app.client;
         const name = request.params.username;
         const user = await client.users.query({ userName: name });
-        if (user !== []) {
+        await console.log(user);
+        if (user.length > 0) {
             return {
                 userName: user[0].userName,
                 firstName: user[0].firstName,
@@ -141,10 +142,6 @@ exports.create = {
     },
     auth: false,
     validate: {
-        failAction: (request, h, err) => {
-
-            console.log(err);
-        },
         payload: {
             username: internals.schema.userName,
             password: internals.schema.password,
