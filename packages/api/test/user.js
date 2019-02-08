@@ -87,24 +87,26 @@ describe('User', () => {
 
     });
 
-    it('Logs user in', async (flags) => {
+    it('Gets all users', async () => {
 
         const Server = await server(true);
 
-        const url = {
-            method: 'POST',
-            url: '/login',
-            payload: {
+        const user = {
+            roger: {
                 username: 'roger',
                 password: 'hello'
             }
         };
 
+        const url = {
+            method: 'GET',
+            url: '/users',
+            credentials: user
+        };
+
         const res3 = await Server.inject(url);
 
-        await expect(res3.result).to.contain({
-            userName: 'roger'
-        });
+        await expect(res3.result).to.part.include([{ userName: 'roger' }]);
 
     });
 });
