@@ -13,9 +13,9 @@ exports.get = {
     handler: async (request, h) => {
 
         const client = request.server.app.client;
-        const user = await client.users.query({ id: request.auth.credentials.id });
+        const user = await client.users.query({ id: request.params.userId });
         const posts = user[0].posts;
-        const post = await posts.find((p) => p.id === request.params.postId);
+        const post = await posts.find((p) => p.postID === request.params.postId);
         return post;
     }
 };
@@ -24,7 +24,7 @@ exports.create = {
     handler: async (request, h) => {
 
         const client = request.server.app.client;
-        const id = request.auth.artifacts.id;
+        const id = request.auth.credentials.id;
         let user = await client.users.query({ id });
         const posts = await user[0].posts;
         const timeline = await user[0].timeline;
@@ -39,7 +39,7 @@ exports.create = {
             lastName: user[0].lastName,
             username: user[0].userName,
             imageURL: user[0].imageURL,
-            id: request.auth.artifacts.id,
+            id: request.auth.credentials.id,
             path: [id + date]
         };
         await posts.unshift(newPost);
@@ -58,7 +58,7 @@ exports.create = {
     validate: {
         failAction: (request, h, err) => {
 
-            console.log(err);
+            throw err;
         },
         payload: {
             post: internals.schema.posts
@@ -84,7 +84,7 @@ exports.update = {
     validate: {
         failAction: (request, h, err) => {
 
-            console.log(err);
+            throw err;
         },
         payload: {
             post: internals.schema.posts

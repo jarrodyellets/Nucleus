@@ -45,10 +45,53 @@ internals.seed = async () => {
         imageURL: 'https://vignette.wikia.nocookie.net/disney/images/b/b6/Rogerpoint.png/revision/latest?cb=20131219044547',
         location: 'Toon Town',
         bio: 'Actor',
-        posts: [],
+        posts: [{
+            'date': 1549876459506,
+            'comments': [],
+            'likes': [],
+            'post': 'hello all',
+            'postID': '123451549876459506',
+            'firstName': 'Roger',
+            'lastName': 'Rabbit',
+            'username': 'roger',
+            'imageURL': 'https://vignette.wikia.nocookie.net/disney/images/b/b6/Rogerpoint.png/revision/latest?cb=20131219044547',
+            'id': '12345',
+            'path': [
+                '123451549876459506'
+            ]
+        }],
         followers: ['11111'],
         following: ['11111'],
-        timeline: [],
+        timeline: [{
+            'date': 1549876483373,
+            'comments': [],
+            'likes': [],
+            'post': 'what is everyone doing?',
+            'postID': '111111549876483373',
+            'firstName': 'Jessica',
+            'lastName': 'Rabbit',
+            'username': 'jessica',
+            'imageURL': 'https://upload.wikimedia.org/wikipedia/en/8/8d/Jessica_Rabbit.png',
+            'id': '11111',
+            'path': [
+                '111111549876483373'
+            ]
+        },
+        {
+            'date': 1549876459506,
+            'comments': [],
+            'likes': [],
+            'post': 'hello all',
+            'postID': '123451549876459506',
+            'firstName': 'Roger',
+            'lastName': 'Rabbit',
+            'username': 'roger',
+            'imageURL': 'https://vignette.wikia.nocookie.net/disney/images/b/b6/Rogerpoint.png/revision/latest?cb=20131219044547',
+            'id': '12345',
+            'path': [
+                '123451549876459506'
+            ]
+        }],
         password: Bcrypt.hashSync('hello', 10),
         id: '12345'
     });
@@ -61,10 +104,53 @@ internals.seed = async () => {
         imageURL: 'https://upload.wikimedia.org/wikipedia/en/8/8d/Jessica_Rabbit.png',
         location: 'Toon Town',
         bio: 'Singer',
-        posts: [],
+        posts: [{
+            'date': 1549876483373,
+            'comments': [],
+            'likes': [],
+            'post': 'what is everyone doing?',
+            'postID': '111111549876483373',
+            'firstName': 'Jessica',
+            'lastName': 'Rabbit',
+            'username': 'jessica',
+            'imageURL': 'https://upload.wikimedia.org/wikipedia/en/8/8d/Jessica_Rabbit.png',
+            'id': '11111',
+            'path': [
+                '111111549876483373'
+            ]
+        }],
         followers: ['12345'],
         following: ['12345'],
-        timeline: [],
+        timeline: [{
+            'date': 1549876459506,
+            'comments': [],
+            'likes': [],
+            'post': 'hello all',
+            'postID': '123451549876459506',
+            'firstName': 'Roger',
+            'lastName': 'Rabbit',
+            'username': 'roger',
+            'imageURL': 'https://vignette.wikia.nocookie.net/disney/images/b/b6/Rogerpoint.png/revision/latest?cb=20131219044547',
+            'id': '12345',
+            'path': [
+                '123451549876459506'
+            ]
+        },
+        {
+            'date': 1549876483373,
+            'comments': [],
+            'likes': [],
+            'post': 'what is everyone doing?',
+            'postID': '111111549876483373',
+            'firstName': 'Jessica',
+            'lastName': 'Rabbit',
+            'username': 'jessica',
+            'imageURL': 'https://upload.wikimedia.org/wikipedia/en/8/8d/Jessica_Rabbit.png',
+            'id': '11111',
+            'path': [
+                '111111549876483373'
+            ]
+        }],
         password: Bcrypt.hashSync('hello', 10),
         id: '11111'
     });
