@@ -49,11 +49,11 @@ describe('User', () => {
             method: 'POST',
             url: '/users',
             payload: {
-                username: 'jessica',
+                username: 'jess',
                 password: 'hello',
                 firstName: 'Jessica',
                 lastName: 'Rabbit',
-                email: 'roger@acme.com',
+                email: 'jessica@acme.com',
                 imageURL: 'https://www.jarrodyellets.com/images/penPro.jpg',
                 location: 'Toon Town',
                 bio: 'Actor'

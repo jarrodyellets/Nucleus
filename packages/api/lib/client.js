@@ -46,11 +46,43 @@ internals.seed = async () => {
         location: 'Toon Town',
         bio: 'Actor',
         posts: [],
+        followers: ['11111'],
+        following: ['11111'],
+        timeline: [],
+        password: Bcrypt.hashSync('hello', 10),
+        id: '12345'
+    });
+
+    await internals.client.users.insert({
+        userName: 'jessica',
+        firstName: 'Jessica',
+        lastName: 'Rabbit',
+        email: 'jessica@acme.com',
+        imageURL: 'https://upload.wikimedia.org/wikipedia/en/8/8d/Jessica_Rabbit.png',
+        location: 'Toon Town',
+        bio: 'Singer',
+        posts: [],
+        followers: ['12345'],
+        following: ['12345'],
+        timeline: [],
+        password: Bcrypt.hashSync('hello', 10),
+        id: '11111'
+    });
+
+    await internals.client.users.insert({
+        userName: 'eddie',
+        firstName: 'Eddie',
+        lastName: 'Valiant',
+        email: 'eddie@acme.com',
+        imageURL: 'https://pbs.twimg.com/profile_images/471479873895411712/ZtnPcfaR_400x400.jpeg',
+        location: 'Los Angeles',
+        bio: 'Private Detective',
+        posts: [],
         followers: [],
         following: [],
         timeline: [],
         password: Bcrypt.hashSync('hello', 10),
-        id: '12345'
+        id: '67890'
     });
 };
 
