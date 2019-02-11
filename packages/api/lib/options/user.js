@@ -46,7 +46,6 @@ exports.get = {
         const client = request.server.app.client;
         const name = request.params.username;
         const user = await client.users.query({ userName: name });
-        await console.log(user);
         if (user.length > 0) {
             return {
                 userName: user[0].userName,
@@ -121,7 +120,7 @@ exports.create = {
                 userName: request.payload.username,
                 firstName: request.payload.firstName,
                 lastName: request.payload.lastName,
-                email: request.payload.email,
+                email: userArray[0].email,
                 imageURL: request.payload.imageURL,
                 location: request.payload.location,
                 bio: request.payload.bio,
@@ -165,7 +164,6 @@ exports.update = {
         const client = request.server.app.client;
         await client.users.update({
             id: request.auth.credentials.id,
-            userName: request.payload.username,
             firstName: request.payload.firstName,
             lastName: request.payload.lastName,
             email: request.payload.email,
@@ -174,15 +172,11 @@ exports.update = {
             bio: request.payload.bio
         });
         const updatedUser = await client.users.query({
-            id: request.auth.credentials.id
+            userName: request.params.username
         });
         return updatedUser;
     },
     validate: {
-        failAction: (request, h, err) => {
-
-            console.log(err);
-        },
         payload: {
             firstName: internals.schema.firstName,
             lastName: internals.schema.lastName,

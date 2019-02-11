@@ -112,10 +112,12 @@ internals.onPreResponse = async (request, h) => {
     if (!response.isBoom){
         return h.continue;
     }
+    else if (request.route.path === '/users'){
+        const errors = await checkSignUpErrors(response.details);
+        return errors;
+    }
 
-    const errors = await checkSignUpErrors(response.details);
-    return errors;
-
+    return h.continue;
 };
 
 

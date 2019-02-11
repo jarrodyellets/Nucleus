@@ -172,7 +172,7 @@ describe('User', () => {
 
         const user = { id: '12345' };
 
-        const url = {
+        const url1 = {
             method: 'PUT',
             url: '/users/roger',
             credentials: user,
@@ -186,9 +186,24 @@ describe('User', () => {
             }
         };
 
-        const res = await Server.inject(url);
+        const url2 = {
+            method: 'PUT',
+            url: '/users/roger',
+            credentials: user,
+            payload: {
+                firstName: 'Roger',
+                lastName: 'Rabbit',
+                email: 'roger',
+                imageURL: 'https://vignette.wikia.nocookie.net/disney/images/b/b6/Rogerpoint.png/revision/latest?cb=20131219044547',
+                location: 'Toon Town',
+                bio: 'Actor'
+            }
+        };
 
-        expect(res.result).to.part.include([{
+        const res1 = await Server.inject(url1);
+        const res2 = await Server.inject(url2);
+
+        expect(res1.result).to.part.include([{
             userName: 'roger',
             firstName: 'Roger',
             lastName: 'Rabbit',
@@ -197,6 +212,26 @@ describe('User', () => {
             location: 'Toon Town',
             bio: 'Actor'
         }]);
+        expect(res2.result).to.part.include({
+            statusCode: 400
+        });
+    });
+
+    it('Deletes a user', async () => {
+
+        const Server = await server(true);
+
+        const user = { id: '12345' };
+
+        const url = {
+            method: 'DELETE',
+            url: '/users/roger',
+            credentials: user
+        };
+
+        const res = await Server.inject(url);
+
+        expect(res.result).to.equal('User: roger deleted.');
     });
 });
 
