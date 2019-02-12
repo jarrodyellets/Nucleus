@@ -49,7 +49,7 @@ internals.seed = async () => {
             {
                 date: 1549876459506,
                 comments: [],
-                likes: [],
+                likes: ['11111'],
                 post: 'hello all',
                 postID: '123451549876459506',
                 firstName: 'Roger',
@@ -128,7 +128,7 @@ internals.seed = async () => {
             {
                 date: 1549876459506,
                 comments: [],
-                likes: [],
+                likes: ['11111'],
                 post: 'hello all',
                 postID: '123451549876459506',
                 firstName: 'Roger',
@@ -221,7 +221,7 @@ internals.seed = async () => {
             {
                 date: 1549876459506,
                 comments: [],
-                likes: [],
+                likes: ['11111'],
                 post: 'hello all',
                 postID: '123451549876459506',
                 firstName: 'Roger',

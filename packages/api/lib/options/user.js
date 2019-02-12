@@ -96,21 +96,17 @@ exports.create = {
             });
             await Bcrypt.hash(request.payload.password, 10, async (err, hash) => {
 
-                if (err) {
-                    console.log(err);
-                }
-                else {
-                    const newUser = await client.users.query({
-                        userName: request.payload.username
-                    });
-                    await client.users.update(
-                        {
-                            id: newUser[0].id,
-                            password: hash
-                        },
-                        { insert: true }
-                    );
-                }
+                const newUser = await client.users.query({
+                    userName: request.payload.username
+                });
+                await client.users.update(
+                    {
+                        id: newUser[0].id,
+                        password: hash
+                    },
+                    { insert: true }
+                );
+
             });
             userArray = await client.users.query({
                 userName: request.payload.username

@@ -62,7 +62,7 @@ describe('Likes', () => {
 
         const url1 = {
             method: 'DELETE',
-            url: '/users/12345/posts/111111549958262407/likes',
+            url: '/users/11111/posts/111111549958262407/likes',
             credentials: user1,
             payload: {
                 path: ['111111549876483373', '123451549958237476', '111111549958262407']
@@ -70,6 +70,15 @@ describe('Likes', () => {
         };
 
         const url2 = {
+            method: 'DELETE',
+            url: '/users/12345/posts/123451549876459506/likes',
+            credentials: user2,
+            payload: {
+                path: ['123451549876459506']
+            }
+        };
+
+        const url3 = {
             method: 'DELETE',
             url: '/users/11111/posts/123451549958237476/likes',
             credentials: user2,
@@ -80,6 +89,7 @@ describe('Likes', () => {
 
         const res1 = await Server.inject(url1);
         const res2 = await Server.inject(url2);
+        const res3 = await Server.inject(url3);
 
         expect(res1.result).to.part.contain({
             post: {
@@ -89,8 +99,14 @@ describe('Likes', () => {
         });
         expect(res2.result).to.part.contain({
             post: {
-                post: 'Of course you are',
-                likes: ['12345', '11111']
+                post: 'hello all',
+                likes: []
+            }
+        });
+        expect(res3.result).to.part.contain({
+            post: {
+                post: 'Eating carrot cake!',
+                likes: []
             }
         });
     });
