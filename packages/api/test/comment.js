@@ -147,4 +147,45 @@ describe('Comment', () => {
             statusCode: 400
         });
     });
+
+    it('Deletes a comment', async () => {
+
+        const user = { id: '12345' };
+
+        const Server = await server(true);
+
+        const url1 = {
+            method: 'DELETE',
+            url: '/users/11111/posts/111111549876483373/comments/123451549958237476',
+            credentials: user,
+            payload: {
+                path: ['111111549876483373', '123451549958237476']
+            }
+        };
+
+        const url2 = {
+            method: 'DELETE',
+            url: '/users/11111/posts/11111549876483373/comments/111111549958262407',
+            credentials: user,
+            payload: {
+                path: ['111111549876483373', '123451549958237476', '111111549958262407']
+            }
+        };
+
+        const res1 = await Server.inject(url1);
+        const res2 = await Server.inject(url2);
+
+        expect(res1.result).to.part.contain({
+            posts: [{
+                comments: []
+            }]
+        });
+        expect(res2.result).to.part.contain({
+            posts: [{
+                comments: [{
+                    comments: []
+                }]
+            }]
+        });
+    });
 });
