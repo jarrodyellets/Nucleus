@@ -92,21 +92,8 @@ exports.create = {
                 posts: [],
                 followers: [],
                 following: [],
-                timeline: []
-            });
-            await Bcrypt.hash(request.payload.password, 10, async (err, hash) => {
-
-                const newUser = await client.users.query({
-                    userName: request.payload.username
-                });
-                await client.users.update(
-                    {
-                        id: newUser[0].id,
-                        password: hash
-                    },
-                    { insert: true }
-                );
-
+                timeline: [],
+                password: Bcrypt.hashSync(request.payload.password, 10),
             });
             userArray = await client.users.query({
                 userName: request.payload.username
