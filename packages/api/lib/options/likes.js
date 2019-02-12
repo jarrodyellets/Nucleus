@@ -63,7 +63,8 @@ exports.delete = {
             currentPost = comments.currentPost;
         }
         else {
-            comment, (currentPost = user[0].posts[parentPost]);
+            comment = posts[postIndex];
+            currentPost = user[0].posts[parentPost];
         }
 
         const likeIndex = await comment.likes.find(

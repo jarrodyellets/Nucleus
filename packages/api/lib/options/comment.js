@@ -88,7 +88,7 @@ exports.create = {
     validate: {
         failAction: (request, h, err) => {
 
-            console.log(err);
+            throw err;
         },
         payload: Joi.object({
             comment: internals.schema.comments,
@@ -103,29 +103,32 @@ exports.update = {
         const client = request.server.app.client;
         let user = await client.users.query({ id: request.params.userId });
         const posts = user[0].posts;
-        let comment;
+        let updatedPost;
         const path = request.payload.path;
         const postIndex = await posts.findIndex((x) => x.postID === request.params.postId);
         if ((await postIndex) === -1) {
-            comment = await findComment(posts, path).post;
-            comment.post = request.payload.post;
+            const comment = await findComment(posts, path).post;
+            comment.post = request.payload.comment;
+            updatedPost = await comment;
         }
         else {
-            comment = await posts[postIndex].comments.findIndex(
+            const commentIndex = await posts[postIndex].comments.findIndex(
                 (c) => c.postID === request.params.commentId
             );
-            posts[postIndex].comments[comment].comment = request.payload.comment;
+            posts[postIndex].comments[commentIndex].post = request.payload.comment;
+            updatedPost = await posts[postIndex].comments[commentIndex];
         }
 
         await client.users.update({ id: request.auth.credentials.id, posts });
         await createTimeline(request.params.userId, client);
         user = await client.users.query({ id: request.params.userId });
-        return comment;
+
+        return updatedPost;
     },
     validate: {
         failAction: (request, h, err) => {
 
-            console.log(err);
+            throw err;
         },
         payload: Joi.object({
             comment: internals.schema.comments,
