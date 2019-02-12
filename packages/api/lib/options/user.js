@@ -93,7 +93,7 @@ exports.create = {
                 followers: [],
                 following: [],
                 timeline: [],
-                password: Bcrypt.hashSync(request.payload.password, 10),
+                password: Bcrypt.hashSync(request.payload.password, 10)
             });
             userArray = await client.users.query({
                 userName: request.payload.username
