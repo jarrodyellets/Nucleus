@@ -11,7 +11,7 @@ const expect = Code.expect;
 
 describe('Login', () => {
 
-    it('Logs user in', async (flags) => {
+    it('Logs user in', async () => {
 
         const Server = await server(true);
 

@@ -11,7 +11,7 @@ const expect = Code.expect;
 
 describe('User', () => {
 
-    it('sign up new user', async (flags) => {
+    it('sign up new user', async () => {
 
         const Server = await server(true);
 
@@ -88,7 +88,7 @@ describe('User', () => {
 
     });
 
-    it('user forgets email', async (flags) => {
+    it('user forgets email', async () => {
 
         const Server = await server(false);
 
@@ -166,7 +166,7 @@ describe('User', () => {
 
     });
 
-    it('Updates user', async (flags) => {
+    it('Updates user', async () => {
 
         const Server = await server(true);
 
