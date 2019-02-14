@@ -94,7 +94,7 @@ describe('Likes', () => {
         expect(res1.result).to.part.contain({
             post: {
                 post: 'Of course you are',
-                likes: ['12345']
+                likes: []
             }
         });
         expect(res2.result).to.part.contain({

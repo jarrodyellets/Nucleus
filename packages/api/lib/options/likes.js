@@ -67,9 +67,10 @@ exports.delete = {
             currentPost = user[0].posts[parentPost];
         }
 
-        const likeIndex = await comment.likes.find(
+        const likeIndex = await comment.likes.findIndex(
             (like) => like === request.auth.credentials.id
         );
+        await console.log(comment.likes, likeIndex);
         await comment.likes.splice(likeIndex, 1);
         await client.users.update({ id: request.params.userId, posts });
         user = await client.users.query({ id: request.params.userId });
