@@ -30,7 +30,9 @@ const dbase = async (seed) => {
         create
     });
 
-    seed && await internals.seed();
+    if (seed){
+        await internals.seed();
+    }
 
     return internals.client;
 };

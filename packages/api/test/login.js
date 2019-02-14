@@ -2,7 +2,7 @@
 
 const Lab = require('lab');
 const Code = require('code');
-const { server } = require('../lib/api');
+const { server } = require('../lib');
 
 const internals = {};
 
@@ -11,7 +11,7 @@ const expect = Code.expect;
 
 describe('Login', () => {
 
-    it('Logs user in', async (flags) => {
+    it('Logs user in', async () => {
 
         const Server = await server(true);
 

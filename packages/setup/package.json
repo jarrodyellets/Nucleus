@@ -1,0 +1,17 @@
+{
+  "name": "@realmark/setup",
+  "version": "1.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "lab -a code -t 100 -L --lint-fix"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@realmark/db": "^1.0.0",
+    "bcrypt": "^3.0.4",
+    "code": "^5.2.4",
+    "lab": "^18.0.2"
+  }
+}
