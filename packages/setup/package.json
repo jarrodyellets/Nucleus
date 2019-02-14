@@ -1,6 +1,6 @@
 {
   "name": "@realmark/setup",
-  "version": "1.x.x",
+  "version": "1.0.0",
   "description": "",
   "main": "lib/index.js",
   "scripts": {

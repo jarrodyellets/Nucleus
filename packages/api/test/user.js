@@ -2,7 +2,7 @@
 
 const Lab = require('lab');
 const Code = require('code');
-const { server } = require('../lib/api');
+const { server } = require('../lib');
 
 const internals = {};
 
