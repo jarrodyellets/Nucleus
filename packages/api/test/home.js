@@ -3,6 +3,7 @@
 const Lab = require('lab');
 const Code = require('code');
 const { server } = require('../lib');
+const Setup = require('@realmark/setup');
 
 const internals = {};
 
@@ -13,7 +14,9 @@ describe('Home', () => {
 
     it('Returns home page', async () => {
 
-        const Server = await server(false);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const url = {
             method: 'GET',
@@ -27,7 +30,9 @@ describe('Home', () => {
 
     it('Returns manifest', async () => {
 
-        const Server = await server(false);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const url = {
             method: 'GET',
@@ -39,3 +44,11 @@ describe('Home', () => {
         expect(res.result).to.be.a.string();
     });
 });
+
+internals.provision = async function () {
+
+    const vault = await Setup.vault.generate();
+    const dbase = await Setup.dbase(false);
+
+    return { vault, dbase };
+};

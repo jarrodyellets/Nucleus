@@ -10,7 +10,6 @@ const Comments = require('./options/comment');
 const Following = require('./options/following');
 const Likes = require('./options/likes');
 const Default = require('./options/default');
-const { dbase } = require('@realmark/setup');
 const { checkSignUpErrors } = require('./helpers');
 
 
@@ -19,9 +18,13 @@ const internals = {};
 
 //API server
 
-exports.server = async (seed) => {
+exports.server = async (client, vault) => {
 
     const server = Hapi.server({
+        app: {
+            client,
+            vault
+        },
         port: 8000,
         routes: {
             files: {
@@ -34,7 +37,8 @@ exports.server = async (seed) => {
         }
     });
 
-    server.app.client = await dbase(seed);
+    server.app.client = client;
+    server.app.vault = vault;
 
     server.ext('onPreResponse', internals.onPreResponse);
 
@@ -90,7 +94,7 @@ internals.auth = async (server) => {
     await server.register(require('hapi-auth-cookie'));
 
     server.auth.strategy('session', 'cookie', {
-        password: 'RDXcdNWW6649jd9TKsQNsbSwfzNHrBBa',
+        password: server.app.vault.vendors.auth.secret,
         cookie: 'session',
         isSecure: false,
         redirectTo: '/'

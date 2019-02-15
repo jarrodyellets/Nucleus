@@ -3,6 +3,7 @@
 const Lab = require('lab');
 const Code = require('code');
 const { server } = require('../lib');
+const Setup = require('@realmark/setup');
 
 const internals = {};
 
@@ -16,7 +17,9 @@ describe('Likes', () => {
         const user1 = { id: '12345' };
         const user2 = { id: '11111' };
 
-        const Server = await server(true);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const url1 = {
             method: 'POST',
@@ -58,7 +61,9 @@ describe('Likes', () => {
         const user1 = { id: '12345' };
         const user2 = { id: '11111' };
 
-        const Server = await server(true);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const url1 = {
             method: 'DELETE',
@@ -111,3 +116,11 @@ describe('Likes', () => {
         });
     });
 });
+
+internals.provision = async function () {
+
+    const vault = await Setup.vault.generate();
+    const dbase = await Setup.dbase(true);
+
+    return { vault, dbase };
+};
