@@ -38,6 +38,21 @@ const dbase = async (seed) => {
     return internals.client;
 };
 
+const vault = {
+    generate: function () {
+
+        const vault = {
+            vendors: {
+                auth: {
+                    secret: internals.token()
+                }
+            }
+        }
+
+        return vault;
+    }
+}
+
 internals.token = function () {
 
     return Cryptiles.randomBits(256).toString('hex');
@@ -322,4 +337,4 @@ internals.seed = async () => {
     });
 };
 
-module.exports = { dbase };
+module.exports = { dbase, vault }
