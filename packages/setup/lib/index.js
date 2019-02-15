@@ -2,6 +2,7 @@
 
 const Db = require('@realmark/db');
 const Bcrypt = require('bcrypt');
+const Cryptiles = require('cryptiles');
 
 const internals = {
     client: {}
@@ -36,6 +37,11 @@ const dbase = async (seed) => {
 
     return internals.client;
 };
+
+internals.token = function () {
+
+    return Cryptiles.randomBits(256).toString('hex');
+}
 
 internals.seed = async () => {
 
