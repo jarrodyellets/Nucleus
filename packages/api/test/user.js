@@ -3,6 +3,7 @@
 const Lab = require('lab');
 const Code = require('code');
 const { server } = require('../lib');
+const Setup = require('@realmark/setup');
 
 const internals = {};
 
@@ -13,7 +14,9 @@ describe('User', () => {
 
     it('sign up new user', async () => {
 
-        const Server = await server(true);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const url1 = {
             method: 'POST',
@@ -90,7 +93,9 @@ describe('User', () => {
 
     it('user forgets email', async () => {
 
-        const Server = await server(false);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const url = {
             method: 'POST',
@@ -124,7 +129,9 @@ describe('User', () => {
 
     it('Gets all users', async () => {
 
-        const Server = await server(true);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const user = { id: '12345' };
 
@@ -142,7 +149,9 @@ describe('User', () => {
 
     it('Gets specific user', async () => {
 
-        const Server = await server(true);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const user = { id: '12345' };
 
@@ -168,7 +177,9 @@ describe('User', () => {
 
     it('Updates user', async () => {
 
-        const Server = await server(true);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const user = { id: '12345' };
 
@@ -219,7 +230,9 @@ describe('User', () => {
 
     it('Deletes a user', async () => {
 
-        const Server = await server(true);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const user = { id: '12345' };
 
@@ -234,6 +247,14 @@ describe('User', () => {
         expect(res.result).to.equal('User: roger deleted.');
     });
 });
+
+internals.provision = async function () {
+
+    const vault = await Setup.vault.generate();
+    const dbase = await Setup.dbase(true);
+
+    return { vault, dbase };
+};
 
 
 

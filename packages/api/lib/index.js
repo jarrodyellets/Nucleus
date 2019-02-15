@@ -10,7 +10,6 @@ const Comments = require('./options/comment');
 const Following = require('./options/following');
 const Likes = require('./options/likes');
 const Default = require('./options/default');
-const { dbase, vault } = require('@realmark/setup');
 const { checkSignUpErrors } = require('./helpers');
 
 

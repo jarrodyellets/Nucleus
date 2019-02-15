@@ -3,6 +3,7 @@
 const Lab = require('lab');
 const Code = require('code');
 const { server } = require('../lib');
+const Setup = require('@realmark/setup');
 
 const internals = {};
 
@@ -15,7 +16,9 @@ describe('Comment', () => {
 
         const user = { id: '12345' };
 
-        const Server = await server(true);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const url1 = {
             method: 'GET',
@@ -44,7 +47,9 @@ describe('Comment', () => {
 
         const user = { id: '12345' };
 
-        const Server = await server(true);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const url1 = {
             method: 'POST',
@@ -103,7 +108,9 @@ describe('Comment', () => {
 
         const user = { id: '12345' };
 
-        const Server = await server(true);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const url1 = {
             method: 'PUT',
@@ -154,7 +161,9 @@ describe('Comment', () => {
 
         const user = { id: '12345' };
 
-        const Server = await server(true);
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
 
         const url1 = {
             method: 'DELETE',
@@ -191,3 +200,11 @@ describe('Comment', () => {
         });
     });
 });
+
+internals.provision = async function () {
+
+    const vault = await Setup.vault.generate();
+    const dbase = await Setup.dbase(true);
+
+    return { vault, dbase };
+};
