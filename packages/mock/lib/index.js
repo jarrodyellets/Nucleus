@@ -18,7 +18,9 @@ internals.provision = async function () {
     const vault = await Setup.vault.generate();
     const dbase = await Setup.dbase();
 
-    return { vault, dbase }
-}
+    return { vault, dbase };
+};
 
 start();
+
+module.exports = { start };
