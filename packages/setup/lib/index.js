@@ -8,7 +8,7 @@ const internals = {
     client: {}
 };
 
-const dbase = async (seed) => {
+exports.dbase = async (seed) => {
 
     const server = await Db.server();
 
@@ -38,7 +38,7 @@ const dbase = async (seed) => {
     return internals.client;
 };
 
-const vault = {
+exports.vault = {
     generate: function () {
 
         const vault = {
@@ -47,16 +47,16 @@ const vault = {
                     secret: internals.token()
                 }
             }
-        }
+        };
 
         return vault;
     }
-}
+};
 
 internals.token = function () {
 
     return Cryptiles.randomBits(256).toString('hex');
-}
+};
 
 internals.seed = async () => {
 
@@ -337,4 +337,3 @@ internals.seed = async () => {
     });
 };
 
-module.exports = { dbase, vault }

@@ -2,15 +2,17 @@
   "name": "@realmark/mock",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "lab -a code -t 100 -L --lint-fix"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@realmark/api": "^1.0.0",
-    "@realmark/setup": "^1.0.0"
+    "@realmark/setup": "^1.0.0",
+    "code": "^5.2.4",
+    "lab": "^18.0.2"
   }
 }

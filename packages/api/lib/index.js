@@ -2,14 +2,7 @@
 
 const Hapi = require('hapi');
 const Path = require('path');
-const User = require('./options/user');
-const Home = require('./options/home');
-const Login = require('./options/login');
-const Blog = require('./options/blog');
-const Comments = require('./options/comment');
-const Following = require('./options/following');
-const Likes = require('./options/likes');
-const Default = require('./options/default');
+const routes = require('./options')
 const { checkSignUpErrors } = require('./helpers');
 
 
@@ -46,44 +39,44 @@ exports.server = async (client, vault) => {
     await internals.files(server);
 
     //Default route
-    server.route({ method: 'GET', path: '/{any*}', options: Default.get });
+    server.route({ method: 'GET', path: '/{any*}', options: routes.default.get });
 
     //Home routes
-    server.route({ method: 'GET', path: '/', options: Home.home });
-    server.route({ method: 'GET', path: '/static/{path*}', options: Home.css });
-    server.route({ method: 'GET', path: '/manifest.json', options: Home.manifest });
+    server.route({ method: 'GET', path: '/', options: routes.home.home });
+    server.route({ method: 'GET', path: '/static/{path*}', options: routes.home.css });
+    server.route({ method: 'GET', path: '/manifest.json', options: routes.home.manifest });
 
     //Login routes
-    server.route({ method: 'POST', path: '/login', options: Login.login });
-    server.route({ method: 'GET', path: '/logout', options: Login.logout });
-    server.route({ method: 'GET', path: '/checklogin', options: Login.check });
+    server.route({ method: 'POST', path: '/login', options: routes.login.login });
+    server.route({ method: 'GET', path: '/logout', options: routes.login.logout });
+    server.route({ method: 'GET', path: '/checklogin', options: routes.login.check });
 
     //User routes
-    server.route({ method: 'GET', path: '/users', options: User.getAll });
-    server.route({ method: 'GET', path: '/users/{username}', options: User.get });
-    server.route({ method: 'POST', path: '/users', options: User.create });
-    server.route({ method: 'PUT', path: '/users/{username}', options: User.update });
-    server.route({ method: 'DELETE', path: '/users/{username}', options: User.delete });
+    server.route({ method: 'GET', path: '/users', options: routes.user.getAll });
+    server.route({ method: 'GET', path: '/users/{username}', options: routes.user.get });
+    server.route({ method: 'POST', path: '/users', options: routes.user.create });
+    server.route({ method: 'PUT', path: '/users/{username}', options: routes.user.update });
+    server.route({ method: 'DELETE', path: '/users/{username}', options: routes.user.delete });
 
     //Blog post routes
-    server.route({ method: 'GET', path: '/users/{userId}/posts/{postId}', options: Blog.get });
-    server.route({ method: 'POST', path: '/users/posts', options: Blog.create });
-    server.route({ method: 'PUT', path: '/users/posts/{postId}', options: Blog.update });
-    server.route({ method: 'DELETE', path: '/users/posts/{postId}', options: Blog.delete });
+    server.route({ method: 'GET', path: '/users/{userId}/posts/{postId}', options: routes.blog.get });
+    server.route({ method: 'POST', path: '/users/posts', options: routes.blog.create });
+    server.route({ method: 'PUT', path: '/users/posts/{postId}', options: routes.blog.update });
+    server.route({ method: 'DELETE', path: '/users/posts/{postId}', options: routes.blog.delete });
 
     //Comment routes
-    server.route({ method: 'GET', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.get });
-    server.route({ method: 'POST', path: '/users/{userId}/posts/{postId}/comments', options: Comments.create });
-    server.route({ method: 'PUT', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.update });
-    server.route({ method: 'DELETE', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: Comments.delete });
+    server.route({ method: 'GET', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: routes.comments.get });
+    server.route({ method: 'POST', path: '/users/{userId}/posts/{postId}/comments', options: routes.comments.create });
+    server.route({ method: 'PUT', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: routes.comments.update });
+    server.route({ method: 'DELETE', path: '/users/{userId}/posts/{postId}/comments/{commentId}', options: routes.comments.delete });
 
     //Likes routes
-    server.route({ method: 'POST', path: '/users/{userId}/posts/{postId}/likes', options: Likes.create });
-    server.route({ method: 'DELETE', path: '/users/{userId}/posts/{postId}/likes', options: Likes.delete });
+    server.route({ method: 'POST', path: '/users/{userId}/posts/{postId}/likes', options: routes.likes.create });
+    server.route({ method: 'DELETE', path: '/users/{userId}/posts/{postId}/likes', options: routes.likes.delete });
 
     //Following routes
-    server.route({ method: 'POST', path: '/users/following/{userID}', options: Following.create });
-    server.route({ method: 'DELETE', path: '/users/following/{userID}', options: Following.delete });
+    server.route({ method: 'POST', path: '/users/following/{userID}', options: routes.following.create });
+    server.route({ method: 'DELETE', path: '/users/following/{userID}', options: routes.following.delete });
 
 
     return server;
