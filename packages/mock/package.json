@@ -2,7 +2,7 @@
   "name": "@realmark/mock",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "lib/index.js",
   "scripts": {
     "test": "lab -a code -t 100 -L --lint-fix"
   },

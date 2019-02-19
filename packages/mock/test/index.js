@@ -2,7 +2,7 @@
 
 const Lab = require('lab');
 const Code = require('code');
-const Server = require('../lib');
+const Mock = require('..');
 
 const internals = {};
 
@@ -10,9 +10,14 @@ const { describe, it } = exports.lab = Lab.script();
 
 describe('Mock', () => {
 
-    it('provisions a server', async () => {
+    describe('server', () => {
 
-        await Server.start;
+        it('provisions a server', async () => {
 
+            const mock = Mock();
+
+            await mock.server();
+
+        });
     });
 });
