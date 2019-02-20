@@ -15,17 +15,17 @@ exports.setup =  {
 
         await Server.start();
 
-        await console.log("Server has started")
+        await console.log('Server has started');
 
         process.on('SIGINT', async () => {
 
-            await Server.stop()
-            await console.log("Server has stopped")
-            
-        })
+            await Server.stop();
+            await console.log('Server has stopped');
+
+        });
 
         return { server };
-    },
+    }
 };
 
 internals.provision = async function () {
