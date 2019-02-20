@@ -5,20 +5,27 @@ const Setup = require('@realmark/setup');
 
 const internals = {};
 
-module.exports = function () {
+exports.setup =  {
 
-    return {
-        server: async () => {
+    start: async () => {
 
-            const app = await internals.provision();
+        const app = await internals.provision();
 
-            const Server = await server(app.dbase, app.vault);
+        const Server = await server(app.dbase, app.vault);
 
-            await Server.start();
+        await Server.start();
 
-            return { server };
-        }
-    };
+        await console.log('Server has started');
+
+        process.on('SIGINT', async () => {
+
+            await Server.stop();
+            await console.log('Server has stopped');
+
+        });
+
+        return { server };
+    }
 };
 
 internals.provision = async function () {
@@ -28,5 +35,6 @@ internals.provision = async function () {
 
     return { vault, dbase };
 };
+
 
 
