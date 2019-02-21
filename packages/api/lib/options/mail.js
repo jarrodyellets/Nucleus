@@ -8,6 +8,17 @@ const internals = {
     }
 };
 
+exports.get = {
+    handler: async () => {
+
+        const client = request.server.app.client;
+        const user = await client.users.query({ id: request.params.userId });
+        const mail = user[0].mail.recieved;
+        const message = await mail.find((p) => p.messageID === request.params.messageId);
+        return message;
+    }
+}
+
 exports.create = {
     handler: async () => {
 
