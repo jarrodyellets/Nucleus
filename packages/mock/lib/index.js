@@ -17,11 +17,12 @@ exports.setup =  {
 
         await console.log('Server has started');
 
-        process.on('SIGINT', async () => {
+        process.on('SIGINT', () => {
 
-            await Server.stop();
-            await console.log('Server has stopped');
-
+            Server.stop().then(function (err) {
+                console.log('Server has stopped')
+                process.exit((err) ? 1 : 0)
+            });
         });
 
         return { server };

@@ -94,13 +94,13 @@ internals.seed = async () => {
         mail: {
             sent: [
                 {
-                    messageID: "178c1c291ea44409b48d12c6a7cec76f1550740368618",
-                    id: "12345",
-                    message: "Headed to the store later, need anything?",
+                    messageID: '178c1c291ea44409b48d12c6a7cec76f1550740368618',
+                    id: '12345',
+                    message: 'Headed to the store later, need anything?',
                     date: 1550740368618,
-                    from: "Roger Rabbit",
-                    to: "Jessica Rabbit",
-                    subject: "Quick question"
+                    from: 'Roger Rabbit',
+                    to: 'Jessica Rabbit',
+                    subject: 'Quick question'
                 }
             ],
             recieved: []
@@ -258,13 +258,13 @@ internals.seed = async () => {
             sent: [],
             recieved: [
                 {
-                    messageID: "178c1c291ea44409b48d12c6a7cec76f1550740368618",
-                    id: "12345",
-                    message: "Headed to the store later, need anything?",
+                    messageID: '178c1c291ea44409b48d12c6a7cec76f1550740368618',
+                    id: '12345',
+                    message: 'Headed to the store later, need anything?',
                     date: 1550740368618,
-                    from: "Roger Rabbit",
-                    to: "Jessica Rabbit",
-                    subject: "Quick question"
+                    from: 'Roger Rabbit',
+                    to: 'Jessica Rabbit',
+                    subject: 'Quick question'
                 }
             ]
         },
