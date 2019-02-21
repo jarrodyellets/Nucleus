@@ -9,8 +9,8 @@ const { checkSignUpErrors } = require('./helpers');
 //Deaclare internals
 const internals = {};
 
-//API server
 
+//API server
 exports.server = async (client, vault) => {
 
     const server = Hapi.server({
@@ -77,6 +77,11 @@ exports.server = async (client, vault) => {
     //Following routes
     server.route({ method: 'POST', path: '/users/following/{userID}', options: routes.following.create });
     server.route({ method: 'DELETE', path: '/users/following/{userID}', options: routes.following.delete });
+
+    //Mail routes
+    server.route({ method: 'GET', path: '/users/{userID}/mail/{messageID}', options: routes.mail.get });
+    server.route({ method: 'POST', path: '/users/{userID}/mail/', options: routes.mail.create });
+    server.route({ method: 'DELETE', path: '/users//{userID}/mail/{messageID}', options: routes.mail.delete });
 
 
     return server;

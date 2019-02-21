@@ -8,3 +8,4 @@ exports.home = require('./home');
 exports.likes = require('./likes');
 exports.login = require('./login');
 exports.user = require('./user');
+exports.mail = require('./mail');
