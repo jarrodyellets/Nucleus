@@ -83,6 +83,10 @@ describe('User', () => {
             followers: [],
             following: [],
             timeline: [],
+            mail: {
+                sent: [],
+                recieved: []
+            },
             login: true
         });
         expect(res2.result).to.equal({ error: 'Username already exists' });

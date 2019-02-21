@@ -59,6 +59,7 @@ exports.get = {
                 followers: user[0].followers,
                 following: user[0].following,
                 timeline: user[0].timeline,
+                mail: user[0].mail,
                 id: user[0].id,
                 login: true,
                 loginError: null
@@ -93,6 +94,10 @@ exports.create = {
                 followers: [],
                 following: [],
                 timeline: [],
+                mail: {
+                    sent: [],
+                    recieved: []
+                },
                 password: Bcrypt.hashSync(request.payload.password, 10)
             });
             userArray = await client.users.query({
@@ -112,6 +117,7 @@ exports.create = {
                 followers: [],
                 following: [],
                 timeline: [],
+                mail: userArray[0].mail,
                 login: true
             };
         }

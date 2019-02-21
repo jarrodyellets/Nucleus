@@ -28,8 +28,6 @@ describe('Blog', () => {
 
         const res = await Server.inject(url);
 
-        await console.log(res.result);
-
         expect(res.result).to.contain({
             post: 'hello all'
         });

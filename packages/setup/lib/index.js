@@ -91,6 +91,20 @@ internals.seed = async () => {
         following: [
             '11111'
         ],
+        mail: {
+            sent: [
+                {
+                    messageID: '178c1c291ea44409b48d12c6a7cec76f1550740368618',
+                    id: '12345',
+                    message: 'Headed to the store later, need anything?',
+                    date: 1550740368618,
+                    from: 'Roger Rabbit',
+                    to: 'Jessica Rabbit',
+                    subject: 'Quick question'
+                }
+            ],
+            recieved: []
+        },
         timeline: [
             {
                 date: 1549876483373,
@@ -240,6 +254,20 @@ internals.seed = async () => {
         following: [
             '12345'
         ],
+        mail: {
+            sent: [],
+            recieved: [
+                {
+                    messageID: '178c1c291ea44409b48d12c6a7cec76f1550740368618',
+                    id: '12345',
+                    message: 'Headed to the store later, need anything?',
+                    date: 1550740368618,
+                    from: 'Roger Rabbit',
+                    to: 'Jessica Rabbit',
+                    subject: 'Quick question'
+                }
+            ]
+        },
         timeline: [
             {
                 date: 1549876459506,
