@@ -35,7 +35,8 @@ exports.create = {
             date,
             from: author[0].firstName + ' ' + author[0].lastName,
             to: recipient[0].firstName + ' ' + recipient[0].lastName,
-            subject: request.payload.subject
+            subject: request.payload.subject,
+            read: false
         };
         await recipient[0].mail.recieved.unshift(newMail);
         await author[0].mail.sent.unshift(newMail);
