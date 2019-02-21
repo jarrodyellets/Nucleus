@@ -70,7 +70,7 @@ exports.delete = {
         const likeIndex = await comment.likes.findIndex(
             (like) => like === request.auth.credentials.id
         );
-        
+
         await comment.likes.splice(likeIndex, 1);
         await client.users.update({ id: request.params.userId, posts });
         user = await client.users.query({ id: request.params.userId });

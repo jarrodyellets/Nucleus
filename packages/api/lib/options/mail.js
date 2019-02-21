@@ -4,28 +4,29 @@ const Joi = require('joi');
 
 const internals = {
     schema: {
-        mail: Joi.string().min(1)
+        message: Joi.string().min(1),
+        subject: Joi.string().min(1)
     }
 };
 
 exports.get = {
-    handler: async () => {
+    handler: async (request, h) => {
 
         const client = request.server.app.client;
-        const user = await client.users.query({ id: request.params.userId });
-        const mail = user[0].mail.recieved;
-        const message = await mail.find((p) => p.messageID === request.params.messageId);
+        const user = await client.users.query({ id: request.params.userID });
+        const mail = await user[0].mail.recieved;
+        const message = await mail.find((p) => p.messageID === request.params.messageID);
         return message;
     }
-}
+};
 
 exports.create = {
-    handler: async () => {
+    handler: async (request, h) => {
 
         const client = request.server.app.client;
         const id = request.auth.credentials.id;
-        let author = await client.users.query({id});
-        let recipient = await client.users.query({id: request.params.userID})
+        let author = await client.users.query({ id });
+        let recipient = await client.users.query({ id: request.params.userID });
         const date = Date.now();
         const newMail = {
             messageID: id + date,
@@ -33,8 +34,9 @@ exports.create = {
             message: request.payload.message,
             date,
             from: author[0].firstName + ' ' + author[0].lastName,
+            to: recipient[0].firstName + ' ' + recipient[0].lastName,
             subject: request.payload.subject
-        }
+        };
         await recipient[0].mail.recieved.unshift(newMail);
         await author[0].mail.sent.unshift(newMail);
         await client.users.update({
@@ -44,9 +46,9 @@ exports.create = {
         await client.users.update({
             id,
             mail: author[0].mail
-        })
-        author = await client.users.query({id})
-        recipient = await client.users.query({id: request.params.userID})
+        });
+        author = await client.users.query({ id });
+        recipient = await client.users.query({ id: request.params.userID });
 
         return {
             recipient: {
@@ -55,12 +57,22 @@ exports.create = {
             author: {
                 mail: author[0].mail
             }
+        };
+    },
+    validate: {
+        failAction: (request, h, err) => {
+
+            throw err;
+        },
+        payload: {
+            message: internals.schema.message,
+            subject: internals.schema.subject
         }
     }
-}
+};
 
 exports.delete = {
-    handler: async () => {
+    handler: async (request, h) => {
 
         const client = request.server.app.client;
         const user = await client.users.query({ id: request.auth.credentials.id });
@@ -71,4 +83,4 @@ exports.delete = {
         await client.users.update({ id: request.auth.credentials.id, mail });
         return 'Message deleted';
     }
-}
+};

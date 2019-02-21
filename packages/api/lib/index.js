@@ -2,7 +2,7 @@
 
 const Hapi = require('hapi');
 const Path = require('path');
-const routes = require('./options')
+const routes = require('./options');
 const { checkSignUpErrors } = require('./helpers');
 
 
@@ -80,8 +80,8 @@ exports.server = async (client, vault) => {
 
     //Mail routes
     server.route({ method: 'GET', path: '/users/{userID}/mail/{messageID}', options: routes.mail.get });
-    server.route({ method: 'POST', path: '/users/{userID}/mail/', options: routes.mail.create });
-    server.route({ method: 'DELETE', path: '/users//{userID}/mail/{messageID}', options: routes.mail.delete });
+    server.route({ method: 'POST', path: '/users/{userID}/mail', options: routes.mail.create });
+    server.route({ method: 'DELETE', path: '/users/{userID}/mail/{messageID}', options: routes.mail.delete });
 
 
     return server;
