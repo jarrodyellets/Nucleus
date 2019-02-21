@@ -58,3 +58,17 @@ exports.create = {
         }
     }
 }
+
+exports.delete = {
+    handler: async () => {
+
+        const client = request.server.app.client;
+        const user = await client.users.query({ id: request.auth.credentials.id });
+        const mail = user[0].mail;
+        const message = await mail.recieved.find((p) => p.messageID === request.params.messageID);
+        const messageIndex = await mail.recieved.findIndex((x) => x.messageID === message.messageID);
+        await mail.recieved.splice(messageIndex, 1);
+        await client.users.update({ id: request.auth.credentials.id, mail });
+        return 'Message deleted';
+    }
+}
