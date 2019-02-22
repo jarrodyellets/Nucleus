@@ -1032,3 +1032,57 @@ body {
   background: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
 }
 
+.messageModalHeader {
+  position: relative;
+  height: 50px;
+  background: var(--brightWhite);
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+  border-bottom: 1px solid var(--lightGray);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+.messageModalBody {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  background: var(--white);
+}
+
+.messageSubject {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.messageSubjectLabel {
+  margin-right: 10px;
+}
+
+.messageSubjectInput {
+  border: 1px solid var(--blue);
+  border-radius: 3px;
+  outline: none;
+  background: var(--brightWhite);
+  width: 100%;
+  padding: 6px 8px;
+}
+
+.messageModalFooter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  background: var(--brightWhite);
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-top: 1px solid var(--lightGray);
+  padding: 12px;
+  box-sizing: border-box;
+}
+
