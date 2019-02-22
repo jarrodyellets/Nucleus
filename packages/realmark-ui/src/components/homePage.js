@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logOut } from '../actions/userActions';
 import { addLike, disLike } from '../actions/likeAction';
-import { triggerComment, triggerModal, triggerEdit } from '../actions/triggerActions';
+import { triggerComment, triggerModal, triggerEdit, triggerMessage } from '../actions/triggerActions';
 import { selectedPost } from '../actions/selectedPost';
 import { searchUser } from '../actions/searchAction';
 import { follow, unfollow } from '../actions/followAction';
@@ -10,6 +10,7 @@ import ProfileCard from './profileCard';
 import Posts from './posts';
 import EditContainer from './editContainer';
 import PostModal from './postModal';
+import NewMessage from './newMessage';
 import EditProfile from './editProfile';
 
 class HomePage extends Component {
@@ -90,7 +91,7 @@ class HomePage extends Component {
   }
 
   handleMessage() {
-    console.log('hey');
+    this.props.triggerMessage(true);
   }
 
   render() {
@@ -150,6 +151,9 @@ class HomePage extends Component {
             handleModal={this.handleModal}
           />
         )}
+        {this.props.trigger.message && (
+          <NewMessage />
+        )}
       </div>
     );
   }
@@ -171,6 +175,7 @@ export default connect(
     searchUser,
     follow,
     unfollow,
-    triggerEdit
+    triggerEdit,
+    triggerMessage
   }
 )(HomePage);
