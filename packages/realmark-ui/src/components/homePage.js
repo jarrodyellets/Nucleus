@@ -25,6 +25,7 @@ class HomePage extends Component {
     this.handleFollow = this.handleFollow.bind(this);
     this.handleUnFollow = this.handleUnFollow.bind(this);
     this.handleProfile = this.handleProfile.bind(this);
+    this.handleMessage = this.handleMessage.bind(this);
   }
 
   handleLike(event, userID, postID, path) {
@@ -88,6 +89,10 @@ class HomePage extends Component {
     this.props.triggerEdit(true);
   }
 
+  handleMessage() {
+    console.log('hey');
+  }
+
   render() {
     return (
       <div>
@@ -101,17 +106,27 @@ class HomePage extends Component {
                 user={this.props.user}
                 class={'editButton'}
                 text={'Edit Profile'}
+                message={false}
               />
             ) : null}
             {(this.props.location.pathname === '/user') & !this.props.trigger.edit ? (
               this.props.signedUser.following.indexOf(this.props.user.id) === -1 ? (
-                <EditContainer handle={this.handleFollow} user={this.props.user} class={'editButton'} text={'Follow'} />
+                <EditContainer
+                  handle={this.handleFollow}
+                  user={this.props.user}
+                  class={'editButton'}
+                  text={'Follow'}
+                  message={true}
+                  handleMessage={this.handleMessage}
+                />
               ) : (
                 <EditContainer
                   handle={this.handleUnFollow}
                   user={this.props.user}
                   class={'editButton'}
                   text={'Unfollow'}
+                  message={true}
+                  handleMessage={this.handleMessage}
                 />
               )
             ) : null}
