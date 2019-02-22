@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { logOut } from '../actions/userActions';
 import { addLike, disLike } from '../actions/likeAction';
-import { triggerComment, triggerModal, triggerEdit } from '../actions/triggerActions';
+import { triggerComment, triggerModal, triggerEdit, triggerMessage } from '../actions/triggerActions';
 import { selectedPost } from '../actions/selectedPost';
 import { searchUser } from '../actions/searchAction';
 import { follow, unfollow } from '../actions/followAction';
@@ -10,6 +10,7 @@ import ProfileCard from './profileCard';
 import Posts from './posts';
 import EditContainer from './editContainer';
 import PostModal from './postModal';
+import NewMessage from './newMessage';
 import EditProfile from './editProfile';
 
 class HomePage extends Component {
@@ -25,6 +26,7 @@ class HomePage extends Component {
     this.handleFollow = this.handleFollow.bind(this);
     this.handleUnFollow = this.handleUnFollow.bind(this);
     this.handleProfile = this.handleProfile.bind(this);
+    this.handleMessage = this.handleMessage.bind(this);
   }
 
   handleLike(event, userID, postID, path) {
@@ -88,6 +90,10 @@ class HomePage extends Component {
     this.props.triggerEdit(true);
   }
 
+  handleMessage() {
+    this.props.triggerMessage(true);
+  }
+
   render() {
     return (
       <div>
@@ -101,17 +107,27 @@ class HomePage extends Component {
                 user={this.props.user}
                 class={'editButton'}
                 text={'Edit Profile'}
+                message={false}
               />
             ) : null}
             {(this.props.location.pathname === '/user') & !this.props.trigger.edit ? (
               this.props.signedUser.following.indexOf(this.props.user.id) === -1 ? (
-                <EditContainer handle={this.handleFollow} user={this.props.user} class={'editButton'} text={'Follow'} />
+                <EditContainer
+                  handle={this.handleFollow}
+                  user={this.props.user}
+                  class={'editButton'}
+                  text={'Follow'}
+                  message={true}
+                  handleMessage={this.handleMessage}
+                />
               ) : (
                 <EditContainer
                   handle={this.handleUnFollow}
                   user={this.props.user}
                   class={'editButton'}
                   text={'Unfollow'}
+                  message={true}
+                  handleMessage={this.handleMessage}
                 />
               )
             ) : null}
@@ -135,6 +151,9 @@ class HomePage extends Component {
             handleModal={this.handleModal}
           />
         )}
+        {this.props.trigger.message && (
+          <NewMessage />
+        )}
       </div>
     );
   }
@@ -156,6 +175,7 @@ export default connect(
     searchUser,
     follow,
     unfollow,
-    triggerEdit
+    triggerEdit,
+    triggerMessage
   }
 )(HomePage);

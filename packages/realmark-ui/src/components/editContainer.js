@@ -10,6 +10,11 @@ const EditContainer = props => {
         className={props.class}>
         {props.text}
       </button>
+      {props.message && (
+        <button onClick={() => props.handleMessage()} className={props.class}>
+          Message
+        </button>
+      )}
     </div>
   );
 };
