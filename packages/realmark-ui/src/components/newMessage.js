@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { sendMail } from '../actions/message';
 import { triggerMessage } from '../actions/triggerActions';
 
 class NewMessage extends Component {
@@ -11,11 +12,16 @@ class NewMessage extends Component {
     };
 
     this.handleClose = this.handleClose.bind(this);
+    this.handleMail = this.handleMail.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
   handleClose() {
     this.props.triggerMessage(false);
+  }
+
+  handleMail() {
+    this.props.sendMail(this.state, this.props.currentUser.id);
   }
 
   onChange(e) {
@@ -56,7 +62,7 @@ class NewMessage extends Component {
                 />
               </div>
               <div className="messageButtonWrapper">
-                <button className="messageButton">Send</button>
+                <button className="messageButton" onClick={() => {this.handleMail()}}>Send</button>
               </div>
             </div>
             <div className="messageModalFooter">
@@ -77,5 +83,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { triggerMessage }
+  { triggerMessage, sendMail }
 )(NewMessage);
