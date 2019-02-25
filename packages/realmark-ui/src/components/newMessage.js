@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { sendMail } from '../actions/message';
 import { triggerMessage } from '../actions/triggerActions';
 
 class NewMessage extends Component {
@@ -11,11 +12,19 @@ class NewMessage extends Component {
     };
 
     this.handleClose = this.handleClose.bind(this);
+    this.handleMail = this.handleMail.bind(this);
     this.onChange = this.onChange.bind(this);
   }
 
   handleClose() {
     this.props.triggerMessage(false);
+  }
+
+  handleMail() {
+    this.props.sendMail(this.state, this.props.currentUser.id)
+    .then(() => {
+      this.handleClose(false);
+    })
   }
 
   onChange(e) {
@@ -36,17 +45,29 @@ class NewMessage extends Component {
               </div>
             </div>
             <div className="messageModalBody">
-                <div className="messageSubject">
-                  <div className="messageSubjectLabel">Subject:</div>
-                  <input
-                    className="messageSubjectInput"
-                    type="text"
-                    name="subject"
-                    onChange={this.onChange}
-                    value={this.state.subject}
-                  />
-                </div>
+              <div className="messageInputWrapper">
+                <div className="messageLabel">Subject:</div>
+                <input
+                  className="messageSubjectInput"
+                  type="text"
+                  name="subject"
+                  onChange={this.onChange}
+                  value={this.state.subject}
+                />
               </div>
+              <div className="messageInputWrapper messageMessage">
+                <div className="messageLabel">Message:</div>
+                <textarea
+                  className="messageMessageInput"
+                  name="message"
+                  onChange={this.onChange}
+                  value={this.state.message}
+                />
+              </div>
+              <div className="messageButtonWrapper">
+                <button className="messageButton" onClick={() => {this.handleMail()}}>Send</button>
+              </div>
+            </div>
             <div className="messageModalFooter">
               <img className="navLogo" alt="logo" src="https://www.jarrodyellets.com/images/BlogHubLogo.png" />
             </div>
@@ -65,5 +86,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { triggerMessage }
+  { triggerMessage, sendMail }
 )(NewMessage);

@@ -57,6 +57,7 @@ class Nav extends Component {
   }
 
   render() {
+    console.log(this.props.user)
     return (
       <div className="navWrapper">
         <div className="navInnerWrapper">
@@ -81,7 +82,10 @@ class Nav extends Component {
                 onClick={this.handleExplore}>
                 Explore
               </div>
-              <div className="navLink">Mail</div>
+              <div className="navLink">
+                <div>Mail</div>
+                {this.props.user.mail.recieved.length > 0 && <div className="mailQuantity"></div>}
+              </div>
             </div>
           </div>
           <div className="navLogoWrapper">
