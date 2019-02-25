@@ -36,17 +36,29 @@ class NewMessage extends Component {
               </div>
             </div>
             <div className="messageModalBody">
-                <div className="messageSubject">
-                  <div className="messageSubjectLabel">Subject:</div>
-                  <input
-                    className="messageSubjectInput"
-                    type="text"
-                    name="subject"
-                    onChange={this.onChange}
-                    value={this.state.subject}
-                  />
-                </div>
+              <div className="messageInputWrapper">
+                <div className="messageLabel">Subject:</div>
+                <input
+                  className="messageSubjectInput"
+                  type="text"
+                  name="subject"
+                  onChange={this.onChange}
+                  value={this.state.subject}
+                />
               </div>
+              <div className="messageInputWrapper messageMessage">
+                <div className="messageLabel">Message:</div>
+                <textarea
+                  className="messageMessageInput"
+                  name="message"
+                  onChange={this.onChange}
+                  value={this.state.message}
+                />
+              </div>
+              <div className="messageButtonWrapper">
+                <button className="messageButton">Send</button>
+              </div>
+            </div>
             <div className="messageModalFooter">
               <img className="navLogo" alt="logo" src="https://www.jarrodyellets.com/images/BlogHubLogo.png" />
             </div>

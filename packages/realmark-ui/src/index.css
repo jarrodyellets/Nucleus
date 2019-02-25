@@ -671,7 +671,7 @@ body {
   margin-left: 20px;
   resize: none;
   background: var(--brightWhite);
-  border-radius: 10px;
+  border-radius: 8px;
   border: 1px solid var(--blue);
   padding: 8px;
   box-sizing: border-box;
@@ -1053,24 +1053,35 @@ body {
   background: var(--white);
 }
 
-.messageSubject {
+.messageInputWrapper {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
   width: 100%;
 }
 
-.messageSubjectLabel {
-  margin-right: 10px;
-}
-
 .messageSubjectInput {
   border: 1px solid var(--blue);
-  border-radius: 3px;
+  border-radius: 8px;
   outline: none;
   background: var(--brightWhite);
-  width: 100%;
+  width: 84%;
   padding: 6px 8px;
+}
+
+.messageMessage {
+  margin-top: 20px;
+}
+
+.messageMessageInput {
+  border: 1px solid var(--blue);
+  border-radius: 8px;
+  outline: none;
+  background: var(--brightWhite);
+  width: 84%;
+  height: 130px;
+  padding: 6px 8px;
+  resize: none;
 }
 
 .messageModalFooter {
@@ -1084,5 +1095,30 @@ body {
   border-top: 1px solid var(--lightGray);
   padding: 12px;
   box-sizing: border-box;
+}
+
+.messageButtonWrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.messageButton {
+  outline: none;
+  border: none;
+  width: 100px;
+  background: var(--blue);
+  padding: 10px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: .9em;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.messageButton:hover {
+  background: #1699ad;
 }
 
