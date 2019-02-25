@@ -21,7 +21,10 @@ class NewMessage extends Component {
   }
 
   handleMail() {
-    this.props.sendMail(this.state, this.props.currentUser.id);
+    this.props.sendMail(this.state, this.props.currentUser.id)
+    .then(() => {
+      this.handleClose(false);
+    })
   }
 
   onChange(e) {

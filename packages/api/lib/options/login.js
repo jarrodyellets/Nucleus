@@ -32,6 +32,7 @@ exports.login = {
             followers: user[0].followers,
             following: user[0].following,
             timeline,
+            mail: user[0].mail,
             id: request.auth.artifacts.id,
             login: true,
             loginError: null
@@ -71,6 +72,7 @@ exports.check = {
                 followers: user[0].followers,
                 following: user[0].following,
                 timeline,
+                mail: user[0].mail,
                 id: request.auth.credentials.id,
                 login: true,
                 loginError: null

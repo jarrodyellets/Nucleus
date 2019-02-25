@@ -1,4 +1,4 @@
-import { SIGN_UP, UPDATE_USER, USERERROR, LOG_IN, LOG_OUT, POST, MEMBER, FOLLOW, LIKE } from '../actions/types';
+import { SIGN_UP, UPDATE_USER, USERERROR, LOG_IN, LOG_OUT, POST, MEMBER, FOLLOW, LIKE, MESSAGE } from '../actions/types';
 
 const initialState ={
   firstName: '',
@@ -12,6 +12,10 @@ const initialState ={
   followers: [],
   following: [],
   timeline: [],
+  mail: {
+    sent: [],
+    recieved: []
+  },
   id: '',
   login: false,
   loginError: '',
@@ -59,7 +63,8 @@ export default function(state = initialState, action){
           posts: action.payload.posts,
           followers: action.payload.followers,
           following: action.payload.following,
-          timeline: action.payload.timeline
+          timeline: action.payload.timeline,
+          mail: action.payload.mail
         };
       case POST:
         return {
@@ -111,6 +116,11 @@ export default function(state = initialState, action){
           ...state,
           error: action.payload.error
       };
+      case MESSAGE:
+        return {
+          ...state,
+          mail: action.payload.author.mail
+        }
       case UPDATE_USER:
         return {
           ...state,

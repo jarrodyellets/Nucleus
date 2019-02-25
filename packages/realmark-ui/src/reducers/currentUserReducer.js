@@ -1,4 +1,4 @@
-import { SEARCH, FOLLOW, LIKE, UPDATE_USER } from '../actions/types';
+import { SEARCH, FOLLOW, LIKE, UPDATE_USER, MESSAGE } from '../actions/types';
 
 const initialState ={
   firstName: '',
@@ -11,6 +11,10 @@ const initialState ={
   posts: [],
   followers: [],
   following: [],
+  mail: {
+    sent: [],
+    received: []
+  },
   id: '',
 }
 
@@ -30,6 +34,7 @@ export default function(state = initialState, action){
         followers: action.payload.followers,
         following: action.payload.following,
         id: action.payload.id,
+        mail: action.payload.mail
       };
       case UPDATE_USER:
         return {
@@ -51,6 +56,11 @@ export default function(state = initialState, action){
       return {
         ...state,
         posts: action.payload.posts
+      }
+    case MESSAGE:
+      return {
+        ...state,
+        mail: action.payload.recipient.mail
       }
       default :
         return state;
