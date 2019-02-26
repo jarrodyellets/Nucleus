@@ -57,7 +57,7 @@ class Nav extends Component {
   }
 
   render() {
-    console.log(this.props.user)
+    console.log(this.props.user);
     return (
       <div className="navWrapper">
         <div className="navInnerWrapper">
@@ -82,9 +82,13 @@ class Nav extends Component {
                 onClick={this.handleExplore}>
                 Explore
               </div>
-              <div className="navLink">
+              <div
+                className="navLink"
+                onClick={() => {
+                  this.props.handleNav('/mail');
+                }}>
                 <div>Mail</div>
-                {this.props.user.mail.recieved.length > 0 && <i class="fas fa-circle mailQuantity"></i>}
+                {this.props.user.mail.recieved.length > 0 && <i class="fas fa-circle mailQuantity" />}
               </div>
             </div>
           </div>

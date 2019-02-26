@@ -1135,3 +1135,27 @@ body {
   background: #1699ad;
 }
 
+.mailInnerWrapper {
+  width: 100%;
+  overflow: hidden;
+}
+
+.mailHeader {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background: var(--brightWhite);
+}
+
+.mailHeaderReceived, .mailHeaderSent {
+  width: 30%;
+  font-size: 1.2em;
+  padding: 15px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.mailHeaderReceived:hover, .mailHeaderSent:hover {
+  background: #f5f5f5;
+}
