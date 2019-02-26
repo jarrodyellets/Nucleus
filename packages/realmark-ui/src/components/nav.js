@@ -84,7 +84,7 @@ class Nav extends Component {
               </div>
               <div className="navLink">
                 <div>Mail</div>
-                {this.props.user.mail.recieved.length > 0 && <div className="mailQuantity"></div>}
+                {this.props.user.mail.recieved.length > 0 && <i class="fas fa-circle mailQuantity"></i>}
               </div>
             </div>
           </div>

@@ -223,17 +223,14 @@ body {
 
 .mailQuantity {
   position: absolute;
-  top: -10px;
-  right: 5px;
-  width: 5px;
-  height: 5px;
-  color: var(--brightWhite);
-  background: var(--black);
+  top: -4px;
+  right: 17px;
+  color: var(--black);
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 14px;
+  font-size: 6px;
 }
 
 .navLink {
@@ -249,7 +246,7 @@ body {
   color: var(--blue);
 }
 
-.navLink:hover, .navLogout:hover {
+.navLink:hover, .navLink:hover .mailQuantity, .navLogout:hover {
   color: var(--blue);
 }
 
