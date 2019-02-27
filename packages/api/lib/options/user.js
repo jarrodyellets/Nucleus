@@ -96,7 +96,7 @@ exports.create = {
                 timeline: [],
                 mail: {
                     sent: [],
-                    recieved: []
+                    received: []
                 },
                 password: Bcrypt.hashSync(request.payload.password, 10)
             });

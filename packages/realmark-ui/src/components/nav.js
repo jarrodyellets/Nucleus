@@ -88,7 +88,7 @@ class Nav extends Component {
                   this.props.handleNav('/mail');
                 }}>
                 <div>Mail</div>
-                {this.props.user.mail.recieved.length > 0 && <i class="fas fa-circle mailQuantity" />}
+                {this.props.user.mail.received.length > 0 && <i class="fas fa-circle mailQuantity" />}
               </div>
             </div>
           </div>

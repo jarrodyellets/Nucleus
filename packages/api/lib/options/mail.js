@@ -38,7 +38,7 @@ exports.create = {
             subject: request.payload.subject,
             read: false
         };
-        await recipient[0].mail.recieved.unshift(newMail);
+        await recipient[0].mail.received.unshift(newMail);
         await author[0].mail.sent.unshift(newMail);
         await client.users.update({
             id: request.params.userID,
