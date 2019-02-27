@@ -1150,9 +1150,9 @@ body {
 }
 
 .mailHeaderReceived, .mailHeaderSent {
-  width: 30%;
+  width: 33.333%;
   font-size: 1.1em;
-  padding: 15px;
+  padding: 10px;
   box-sizing: border-box;
   cursor: pointer;
 }
@@ -1171,15 +1171,38 @@ body {
   display: flex;
   justify-content: center;
   align-content: center;
+  border-bottom: 1px solid var(--lightGray);
 }
 
 .mailBoxHeaderText {
   width: 33.333%;
-  text-align: center;
-  padding: 5px 0;
+  padding: 10px;
 }
 
 .mailBoxAuthor {
   border-right: 1px solid var(--lightGray);
   border-left: 1px solid var(--lightGray);
 }
+
+.messageWrapper {
+  background: var(--brightWhite);
+  width: 100%;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.messageBody {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+.messageSubject, .messageAuthor, .messageDate {
+  width: 33.333%;
+  font-weight: 700;
+}
+
