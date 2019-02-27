@@ -14,7 +14,7 @@ const initialState ={
   timeline: [],
   mail: {
     sent: [],
-    recieved: []
+    received: []
   },
   id: '',
   login: false,

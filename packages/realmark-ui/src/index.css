@@ -1159,3 +1159,7 @@ body {
 .mailHeaderReceived:hover, .mailHeaderSent:hover {
   background: #f5f5f5;
 }
+
+.mailBoxWrapper {
+  width: 100%;
+}
