@@ -29,9 +29,9 @@ class Mail extends Component {
           </div>
           <div className="mailBoxWrapper">
             <div className="mailBoxHeader">
-              <div className="mailBoxSubject"></div>
-              <div className="mailBoxAuthor"></div>
-              <div className="mailBoxDate"></div>
+              <div className="mailBoxSubject mailBoxHeaderText">Subject</div>
+              <div className="mailBoxAuthor mailBoxHeaderText">From</div>
+              <div className="mailBoxDate mailBoxHeaderText">Date</div>
             </div>
             <div className="mailBoxBody">
               {mail}
