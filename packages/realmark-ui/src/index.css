@@ -1223,3 +1223,27 @@ body {
   font-weight: 700;
 }
 
+.mailModalHeader {
+  position: relative;
+  height: 50px;
+  background: var(--brightWhite);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom: 1px solid var(--lightGray);
+  padding: 20px;
+}
+
+.mailBodyAbout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--lightGray);
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.mailModalSubjectSpan {
+  font-weight: 700;
+}
+
