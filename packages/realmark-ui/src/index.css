@@ -1149,7 +1149,7 @@ body {
   border-bottom: 1px solid var(--lightGray);
 }
 
-.mailHeaderReceived, .mailHeaderSent {
+.mailHeaderOff {
   width: 33.333%;
   font-size: 1.1em;
   padding: 10px;
@@ -1157,8 +1157,19 @@ body {
   cursor: pointer;
 }
 
-.mailHeaderReceived:hover, .mailHeaderSent:hover {
-  background: #f5f5f5;
+.mailHeaderActive {
+  background: var(--blue);
+  color: var(--brightWhite);
+  width: 33.333%;
+  font-size: 1.1em;
+  padding: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.mailHeaderOff:hover {
+  background: var(--blue);
+  color: var(--brightWhite);
 }
 
 .mailBoxWrapper {
@@ -1191,6 +1202,12 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border-bottom: 1px solid var(--lightGray);
+}
+
+.messageWrapper:hover {
+  background: var(--blue);
+  color: var(--brightWhite);
 }
 
 .messageBody {
@@ -1203,6 +1220,30 @@ body {
 
 .messageSubject, .messageAuthor, .messageDate {
   width: 33.333%;
+  font-weight: 700;
+}
+
+.mailModalHeader {
+  position: relative;
+  height: 50px;
+  background: var(--brightWhite);
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  border-bottom: 1px solid var(--lightGray);
+  padding: 20px;
+}
+
+.mailBodyAbout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  border-bottom: 1px solid var(--lightGray);
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+}
+
+.mailModalSubjectSpan {
   font-weight: 700;
 }
 

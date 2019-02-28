@@ -1,4 +1,4 @@
-import { TRIGGER_COMMENT, TRIGGER_MODAL, TRIGGER_MESSAGE, TRIGGER_EDIT } from './types';
+import { TRIGGER_COMMENT, TRIGGER_MODAL, TRIGGER_MESSAGE, TRIGGER_EDIT, READ_MESSAGE } from './types';
 
 export const triggerComment = (comment, modal, post) => dispatch => {
   dispatch({
@@ -26,4 +26,11 @@ export const triggerEdit = (edit) => dispatch => {
     type: TRIGGER_EDIT,
     payload: {edit}
   });
+}
+
+export const readMessage = (trigger) => dispatch => {
+  dispatch({
+    type: READ_MESSAGE,
+    payload: {trigger}
+  })
 }
