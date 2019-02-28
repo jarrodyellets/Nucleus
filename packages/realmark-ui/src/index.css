@@ -1149,7 +1149,7 @@ body {
   border-bottom: 1px solid var(--lightGray);
 }
 
-.mailHeaderReceived, .mailHeaderSent {
+.mailHeaderOff {
   width: 33.333%;
   font-size: 1.1em;
   padding: 10px;
@@ -1157,12 +1157,17 @@ body {
   cursor: pointer;
 }
 
-.mailHeaderReceived {
+.mailHeaderActive {
   background: var(--blue);
   color: var(--brightWhite);
+  width: 33.333%;
+  font-size: 1.1em;
+  padding: 10px;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
-.mailHeaderReceived:hover, .mailHeaderSent:hover {
+.mailHeaderOff:hover {
   background: var(--blue);
   color: var(--brightWhite);
 }
