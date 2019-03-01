@@ -1,4 +1,4 @@
-import { SIGN_UP, UPDATE_USER, USERERROR, LOG_IN, LOG_OUT, POST, MEMBER, FOLLOW, LIKE, MESSAGE } from '../actions/types';
+import { SIGN_UP, UPDATE_USER, USERERROR, LOG_IN, LOG_OUT, POST, MEMBER, FOLLOW, LIKE, MESSAGE, DELETE_MESSAGE } from '../actions/types';
 
 const initialState ={
   firstName: '',
@@ -120,6 +120,11 @@ export default function(state = initialState, action){
         return {
           ...state,
           mail: action.payload.author.mail
+        };
+      case DELETE_MESSAGE:
+        return {
+          ...state,
+          mail: action.payload.mail
         }
       case UPDATE_USER:
         return {

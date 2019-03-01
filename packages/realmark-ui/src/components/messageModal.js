@@ -26,7 +26,7 @@ const MessageModal = props => {
               </div>
               <div className="mailBodyButtons">
                 <button className="messageModalButton">Reply</button>
-                <button className="messageModalButton">Delete</button>
+                <button className="messageModalButton" onClick={() => {props.handleDelete(props.message.messageID)}}>Delete</button>
               </div>
             </div>
             <div>{props.message.message}</div>

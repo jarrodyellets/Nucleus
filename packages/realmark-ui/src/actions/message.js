@@ -1,4 +1,4 @@
-import { MESSAGE } from './types'
+import { MESSAGE, DELETE_MESSAGE } from './types'
 
 export const sendMail = (message, userID) => dispatch => {
   return new Promise((resolve, reject) => {
@@ -20,3 +20,23 @@ export const sendMail = (message, userID) => dispatch => {
       })
     })
   }
+
+  export const deleteMail = (messageID) => dispatch => {
+    return new Promise((resolve, reject) => {
+      fetch('http://localhost:8000/users/mail/' + messageID, {
+        method: 'DELETE',
+        headers: {
+          'content-type': 'application/json'
+        },
+        credentials: 'include'
+      })
+      .then(res => res.json())
+      .then(data => {
+          dispatch({
+            type: DELETE_MESSAGE,
+            payload: data
+          })
+          resolve();
+        })
+      })
+    }
