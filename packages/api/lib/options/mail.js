@@ -14,7 +14,7 @@ exports.get = {
 
         const client = request.server.app.client;
         const user = await client.users.query({ id: request.params.userID });
-        const mail = await user[0].mail.recieved;
+        const mail = await user[0].mail.received;
         const message = await mail.find((p) => p.messageID === request.params.messageID);
         return message;
     }
@@ -76,12 +76,16 @@ exports.delete = {
     handler: async (request, h) => {
 
         const client = request.server.app.client;
-        const user = await client.users.query({ id: request.auth.credentials.id });
+        const box = request.payload.box;
+        let user = await client.users.query({ id: request.auth.credentials.id });
         const mail = user[0].mail;
-        const message = await mail.recieved.find((p) => p.messageID === request.params.messageID);
-        const messageIndex = await mail.recieved.findIndex((x) => x.messageID === message.messageID);
-        await mail.recieved.splice(messageIndex, 1);
+        const message = await mail[box].find((p) => p.messageID === request.params.messageID);
+        const messageIndex = await mail[box].findIndex((x) => x.messageID === message.messageID);
+        await mail[box].splice(messageIndex, 1);
         await client.users.update({ id: request.auth.credentials.id, mail });
-        return 'Message deleted';
+        user = await client.users.query({ id: request.auth.credentials.id });
+        return {
+            mail: user[0].mail
+        };
     }
 };

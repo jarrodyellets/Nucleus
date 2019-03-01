@@ -66,7 +66,7 @@ describe('Mail', () => {
         expect(res1.result).to.part.contain({
             recipient: {
                 mail: {
-                    recieved: [
+                    received: [
                         {
                             message: 'Going to be home late tonight'
                         }
@@ -90,13 +90,21 @@ describe('Mail', () => {
 
         const url = {
             method: 'DELETE',
-            url: '/users/11111/mail/178c1c291ea44409b48d12c6a7cec76f1550740368618',
-            credentials: user
+            url: '/users/mail/178c1c291ea44409b48d12c6a7cec76f1550740368618',
+            credentials: user,
+            payload: {
+                box: 'received'
+            }
         };
 
         const res = await Server.inject(url);
 
-        expect(res.result).to.equal('Message deleted');
+        expect(res.result).to.contain({
+            mail: {
+                sent: [],
+                received: []
+            }
+        });
     });
 });
 

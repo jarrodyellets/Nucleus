@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { readMessage } from '../actions/triggerActions';
+import { deleteMail } from '../actions/message';
 import Message from './message';
 import MessageModal from './messageModal';
 
@@ -15,6 +16,7 @@ class Mail extends Component {
     this.handleReceived = this.handleReceived.bind(this);
     this.handleMessage = this.handleMessage.bind(this);
     this.handleClose = this.handleClose.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleReceived(received) {
@@ -32,6 +34,13 @@ class Mail extends Component {
 
   handleClose() {
     this.props.readMessage(false);
+  }
+
+  handleDelete(messageID) {
+    const box = this.state.received ? 'received' : 'sent';
+    this.props.deleteMail(messageID, box).then(() => {
+      this.handleClose();
+    });
   }
   render() {
     const mail = this.state.received ? this.props.user.mail.received : this.props.user.mail.sent;
@@ -67,10 +76,7 @@ class Mail extends Component {
           </div>
         </div>
         {this.props.trigger.readMessage && (
-          <MessageModal
-            message={this.state.message}
-            handleClose={this.handleClose}
-          />
+          <MessageModal message={this.state.message} handleClose={this.handleClose} handleDelete={this.handleDelete} />
         )}
       </div>
     );
@@ -84,5 +90,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { readMessage }
+  { readMessage, deleteMail }
 )(Mail);

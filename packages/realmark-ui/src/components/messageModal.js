@@ -13,12 +13,20 @@ const MessageModal = props => {
             </div>
           </div>
           <div className="messageModalBody">
-            <div className="mailBodyAbout">
-              <div className="mailModalFrom">From: {props.message.from}</div>
-              <div className="mailModalSubject">Subject: <span className="mailModalSubjectSpan">{props.message.subject}</span></div>
-              <div className="mailModalTo">To: {props.message.to}</div>
-              <div className="mailModalDate">
-                Date: {date.toLocaleString('en-US', { hour12: false }).replace(/,/g, ' ')}
+            <div className="messageModalBodyTop">
+              <div className="mailBodyAbout">
+                <div className="mailModalFrom">From: {props.message.from}</div>
+                <div className="mailModalSubject">
+                  Subject: <span className="mailModalSubjectSpan">{props.message.subject}</span>
+                </div>
+                <div className="mailModalTo">To: {props.message.to}</div>
+                <div className="mailModalDate">
+                  Date: {date.toLocaleString('en-US', { hour12: false }).replace(/,/g, ' ')}
+                </div>
+              </div>
+              <div className="mailBodyButtons">
+                <button className="messageModalButton">Reply</button>
+                <button className="messageModalButton" onClick={() => {props.handleDelete(props.message.messageID)}}>Delete</button>
               </div>
             </div>
             <div>{props.message.message}</div>
