@@ -37,7 +37,8 @@ class Mail extends Component {
   }
 
   handleDelete(messageID) {
-    this.props.deleteMail(messageID).then(() => {
+    const box = this.state.received ? 'received' : 'sent';
+    this.props.deleteMail(messageID, box).then(() => {
       this.handleClose();
     });
   }

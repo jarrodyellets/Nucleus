@@ -21,14 +21,15 @@ export const sendMail = (message, userID) => dispatch => {
     })
   }
 
-  export const deleteMail = (messageID) => dispatch => {
+  export const deleteMail = (messageID, box) => dispatch => {
     return new Promise((resolve, reject) => {
       fetch('http://localhost:8000/users/mail/' + messageID, {
         method: 'DELETE',
         headers: {
           'content-type': 'application/json'
         },
-        credentials: 'include'
+        credentials: 'include',
+        body: JSON.stringify(box)
       })
       .then(res => res.json())
       .then(data => {
