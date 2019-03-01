@@ -1048,7 +1048,7 @@ body {
 .messageModalHeader {
   position: relative;
   height: 50px;
-  background: var(--brightWhite);
+  background: var(--white);
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   border-bottom: 1px solid var(--lightGray);
@@ -1063,7 +1063,7 @@ body {
   display: flex;
   flex-direction: column;
   padding: 20px;
-  background: var(--white);
+  background: var(--brightWhite);
 }
 
 .messageInputWrapper {
@@ -1102,7 +1102,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 50px;
-  background: var(--brightWhite);
+  background: var(--white);
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
   border-top: 1px solid var(--lightGray);
@@ -1233,17 +1233,40 @@ body {
   padding: 20px;
 }
 
-.mailBodyAbout {
+.messageModalBodyTop {
   display: flex;
-  flex-direction: column;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   border-bottom: 1px solid var(--lightGray);
   margin-bottom: 20px;
   padding-bottom: 20px;
 }
 
+.mailBodyAbout {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.mailBodyButtons {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+}
+
 .mailModalSubjectSpan {
   font-weight: 700;
+}
+
+.messageModalButton {
+  margin-left: 10px;
+  outline: none;
+  border: none;
+  padding: 4px 8px;
+  background: var(--white);
+  font-size: .9em;
+  cursor: pointer;
+  border: 1px solid var(--lightGray);
 }
 
