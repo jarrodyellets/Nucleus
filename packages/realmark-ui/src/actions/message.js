@@ -29,7 +29,7 @@ export const sendMail = (message, userID) => dispatch => {
           'content-type': 'application/json'
         },
         credentials: 'include',
-        body: JSON.stringify(box)
+        body: JSON.stringify({box})
       })
       .then(res => res.json())
       .then(data => {

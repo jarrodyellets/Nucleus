@@ -103,7 +103,7 @@ internals.seed = async () => {
                     subject: 'Quick question'
                 }
             ],
-            recieved: []
+            received: []
         },
         timeline: [
             {
@@ -256,7 +256,7 @@ internals.seed = async () => {
         ],
         mail: {
             sent: [],
-            recieved: [
+            received: [
                 {
                     messageID: '178c1c291ea44409b48d12c6a7cec76f1550740368618',
                     id: '12345',

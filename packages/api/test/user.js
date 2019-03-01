@@ -85,7 +85,7 @@ describe('User', () => {
             timeline: [],
             mail: {
                 sent: [],
-                recieved: []
+                received: []
             },
             login: true
         });
