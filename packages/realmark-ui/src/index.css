@@ -1220,6 +1220,9 @@ body {
 
 .messageSubject, .messageAuthor, .messageDate {
   width: 33.333%;
+}
+
+.messageNotRead {
   font-weight: 700;
 }
 
@@ -1257,6 +1260,10 @@ body {
 
 .mailModalSubjectSpan {
   font-weight: 700;
+}
+
+.mailModalMessage {
+  white-space: pre-wrap;
 }
 
 .messageModalButton {
