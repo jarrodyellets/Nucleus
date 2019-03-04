@@ -12,6 +12,7 @@ export const FOLLOW = 'FOLLOW';
 export const LIKE = 'LIKE';
 export const COMMENT = 'COMMENT';
 export const MESSAGE = 'MESSAGE';
+export const REPLY  = 'REPLY';
 export const DELETE_MESSAGE = 'DELETE_MESSAGE';
 export const READ_MESSAGE = 'READ_MESSAGE';
 export const TRIGGER_COMMENT = 'TRIGGER_COMMENT';

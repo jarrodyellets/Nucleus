@@ -4,6 +4,7 @@ import { readMessage } from '../actions/triggerActions';
 import { deleteMail } from '../actions/message';
 import Message from './message';
 import MessageModal from './messageModal';
+import Reply from './reply';
 
 class Mail extends Component {
   constructor(props) {
@@ -43,6 +44,7 @@ class Mail extends Component {
     });
   }
   render() {
+    console.log(this.props.trigger.reply);
     const mail = this.state.received ? this.props.user.mail.received : this.props.user.mail.sent;
     const messages = mail.map(message => {
       return <Message message={message} received={this.state.received} handleMessage={this.handleMessage} />;
@@ -77,6 +79,9 @@ class Mail extends Component {
         </div>
         {this.props.trigger.readMessage && (
           <MessageModal message={this.state.message} handleClose={this.handleClose} handleDelete={this.handleDelete} />
+        )}
+        {this.props.trigger.reply && (
+          <Reply message={this.state.message} />
         )}
       </div>
     );

@@ -1259,6 +1259,10 @@ body {
   font-weight: 700;
 }
 
+.mailModalMessage {
+  white-space: pre-wrap;
+}
+
 .messageModalButton {
   margin-left: 10px;
   outline: none;

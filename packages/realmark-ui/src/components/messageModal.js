@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { reply } from '../actions/triggerActions';
 
 const MessageModal = props => {
   const date = new Date(props.message.date);
@@ -25,11 +27,11 @@ const MessageModal = props => {
                 </div>
               </div>
               <div className="mailBodyButtons">
-                <button className="messageModalButton">Reply</button>
+                <button className="messageModalButton" onClick={() => {props.handleClose(); props.reply(true)}}>Reply</button>
                 <button className="messageModalButton" onClick={() => {props.handleDelete(props.message.messageID)}}>Delete</button>
               </div>
             </div>
-            <div>{props.message.message}</div>
+            <div className="mailModalMessage">{props.message.message}</div>
           </div>
           <div className="messageModalFooter">
             <img className="navLogo" alt="logo" src="https://www.jarrodyellets.com/images/BlogHubLogo.png" />
@@ -40,4 +42,4 @@ const MessageModal = props => {
   );
 };
 
-export default MessageModal;
+export default connect(null, {reply})(MessageModal);
