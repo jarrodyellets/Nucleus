@@ -6,15 +6,18 @@ import { reply } from '../actions/triggerActions';
 class Reply extends Component {
   constructor(props) {
     super(props);
+
+    const date = new Date(this.props.message.date);
+    const stringDate = date.toLocaleDateString()
     this.state = {
       subject: 'RE: ' + this.props.message.subject,
-      message: '\n',
-      date: 'On ' + this.props.message.date + ' ' + this.props.message.from + ' wrote:' 
+      message: '\n\n' + 'On ' + stringDate + ' ' + this.props.message.from + ' wrote:' + '\n' + this.props.message.message,
     };
 
     this.handleClose = this.handleClose.bind(this);
     this.handleMail = this.handleMail.bind(this);
     this.onChange = this.onChange.bind(this);
+
   }
 
   handleClose() {
@@ -29,6 +32,7 @@ class Reply extends Component {
   }
 
   onChange(e) {
+    console.log(this.state.message);
     this.setState({ [e.target.name]: e.target.value });
   }
 
@@ -62,7 +66,7 @@ class Reply extends Component {
                   className="messageMessageInput"
                   name="message"
                   onChange={this.onChange}
-                  value={this.state.message + this.state.date + this.props.message.message}
+                  value={this.state.message}
                 />
               </div>
               <div className="messageButtonWrapper">
