@@ -1220,6 +1220,9 @@ body {
 
 .messageSubject, .messageAuthor, .messageDate {
   width: 33.333%;
+}
+
+.messageNotRead {
   font-weight: 700;
 }
 
