@@ -44,7 +44,6 @@ class Mail extends Component {
     });
   }
   render() {
-    console.log(this.props.trigger.reply);
     const mail = this.state.received ? this.props.user.mail.received : this.props.user.mail.sent;
     const messages = mail.map(message => {
       return <Message message={message} received={this.state.received} handleMessage={this.handleMessage} />;

@@ -8,7 +8,7 @@ class Reply extends Component {
     super(props);
 
     const date = new Date(this.props.message.date);
-    const stringDate = date.toLocaleDateString()
+    const stringDate = date.toLocaleString('en-US', { hour12: false }).replace(/,/g, ' ')
     this.state = {
       subject: 'RE: ' + this.props.message.subject,
       message: '\n\n' + 'On ' + stringDate + ' ' + this.props.message.from + ' wrote:' + '\n' + this.props.message.message,
