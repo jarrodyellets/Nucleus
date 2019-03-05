@@ -76,7 +76,7 @@ exports.read = {
     handler: async (request, h) => {
 
         const client = request.server.app.client;
-        const user = await client.users.query({ id: request.params.userID });
+        let user = await client.users.query({ id: request.params.userID });
         const mail = await user[0].mail;
         const message = await mail.received.find((p) => p.messageID === request.params.messageID);
         message.read = true;
