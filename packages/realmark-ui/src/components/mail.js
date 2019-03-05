@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { readMessage } from '../actions/triggerActions';
+import { readMail } from '../actions/message';
 import { deleteMail } from '../actions/message';
 import Message from './message';
 import MessageModal from './messageModal';
@@ -30,7 +31,10 @@ class Mail extends Component {
     this.setState({
       message
     });
-    this.props.readMessage(true);
+    this.props.readMail(message.messageID, this.props.user.id)
+    .then(() => {
+      this.props.readMessage(true);
+    })
   }
 
   handleClose() {
@@ -94,5 +98,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { readMessage, deleteMail }
+  { readMessage, readMail, deleteMail }
 )(Mail);

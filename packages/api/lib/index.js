@@ -80,6 +80,7 @@ exports.server = async (client, vault) => {
 
     //Mail routes
     server.route({ method: 'GET', path: '/users/{userID}/mail/{messageID}', options: Routes.mail.get });
+    server.route({ method: 'POST', path: '/users/{userID}/mail/{messageID}', options: Routes.mail.read });
     server.route({ method: 'POST', path: '/users/{userID}/mail', options: Routes.mail.create });
     server.route({ method: 'DELETE', path: '/users/mail/{messageID}', options: Routes.mail.delete });
 

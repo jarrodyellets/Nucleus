@@ -33,6 +33,32 @@ describe('Mail', () => {
         });
     });
 
+    it('Reads a message', async () => {
+
+        const user = { id: '11111' };
+
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
+
+        const url = {
+            method: 'POST',
+            url: '/users/11111/mail/178c1c291ea44409b48d12c6a7cec76f1550740368618',
+            credentials: user
+        };
+
+        const res = await Server.inject(url);
+
+        expect(res.result).to.part.contain({
+            mail: {
+                sent: [],
+                received: [{
+                    read: true
+                }]
+            }
+        });
+    });
+
     it('Sends a message', async () => {
 
         const user = { id: '11111' };
