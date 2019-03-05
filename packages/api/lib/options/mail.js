@@ -80,13 +80,13 @@ exports.read = {
         const mail = await user[0].mail;
         const message = await mail.received.find((p) => p.messageID === request.params.messageID);
         message.read = true;
-        await client.users.update({ id: request.params.userID, mail })
+        await client.users.update({ id: request.params.userID, mail });
         user = await client.users.query({ id: request.params.userID });
         return {
             mail: user[0].mail
-        }
+        };
     }
-}
+};
 
 exports.delete = {
     handler: async (request, h) => {
