@@ -16,6 +16,7 @@ class Nav extends Component {
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleExplore = this.handleExplore.bind(this);
     this.handleProfile = this.handleProfile.bind(this);
+    this.checkMessages = this.checkMessages.bind(this);
   }
 
   handleSearch() {
@@ -56,6 +57,15 @@ class Nav extends Component {
     });
   }
 
+  checkMessages() {
+    const mail = this.props.user.mail.received;
+    for (let i = 0; i < mail.length; i++){
+      if (mail[i].read === false)
+        return false;
+    }
+    return true;
+  }
+
   render() {
     return (
       <div className="navWrapper">
@@ -87,7 +97,7 @@ class Nav extends Component {
                   this.props.handleNav('/mail');
                 }}>
                 <div>Mail</div>
-                {this.props.user.mail.received.length > 0 && <i class="fas fa-circle mailQuantity" />}
+                {!this.checkMessages() && <i class="fas fa-circle mailQuantity" />}
               </div>
             </div>
           </div>

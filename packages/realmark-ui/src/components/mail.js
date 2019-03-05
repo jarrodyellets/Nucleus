@@ -31,10 +31,8 @@ class Mail extends Component {
     this.setState({
       message
     });
-    console.log(message);
     this.props.readMail(message.messageID, this.props.user.id)
     .then(() => {
-      console.log(this.props.user.mail)
       this.props.readMessage(true);
     })
   }
