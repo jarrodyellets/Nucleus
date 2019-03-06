@@ -75,6 +75,7 @@ exports.server = async (client, vault) => {
     server.route({ method: 'DELETE', path: '/users/{userId}/posts/{postId}/likes', options: Routes.likes.delete });
 
     //Following routes
+    server.route({ method: 'GET', path: '/users/following/{userID}', options: Routes.following.get })
     server.route({ method: 'POST', path: '/users/following/{userID}', options: Routes.following.create });
     server.route({ method: 'DELETE', path: '/users/following/{userID}', options: Routes.following.delete });
 

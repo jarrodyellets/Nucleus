@@ -1,15 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ExploreUser from './exploreUser';
-import { follow, unfollow } from '../actions/followAction';
+import { follow, unfollow, getFollowing } from '../actions/followAction';
 
 class Following extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+        following: []
+    }
 
     this.handleSearch = this.handleSearch.bind(this);
     this.handleFollow = this.handleFollow.bind(this);
     this.handleUnFollow = this.handleUnFollow.bind(this);
+  }
+
+  componentWillMount() {
+      this.props.getFollowing(this.props.userData.id)
+      .then(() => {
+          this.setState({
+              following: this.props.userData.followingArray
+          })
+      })
   }
 
   handleSearch(name) {
@@ -33,15 +45,14 @@ class Following extends Component {
   }
 
   render() {
-    const users = this.props.userData.following;
-    console.log(users)
-    const following = users.map(user => {
+      console.log(this.state.following);
+    const following = this.state.following.map(user => {
       return (
         <div className="exploreMain">
           <ExploreUser
             userData={this.props.userData}
-            user={user}
-            id={user.id}
+            user={user[0]}
+            id={user[0].id}
             handleSearch={this.handleSearch}
             handleFollow={this.handleFollow}
             handleUnFollow={this.handleUnFollow}
@@ -65,5 +76,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { follow, unfollow }
+  { follow, unfollow, getFollowing }
 )(Following);
