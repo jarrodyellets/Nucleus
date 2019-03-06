@@ -4,6 +4,23 @@ const { createTimeline } = require('../helpers');
 
 const internals = {};
 
+exports.get = {
+    handler: async (request, h) => {
+
+        const client = request.server.app.client;
+        const user = await client.users.query({ id: request.params.userID })
+        const following = user[0].following;
+        let followingArray = [];
+        for(let i = 0; i < following.length; i++){
+            const follow = await client.users.query({ id: following[i] })
+            await followingArray.push(follow)
+        }
+        return {
+            following: followingArray
+        };
+    }
+}
+
 exports.create = {
     handler: async (request, h) => {
 

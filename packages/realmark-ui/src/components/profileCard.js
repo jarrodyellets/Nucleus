@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter, Link } from 'react-router-dom';
 
 class ProfileCard extends Component {
   constructor(props) {
@@ -39,8 +40,10 @@ class ProfileCard extends Component {
                 <div className="profileCardNumbers">{this.props.user.posts.length}</div>
               </div>
               <div className="profileCardInnerPostsWrapper">
-                <div className="profileCardHeading">Following:</div>
-                <div className="profileCardNumbers">{this.props.user.following.length}</div>
+                <Link to="/following">
+                  <div className="profileCardHeading">Following:</div>
+                  <div className="profileCardNumbers">{this.props.user.following.length}</div>
+                </Link>
               </div>
               <div className="profileCardInnerPostsWrapper">
                 <div className="profileCardHeading">Followers:</div>
@@ -58,4 +61,4 @@ const mapStateToProps = state => ({
   currentUser: state.currentUser
 });
 
-export default connect(mapStateToProps)(ProfileCard);
+export default withRouter(connect(mapStateToProps)(ProfileCard));

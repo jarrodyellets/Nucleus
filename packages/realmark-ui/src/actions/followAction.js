@@ -1,4 +1,4 @@
-import { FOLLOW } from './types';
+import { FOLLOW, GET_FOLLOWING } from './types';
 
 export const follow = (id) => dispatch => {
   return new Promise((resolve, reject) => {
@@ -14,6 +14,26 @@ export const follow = (id) => dispatch => {
       .then(data => {
         dispatch({
           type: FOLLOW,
+          payload: data  
+        })
+        resolve();
+      })
+    })
+}
+
+export const getFollowing = (id) => dispatch => {
+  return new Promise((resolve, reject) => {
+    fetch('http://localhost:8000/users/following/' + id, {
+      method: 'GET',
+      headers: {
+          'content-type': 'application/json'
+        },
+        credentials: 'include'
+      })
+      .then(res => res.json())
+      .then(data => {
+        dispatch({
+          type: GET_FOLLOWING,
           payload: data  
         })
         resolve();
