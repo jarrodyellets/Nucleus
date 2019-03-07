@@ -282,6 +282,14 @@ body {
   margin-right: 25px;
 }
 
+.navImg {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--lightGray);
+}
+
 .navPost:hover {
   background: #1699ad;
 }
@@ -427,7 +435,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-right: 25px;
+  margin-right: 20px;
 }
 
 .searchBoxInput {

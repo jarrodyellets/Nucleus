@@ -59,9 +59,8 @@ class Nav extends Component {
 
   checkMessages() {
     const mail = this.props.user.mail.received;
-    for (let i = 0; i < mail.length; i++){
-      if (mail[i].read === false)
-        return false;
+    for (let i = 0; i < mail.length; i++) {
+      if (mail[i].read === false) return false;
     }
     return true;
   }
@@ -99,6 +98,9 @@ class Nav extends Component {
                 <div>Mail</div>
                 {!this.checkMessages() && <i class="fas fa-circle mailQuantity" />}
               </div>
+              <div className="navLogout" onClick={this.props.handleLogOut}>
+                Log Out
+              </div>
             </div>
           </div>
           <div className="navLogoWrapper">
@@ -121,9 +123,7 @@ class Nav extends Component {
             <Link to="/post">
               <button className="navPost">Post</button>
             </Link>
-            <div className="navLogout" onClick={this.props.handleLogOut}>
-              Log Out
-            </div>
+            <img className="navImg" src={this.props.user.imageURL} alt="NavImg" />
           </div>
         </div>
       </div>
