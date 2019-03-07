@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ExploreUser from './exploreUser';
-import { searchUser } from '../actions/searchAction';
-import { follow, unfollow } from '../actions/followAction';
+import { follow, unfollow, getFollowers } from '../actions/followAction';
 
-class Explore extends Component {
+class Followers extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+        following: []
+    }
 
     this.handleSearch = this.handleSearch.bind(this);
     this.handleFollow = this.handleFollow.bind(this);
     this.handleUnFollow = this.handleUnFollow.bind(this);
+  }
+
+  componentWillMount() {
+      this.props.getFollowers(this.props.userData.id)
+      .then(() => {
+          this.setState({
+              following: this.props.userData.followersArray
+          })
+      })
   }
 
   handleSearch(name) {
@@ -30,28 +41,13 @@ class Explore extends Component {
   }
 
   render() {
-    const users = this.props.allUsers;
-    const topPosters = users.posts.map(user => {
+    const following = this.state.following.map(user => {
       return (
         <div className="exploreMain">
           <ExploreUser
             userData={this.props.userData}
-            user={user}
-            id={user.id}
-            handleSearch={this.handleSearch}
-            handleFollow={this.handleFollow}
-            handleUnFollow={this.handleUnFollow}
-          />
-        </div>
-      );
-    });
-    const topFollowing = users.followers.map(user => {
-      return (
-        <div className="exploreMain">
-          <ExploreUser
-            userData={this.props.userData}
-            user={user}
-            id={user.id}
+            user={user[0]}
+            id={user[0].id}
             handleSearch={this.handleSearch}
             handleFollow={this.handleFollow}
             handleUnFollow={this.handleUnFollow}
@@ -61,22 +57,19 @@ class Explore extends Component {
     });
     return (
       <div className="exploreWrapper">
-        <div className="exploreHeader">Top Users</div>
-        <div className="exploreUserWrapper">{topPosters}</div>
-        <div className="exploreHeader">Most Followed</div>
-        <div className="exploreUserWrapper">{topFollowing}</div>
+        <div className="exploreHeader">Followers</div>
+        <div className="exploreUserWrapper">{following}</div>
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  allUsers: state.allUsers.allUsers,
   currentUser: state.currentUser,
   userData: state.user
 });
 
 export default connect(
   mapStateToProps,
-  { searchUser, follow, unfollow }
-)(Explore);
+  { follow, unfollow, getFollowers }
+)(Followers);

@@ -33,6 +33,52 @@ describe('Following', () => {
         });
     });
 
+    it('Gets following', async () => {
+
+        const user = { id: '12345' };
+
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
+
+        const url = {
+            method: 'GET',
+            url: '/users/following/12345',
+            credentials: user
+        };
+
+        const res = await Server.inject(url);
+
+        expect(res.result).to.part.contain({
+            following: [[{
+                id: '11111'
+            }]]
+        });
+    });
+
+    it('Gets followers', async () => {
+
+        const user = { id: '12345' };
+
+        const app = await internals.provision();
+
+        const Server = await server(app.dbase, app.vault);
+
+        const url = {
+            method: 'GET',
+            url: '/users/followers/12345',
+            credentials: user
+        };
+
+        const res = await Server.inject(url);
+
+        expect(res.result).to.part.contain({
+            followers: [[{
+                id: '11111'
+            }]]
+        });
+    });
+
     it('Unfollows a user', async () => {
 
         const user = { id: '12345' };

@@ -1,4 +1,4 @@
-import { SIGN_UP, UPDATE_USER, USERERROR, LOG_IN, LOG_OUT, POST, MEMBER, FOLLOW, LIKE, MESSAGE, DELETE_MESSAGE, READ_MAIL, GET_FOLLOWING } from '../actions/types';
+import { SIGN_UP, UPDATE_USER, USERERROR, LOG_IN, LOG_OUT, POST, MEMBER, FOLLOW, LIKE, MESSAGE, DELETE_MESSAGE, READ_MAIL, GET_FOLLOWING, GET_FOLLOWERS } from '../actions/types';
 
 const initialState ={
   firstName: '',
@@ -18,6 +18,7 @@ const initialState ={
   },
   id: '',
   followingArray: [],
+  followersArray: [],
   login: false,
   loginError: '',
   member: true,
@@ -110,6 +111,11 @@ export default function(state = initialState, action){
         return {
           ...state,
           followingArray: action.payload.following
+        };
+      case GET_FOLLOWERS:
+        return {
+          ...state,
+          followersArray: action.payload.followers
         }
       case LIKE:
         return {

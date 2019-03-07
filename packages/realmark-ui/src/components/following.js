@@ -33,19 +33,14 @@ class Following extends Component {
   }
 
   handleFollow(id) {
-    this.props.follow(id).then(() => {
-      this.props.history.push('/home');
-    });
+    this.props.follow(id)
   }
 
   handleUnFollow(id) {
-    this.props.unfollow(id).then(() => {
-      this.props.history.push('/home');
-    });
+    this.props.unfollow(id)
   }
 
   render() {
-      console.log(this.state.following);
     const following = this.state.following.map(user => {
       return (
         <div className="exploreMain">

@@ -10,6 +10,7 @@ import Search from './search';
 import Explore from './explore';
 import Mail from './mail';
 import Following from './following';
+import Followers from './followers';
 
 class App extends Component {
   constructor(props) {
@@ -80,6 +81,7 @@ class App extends Component {
           <Route path="/myprofile" render={props => (<HomePage {...props} user={this.props.user} id={this.props.user.id} posts={this.props.user.posts} /> )} />
           <Route path="/mail" component={Mail} />
           <Route path="/following" component={Following} />
+          <Route path="/followers" component={Followers} />
         </Switch>
       </div>
     );

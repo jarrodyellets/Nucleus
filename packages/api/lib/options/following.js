@@ -4,22 +4,41 @@ const { createTimeline } = require('../helpers');
 
 const internals = {};
 
-exports.get = {
+exports.getFollowing = {
     handler: async (request, h) => {
 
         const client = request.server.app.client;
-        const user = await client.users.query({ id: request.params.userID })
+        const user = await client.users.query({ id: request.params.userID });
         const following = user[0].following;
-        let followingArray = [];
-        for(let i = 0; i < following.length; i++){
-            const follow = await client.users.query({ id: following[i] })
-            await followingArray.push(follow)
+        const followingArray = [];
+        for (let i = 0; i < following.length; ++i){
+            const follow = await client.users.query({ id: following[i] });
+            await followingArray.push(follow);
         }
+
         return {
             following: followingArray
         };
     }
-}
+};
+
+exports.getFollowers = {
+    handler: async (request, h) => {
+
+        const client = request.server.app.client;
+        const user = await client.users.query({ id: request.params.userID });
+        const followers = user[0].followers;
+        const followersArray = [];
+        for (let i = 0; i < followers.length; ++i){
+            const follow = await client.users.query({ id: followers[i] });
+            await followersArray.push(follow);
+        }
+
+        return {
+            followers: followersArray
+        };
+    }
+};
 
 exports.create = {
     handler: async (request, h) => {
