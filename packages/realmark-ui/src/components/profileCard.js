@@ -46,8 +46,10 @@ class ProfileCard extends Component {
                 </Link>
               </div>
               <div className="profileCardInnerPostsWrapper">
-                <div className="profileCardHeading">Followers:</div>
-                <div className="profileCardNumbers">{this.props.user.followers.length}</div>
+                <Link to="/followers">
+                  <div className="profileCardHeading">Followers:</div>
+                  <div className="profileCardNumbers">{this.props.user.followers.length}</div>
+                </Link>
               </div>
             </div>
           </div>

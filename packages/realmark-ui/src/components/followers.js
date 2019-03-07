@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import ExploreUser from './exploreUser';
-import { follow, unfollow, getFollowing } from '../actions/followAction';
+import { follow, unfollow, getFollowers } from '../actions/followAction';
 
-class Following extends Component {
+class Followers extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -16,10 +16,10 @@ class Following extends Component {
   }
 
   componentWillMount() {
-      this.props.getFollowing(this.props.userData.id)
+      this.props.getFollowers(this.props.userData.id)
       .then(() => {
           this.setState({
-              following: this.props.userData.followingArray
+              following: this.props.userData.followersArray
           })
       })
   }
@@ -61,7 +61,7 @@ class Following extends Component {
     });
     return (
       <div className="exploreWrapper">
-        <div className="exploreHeader">Following</div>
+        <div className="exploreHeader">Followers</div>
         <div className="exploreUserWrapper">{following}</div>
       </div>
     );
@@ -75,5 +75,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { follow, unfollow, getFollowing }
-)(Following);
+  { follow, unfollow, getFollowers }
+)(Followers);

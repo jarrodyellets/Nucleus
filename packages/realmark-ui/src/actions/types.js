@@ -10,6 +10,7 @@ export const SEARCH = 'SEARCH';
 export const EXPLORE = 'EXPLORE';
 export const FOLLOW = 'FOLLOW';
 export const GET_FOLLOWING = 'GET_FOLLOWING';
+export const GET_FOLLOWERS = 'GET_FOLLOWERS';
 export const LIKE = 'LIKE';
 export const COMMENT = 'COMMENT';
 export const MESSAGE = 'MESSAGE';
