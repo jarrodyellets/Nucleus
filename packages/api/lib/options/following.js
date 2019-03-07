@@ -11,7 +11,7 @@ exports.getFollowing = {
         const user = await client.users.query({ id: request.params.userID });
         const following = user[0].following;
         const followingArray = [];
-        for (let i = 0; i < following.length; i++){
+        for (let i = 0; i < following.length; ++i){
             const follow = await client.users.query({ id: following[i] });
             await followingArray.push(follow);
         }
@@ -29,7 +29,7 @@ exports.getFollowers = {
         const user = await client.users.query({ id: request.params.userID });
         const followers = user[0].followers;
         const followersArray = [];
-        for (let i = 0; i < followers.length; i++){
+        for (let i = 0; i < followers.length; ++i){
             const follow = await client.users.query({ id: followers[i] });
             await followersArray.push(follow);
         }
