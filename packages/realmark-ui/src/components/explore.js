@@ -22,15 +22,11 @@ class Explore extends Component {
   }
 
   handleFollow(id) {
-    this.props.follow(id).then(() => {
-      this.props.history.push('/home');
-    });
+    this.props.follow(id)
   }
 
   handleUnFollow(id) {
-    this.props.unfollow(id).then(() => {
-      this.props.history.push('/home');
-    });
+    this.props.unfollow(id)
   }
 
   render() {
