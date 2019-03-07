@@ -221,10 +221,14 @@ body {
   align-items: center;
 }
 
+.navMail {
+  position: relative;
+}
+
 .mailQuantity {
   position: absolute;
-  top: -4px;
-  right: 17px;
+  top: -6px;
+  right: -6px;
   color: var(--black);
   border-radius: 50%;
   display: flex;

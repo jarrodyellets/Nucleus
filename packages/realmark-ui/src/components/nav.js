@@ -91,7 +91,7 @@ class Nav extends Component {
                 Explore
               </div>
               <div
-                className="navLink"
+                className="navLink navMail"
                 onClick={() => {
                   this.props.handleNav('/mail');
                 }}>
