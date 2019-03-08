@@ -1,6 +1,6 @@
 :root {
   --black: #131711;
-  --white:  #e6ecf0;
+  --white: #e6ecf0;
   --brightWhite: #fafafa;
   --blue: #18acc3;
   --yellow: #fef7e0;
@@ -45,13 +45,20 @@ body {
   position: relative;
   width: 100%;
   min-height: 100vh;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
-  background: #2C3E50;
-  background: -webkit-linear-gradient(to left, #4CA1AF, #2C3E50);
-  background: linear-gradient(to left, #4CA1AF, #2C3E50);
+  background: #2c3e50;
+  background: -webkit-gradient(linear, right top, left top, from(#4ca1af), to(#2c3e50));
+  background: linear-gradient(to left, #4ca1af, #2c3e50);
   padding: 50px 0;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -59,11 +66,13 @@ body {
   color: var(--white);
   width: 90%;
   max-width: 500px;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
 }
 
 .loginHeader {
-  background: rgba(0, 0, 0, .75);
+  background: rgba(0, 0, 0, 0.75);
   border-top-left-radius: 3px;
   border-top-right-radius: 3px;
   padding: 20px 20px 10px 20px;
@@ -80,7 +89,7 @@ body {
 }
 
 .loginFormWrapper {
-  background: rgba(0, 0, 0, .6);
+  background: rgba(0, 0, 0, 0.6);
   border-bottom-left-radius: 3px;
   border-bottom-right-radius: 3px;
   padding: 20px;
@@ -88,7 +97,12 @@ body {
 
 .loginForm {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -126,7 +140,7 @@ body {
   border-radius: 3px;
   height: 35px;
   color: var(--brightWhite);
-  font-size: .8em;
+  font-size: 0.8em;
   cursor: pointer;
   margin-top: 10px;
   width: 100%;
@@ -156,7 +170,7 @@ body {
 .loginLogoDescription {
   position: relative;
   font-style: italic;
-  font-size: .9em;
+  font-size: 0.9em;
   top: -10px;
   right: -15px;
 }
@@ -178,14 +192,14 @@ body {
 }
 
 .btn:hover {
- background: #1699ad;
+  background: #1699ad;
 }
 
 .navWrapper {
   width: 100%;
   height: 50px;
   background: var(--brightWhite);
-  border-bottom: 1px solid rgba(0, 0, 0, .3);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.3);
   position: fixed;
   top: 0;
   left: 0;
@@ -195,10 +209,17 @@ body {
 .navInnerWrapper {
   max-width: 900px;
   margin: 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   height: 100%;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -207,17 +228,30 @@ body {
 }
 
 .navLeftWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   margin-right: auto;
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
 }
 
 .navLinks {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-pack: distribute;
   justify-content: space-around;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -231,8 +265,14 @@ body {
   right: -6px;
   color: var(--black);
   border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   font-size: 6px;
 }
@@ -250,7 +290,9 @@ body {
   color: var(--blue);
 }
 
-.navLink:hover, .navLink:hover .mailQuantity, .navLogout:hover {
+.navLink:hover,
+.navLink:hover .mailQuantity,
+.navLogout:hover {
   color: var(--blue);
 }
 
@@ -265,10 +307,18 @@ body {
 }
 
 .navPostWrapper {
+  -webkit-box-flex: 1;
+  -ms-flex: 1;
   flex: 1;
   margin-left: auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
   justify-content: flex-end;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -280,7 +330,7 @@ body {
   background: var(--blue);
   color: var(--brightWhite);
   font-weight: 700;
-  font-size: .9em;
+  font-size: 0.9em;
   height: 40px;
   cursor: pointer;
   margin-right: 25px;
@@ -290,6 +340,7 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  -o-object-fit: cover;
   object-fit: cover;
   border: 1px solid var(--lightGray);
 }
@@ -305,7 +356,11 @@ body {
   height: 100%;
   max-width: 900px;
   margin: 10px auto 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
   overflow-y: auto;
 }
@@ -324,6 +379,7 @@ body {
 .profileCardImg {
   width: 100%;
   height: 243px;
+  -o-object-fit: cover;
   object-fit: cover;
 }
 
@@ -332,8 +388,14 @@ body {
 }
 
 .profileCardNameWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -344,7 +406,7 @@ body {
 
 .profileCardFollowButton {
   padding: 6px 12px;
-  font-size: .9em;
+  font-size: 0.9em;
   outline: none;
   color: var(--brightWhite);
   background: var(--blue);
@@ -381,22 +443,37 @@ body {
 }
 
 .profileCardPostsWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   margin-top: 20px;
 }
 
 .profileCardInnerCardWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   cursor: pointer;
 }
 
 .profileCardHeading {
-  font-size: .9em;
+  font-size: 0.9em;
   font-weight: 700;
   color: var(--blue);
 }
@@ -410,9 +487,18 @@ body {
 }
 
 .editWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   background: var(--brightWhite);
   margin-top: 10px;
@@ -420,6 +506,7 @@ body {
   justify-content: center;
   align-items: center;
   padding: 0 10px 10px 10px;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
@@ -430,14 +517,21 @@ body {
   width: 100%;
   margin-top: 10px;
   padding: 6px 12px;
-  background: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#fafbfc), color-stop(90%, #eff3f6));
+  background: linear-gradient(-180deg, #fafbfc, #eff3f6 90%);
   cursor: pointer;
 }
 
 .searchBoxInputWrapper {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   margin-right: 20px;
 }
@@ -490,19 +584,35 @@ body {
 
 .postWrapper {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
   padding: 12px;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   overflow: hidden;
   background: var(--brightWhite);
 }
 
 .postHeadingWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
   margin-bottom: 10px;
 }
@@ -511,15 +621,25 @@ body {
   width: 60px;
   height: 60px;
   border-radius: 50%;
+  -o-object-fit: cover;
   object-fit: cover;
   border: 1px solid var(--lightGray);
 }
 
 .postHeadingTextWrapper {
   margin: 5px 0 0 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
 }
 
@@ -534,14 +654,14 @@ body {
 }
 
 .postHeadingTextUserName {
-  color: var(--gray);;
-  font-size: .9em;
+  color: var(--gray);
+  font-size: 0.9em;
 }
 
 .postHeadingTextTime {
   position: relative;
   font-weight: 400;
-  font-size: .9em;
+  font-size: 0.9em;
 }
 
 .postText {
@@ -563,11 +683,18 @@ body {
 }
 
 .likesInnerWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 12px;
   margin: 0 12px;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   border-bottom: 1px solid var(--lightGray);
 }
@@ -589,16 +716,23 @@ body {
 
 .postLikesWrapper {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-pack: distribute;
   justify-content: space-around;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 10px;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
-.postLikes, .postComment {
+.postLikes,
+.postComment {
   cursor: pointer;
-  font-size: .9em;
+  font-size: 0.9em;
   color: var(--gray);
   font-weight: 700;
 }
@@ -632,8 +766,14 @@ body {
 
 .newPostBlackoutWrapper {
   position: absolute;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
   width: 100%;
   height: 100%;
@@ -642,15 +782,14 @@ body {
   left: 0;
   right: 0;
   bottom: 0;
-  background: rgba(0, 0, 0, .7);
+  background: rgba(0, 0, 0, 0.7);
   z-index: 50;
 }
 
 .newPostImg {
   width: 60px;
   border-radius: 50%;
-  border: 1px solid var(--lightGray);;
-
+  border: 1px solid var(--lightGray);
 }
 
 .newPostTextWindow {
@@ -667,8 +806,14 @@ body {
   background: var(--brightWhite);
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
@@ -687,8 +832,14 @@ body {
 
 .newPostWindowPostWrapper {
   margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
   padding: 0 20px;
 }
@@ -702,13 +853,20 @@ body {
   border-radius: 8px;
   border: 1px solid var(--blue);
   padding: 8px;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 .newPostButtonWrapper {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
   justify-content: flex-end;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   margin-top: 20px;
 }
@@ -722,7 +880,7 @@ body {
   padding: 10px;
   border-radius: 20px;
   font-weight: 700;
-  font-size: .9em;
+  font-size: 0.9em;
   color: var(--white);
   cursor: pointer;
 }
@@ -739,31 +897,53 @@ body {
 .searchInnerWrapper {
   background: var(--brightWhite);
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 30px;
 }
 
 .searchLeftWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-pack: distribute;
   justify-content: space-around;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
 .searchImg {
   width: 100px;
   height: 100px;
+  -o-object-fit: cover;
   object-fit: cover;
   border-radius: 50%;
   border: 1px solid var(--lightGray);
 }
 
 .searchInfoWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
+  -ms-flex-item-align: start;
   align-self: flex-start;
   margin: 10px 0 0 20px;
 }
@@ -774,19 +954,26 @@ body {
   color: var(--blue);
 }
 
-.searchUserName, .searchLocation {
+.searchUserName,
+.searchLocation {
   color: var(--black);
 }
 
 .searchRightWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
 }
 
 .searchButton {
   padding: 6px 12px;
-  font-size: .9em;
+  font-size: 0.9em;
   outline: none;
   color: var(--brightWhite);
   background: var(--blue);
@@ -818,15 +1005,26 @@ body {
 }
 
 .exploreInnerWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   width: 100%;
   background: var(--brightWhite);
 }
 
 .exploreImgWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 100%;
   padding: 30px 0;
@@ -835,6 +1033,7 @@ body {
 .exploreImg {
   width: 150px;
   height: 150px;
+  -o-object-fit: cover;
   object-fit: cover;
   border: 1px solid var(--lightGray);
   border-radius: 50%;
@@ -853,7 +1052,7 @@ body {
   right: 0;
   bottom: 0;
   width: 100vw;
-  background: rgba(0, 0, 0, .7);
+  background: rgba(0, 0, 0, 0.7);
   z-index: 50;
 }
 
@@ -861,16 +1060,20 @@ body {
   position: relative;
   width: 100%;
   height: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
   overflow-y: auto;
 }
 
 .modalWindow:after {
-  content: "";
+  content: '';
   display: block;
   height: 100px;
-  width: 100%
+  width: 100%;
 }
 
 .modalWindow {
@@ -879,8 +1082,14 @@ body {
 }
 
 .modalFooter {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   height: 50px;
   background: var(--white);
@@ -888,13 +1097,20 @@ body {
   border-bottom-right-radius: 10px;
   border-top: 1px solid var(--lightGray);
   padding: 12px;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 .addCommentHeader {
   position: relative;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   background: var(--white);
   border-bottom: 1px solid var(--lightGray);
@@ -920,7 +1136,11 @@ body {
 }
 
 .addCommentFooterTop {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   font-size: 1em;
   padding: 10px 10px 0 10px;
@@ -939,35 +1159,58 @@ body {
   border-radius: 10px;
   border: 1px solid var(--blue);
   padding: 8px;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 .addCommentFooterBottom {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
   justify-content: flex-end;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   padding: 0 10px 10px 10px;
 }
 
 .commentHeadingTextWrapper {
   margin: 5px 0 0 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
 }
 
 .commentHeadingFullName {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   font-weight: 700;
   font-size: 1em;
 }
 
-.commentHeadingTextUserName, .commentHeadingTextTime {
-  color: var(--gray);;
-  font-size: .9em;
+.commentHeadingTextUserName,
+.commentHeadingTextTime {
+  color: var(--gray);
+  font-size: 0.9em;
   margin-left: 5px;
   font-weight: 400;
 }
@@ -1001,19 +1244,24 @@ body {
 }
 
 .editForm {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
 .editFormLabel {
-  font-size: .9em;
+  font-size: 0.9em;
   margin-bottom: 3px;
 }
 
 .editTextInput {
   background: var(--white);
   height: 45px;
-  font-size: .8em;
+  font-size: 0.8em;
   font-family: 'Source Sans Pro', sans-serif;
   border: none;
   border-radius: 3px;
@@ -1025,7 +1273,7 @@ body {
 
 .editInput {
   background: var(--white);
-  font-size: .8em;
+  font-size: 0.8em;
   border: none;
   border-radius: 3px;
   height: 15px;
@@ -1035,15 +1283,20 @@ body {
 }
 
 .editInput:-webkit-autofill,
-.editInput:-webkit-autofill:hover, 
-.editInput:-webkit-autofill:focus, 
-.editInput:-webkit-autofill:active  {
-    -webkit-box-shadow: 0 0 0 30px var(--white) inset !important;
+.editInput:-webkit-autofill:hover,
+.editInput:-webkit-autofill:focus,
+.editInput:-webkit-autofill:active {
+  -webkit-box-shadow: 0 0 0 30px var(--white) inset !important;
 }
 
 .editButtonWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-pack: distribute;
   justify-content: space-around;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   margin: 10px 0;
   padding: 10px;
@@ -1057,7 +1310,8 @@ body {
   border: 1px solid var(--lightGray);
   border-radius: 3px;
   cursor: pointer;
-  background: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
+  background: -webkit-gradient(linear, left top, left bottom, from(#fafbfc), color-stop(90%, #eff3f6));
+  background: linear-gradient(-180deg, #fafbfc, #eff3f6 90%);
 }
 
 .messageModalHeader {
@@ -1067,23 +1321,40 @@ body {
   border-top-right-radius: 10px;
   border-top-left-radius: 10px;
   border-bottom: 1px solid var(--lightGray);
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   font-size: 1.2em;
   font-weight: 700;
 }
 
 .messageModalBody {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
   padding: 20px 20px 40px 20px;
   background: var(--brightWhite);
 }
 
 .messageInputWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 100%;
 }
@@ -1113,8 +1384,14 @@ body {
 }
 
 .messageModalFooter {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   height: 50px;
   background: var(--white);
@@ -1122,12 +1399,19 @@ body {
   border-bottom-right-radius: 10px;
   border-top: 1px solid var(--lightGray);
   padding: 12px;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
 }
 
 .messageButtonWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
   justify-content: flex-end;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 100%;
   margin-top: 20px;
@@ -1141,7 +1425,7 @@ body {
   padding: 10px;
   border-radius: 20px;
   font-weight: 700;
-  font-size: .9em;
+  font-size: 0.9em;
   color: var(--white);
   cursor: pointer;
 }
@@ -1157,8 +1441,14 @@ body {
 
 .mailHeader {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: start;
+  -ms-flex-pack: start;
   justify-content: flex-start;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   background: var(--brightWhite);
   border-bottom: 1px solid var(--lightGray);
@@ -1168,6 +1458,7 @@ body {
   width: 33.333%;
   font-size: 1.1em;
   padding: 10px;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   cursor: pointer;
 }
@@ -1178,6 +1469,7 @@ body {
   width: 33.333%;
   font-size: 1.1em;
   padding: 10px;
+  -webkit-box-sizing: border-box;
   box-sizing: border-box;
   cursor: pointer;
 }
@@ -1194,8 +1486,13 @@ body {
 .mailBoxHeader {
   background: var(--brightWhite);
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -ms-flex-line-pack: center;
   align-content: center;
   border-bottom: 1px solid var(--lightGray);
 }
@@ -1214,8 +1511,15 @@ body {
   background: var(--brightWhite);
   width: 100%;
   padding: 10px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   border-bottom: 1px solid var(--lightGray);
 }
@@ -1226,14 +1530,22 @@ body {
 }
 
 .messageBody {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   width: 100%;
   cursor: pointer;
 }
 
-.messageSubject, .messageAuthor, .messageDate {
+.messageSubject,
+.messageAuthor,
+.messageDate {
   width: 33.333%;
 }
 
@@ -1252,8 +1564,14 @@ body {
 }
 
 .messageModalBodyTop {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
   border-bottom: 1px solid var(--lightGray);
   margin-bottom: 20px;
@@ -1261,15 +1579,29 @@ body {
 }
 
 .mailBodyAbout {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
 }
 
 .mailBodyButtons {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -ms-flex-pack: distribute;
   justify-content: space-around;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
   align-items: flex-start;
 }
 
@@ -1287,8 +1619,7 @@ body {
   border: none;
   padding: 4px 8px;
   background: var(--white);
-  font-size: .9em;
+  font-size: 0.9em;
   cursor: pointer;
   border: 1px solid var(--lightGray);
 }
-
