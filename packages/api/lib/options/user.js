@@ -17,17 +17,14 @@ const internals = {
         lastName: Joi.string()
             .min(1)
             .required(),
-        email: Joi.string()
-            .email()
-            .required(),
-        posts: Joi.string()
-            .min(1),
+        email: Joi.string().email().required(),
+        posts: Joi.string().min(1),
         comments: Joi.string().min(1),
         followers: Joi.string(),
         following: Joi.string(),
-        imageURL: Joi.string(),
-        location: Joi.string(),
-        bio: Joi.string()
+        imageURL: Joi.string().allow('').optional(),
+        location: Joi.string().allow('').optional(),
+        bio: Joi.string().allow('').optional()
     }
 };
 
@@ -74,6 +71,7 @@ exports.get = {
 exports.create = {
     handler: async (request, h) => {
 
+        console.log(request.payload)
         const client = request.server.app.client;
         let userArray = await client.users.query({
             userName: request.payload.username

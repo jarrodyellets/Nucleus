@@ -11,6 +11,7 @@ export const signUpUser = data => dispatch => {
     })
       .then(res => res.json())
       .then(user => {
+        console.log(user)
         if (!user.error) {
           dispatch({
             type: SIGN_UP,

@@ -46,12 +46,12 @@ exports.findComment = (posts, path) => {
 
 exports.checkSignUpErrors = (details) => {
 
-    const isUserNameEmpty = (details[0].message === '"username" is required');
-    const isFirstNameEmpty = (details[0].message === '"firstName" is required');
-    const isLastNameEmpty = (details[0].message === '"lastName" is required');
+    const isUserNameEmpty = (details[0].message === '"username" is not allowed to be empty');
+    const isFirstNameEmpty = (details[0].message === '"firstName" is not allowed to be empty');
+    const isLastNameEmpty = (details[0].message === '"lastName" is not allowed to be empty');
     const isNotEmail = (details[0].message === '"email" must be a valid email');
-    const isEmailEmpty = (details[0].message === '"email" is required');
-    const isPasswordEmpty = (details[0].message === '"password" is required');
+    const isEmailEmpty = (details[0].message === '"email" is not allowed to be empty');
+    const isPasswordEmpty = (details[0].message === '"password" is not allowed to be empty');
     return { error: {
         isUserNameEmpty,
         isFirstNameEmpty,
@@ -59,5 +59,6 @@ exports.checkSignUpErrors = (details) => {
         isNotEmail,
         isEmailEmpty,
         isPasswordEmpty
-    } };
+    },
+details: details };
 };
