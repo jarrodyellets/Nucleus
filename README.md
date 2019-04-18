@@ -1,4 +1,4 @@
-<img src="https://www.jarrodyellets.com/images/nucleusLogo.png" width="500px" />
+<img src="https://www.jarrodyellets.com/images/NucleusLogo.png" width="500px" />
 
 ### A hapi powered social network.
 
