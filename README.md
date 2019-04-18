@@ -1,4 +1,4 @@
-<img src="https://www.jarrodyellets.com/images/BlogHubLogo.png" width="400px" />
+<img src="https://www.jarrodyellets.com/images/BlogHubLogo.png" width="150px" />
 
 ## Nucleus
 
