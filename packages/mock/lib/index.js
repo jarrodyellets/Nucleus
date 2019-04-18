@@ -1,7 +1,7 @@
 'use strict';
 
-const { server } = require('@realmark/api');
-const Setup = require('@realmark/setup');
+const { server } = require('@Nucleus/api');
+const Setup = require('@Nucleus/setup');
 
 const internals = {};
 

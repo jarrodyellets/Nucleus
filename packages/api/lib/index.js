@@ -21,7 +21,7 @@ exports.server = async (client, vault) => {
         port: 8000,
         routes: {
             files: {
-                relativeTo: Path.join(__dirname, '..', '..', 'realmark-ui', 'build')
+                relativeTo: Path.join(__dirname, '..', '..', 'ui', 'build')
             },
             response: {
                 emptyStatusCode: 204

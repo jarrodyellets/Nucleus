@@ -10,8 +10,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@realmark/api": "^1.0.0",
-    "@realmark/setup": "^1.0.0",
+    "@Nucleus/api": "^1.0.0",
+    "@Nucleus/setup": "^1.0.0",
     "code": "^5.2.4",
     "lab": "^18.0.2"
   }
