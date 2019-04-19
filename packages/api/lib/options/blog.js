@@ -1,6 +1,5 @@
 'use strict';
 
-const { createTimeline } = require('../helpers');
 const Joi = require('joi');
 
 const internals = {
@@ -44,7 +43,7 @@ exports.create = {
         };
         await posts.unshift(newPost);
         await client.users.update({ id, posts, timeline });
-        await createTimeline(id, client);
+        await server.methods.createTimeline(id, client);
         await user[0].followers.map(async (follower) => {
 
             await createTimeline(follower, client);
@@ -76,7 +75,7 @@ exports.update = {
         const postIndex = await posts.findIndex((x) => x.postID === post.postID);
         posts[postIndex].post = request.payload.post;
         await client.users.update({ id: request.auth.credentials.id, posts });
-        await createTimeline(request.auth.credentials.id, client);
+        await server.methods.createTimeline(request.auth.credentials.id, client);
         user = await client.users.query({ id: request.auth.credentials.id });
         posts = user[0].posts;
         return posts[postIndex];
@@ -102,7 +101,7 @@ exports.delete = {
         const postIndex = await posts.findIndex((x) => x.postID === post.postID);
         await posts.splice(postIndex, 1);
         await client.users.update({ id: request.auth.credentials.id, posts });
-        await createTimeline(request.auth.credentials.id, client);
+        await server.methods.createTimeline(request.auth.credentials.id, client);
         return 'Post deleted';
     }
 };
