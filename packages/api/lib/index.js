@@ -32,9 +32,9 @@ exports.server = async (client, vault) => {
 
     server.app.client = client;
     server.app.vault = vault;
-    server.method('createTimeline', internals.helpers.createTimeline, {});
-    server.method('findComment', internals.helpers.findComment, {});
-    server.method('checkSignUpErrors', internals.helpers.checkSignUpErrors, {});
+    server.app.createTimeline = internals.helpers.createTimeline;
+    server.app.findComment = internals.helpers.findComment;
+    server.app.checkSignUpErrors = internals.helpers.checkSignUpErrors;
 
     server.ext('onPreResponse', internals.onPreResponse);
 
