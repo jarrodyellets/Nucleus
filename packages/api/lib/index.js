@@ -3,8 +3,6 @@
 const Hapi = require('hapi');
 const Path = require('path');
 const Routes = require('./options');
-const { checkSignUpErrors } = require('./helpers');
-
 
 //Deaclare internals
 const internals = {};
@@ -34,7 +32,6 @@ exports.server = async (client, vault) => {
     server.app.vault = vault;
     server.app.createTimeline = internals.helpers.createTimeline;
     server.app.findComment = internals.helpers.findComment;
-    server.app.checkSignUpErrors = internals.helpers.checkSignUpErrors;
 
     server.ext('onPreResponse', internals.onPreResponse);
 
@@ -121,7 +118,7 @@ internals.onPreResponse = async (request, h) => {
         return h.continue;
     }
     else if (request.route.path === '/users'){
-        const errors = await checkSignUpErrors(response.details);
+        const errors = await internals.helpers.checkSignUpErrors(response.details);
         return errors;
     }
 
