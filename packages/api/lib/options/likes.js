@@ -1,7 +1,5 @@
 'use strict';
 
-const { createTimeline, findComment } = require('../helpers');
-
 const internals = {};
 
 exports.create = {
@@ -18,7 +16,7 @@ exports.create = {
         );
         const parentPost = await posts.findIndex((p) => p.postID === path[0]);
         if ((await postIndex) === -1) {
-            const comments = await findComment(posts, path);
+            const comments = await request.server.app.findComment(posts, path);
             comment = comments.post;
             currentPost = comments.currentPost;
             await comment.likes.push(request.auth.credentials.id);
@@ -33,7 +31,7 @@ exports.create = {
         const signedUser = await client.users.query({
             id: request.auth.credentials.id
         });
-        const timeline = await createTimeline(request.auth.credentials.id, client);
+        const timeline = await request.server.app.createTimeline(request.auth.credentials.id, client);
         return {
             posts: user[0].posts,
             post: comment,
@@ -58,7 +56,7 @@ exports.delete = {
         );
         const parentPost = await posts.findIndex((p) => p.postID === path[0]);
         if ((await postIndex) === -1) {
-            const comments = await findComment(posts, path);
+            const comments = await request.server.app.findComment(posts, path);
             comment = comments.post;
             currentPost = comments.currentPost;
         }
@@ -77,7 +75,7 @@ exports.delete = {
         const signedUser = await client.users.query({
             id: request.auth.credentials.id
         });
-        const timeline = await createTimeline(request.auth.credentials.id, client);
+        const timeline = await request.server.app.createTimeline(request.auth.credentials.id, client);
         return {
             posts: user[0].posts,
             post: comment,

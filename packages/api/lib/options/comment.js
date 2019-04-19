@@ -1,6 +1,5 @@
 'use strict';
 
-const { createTimeline, findComment } = require('../helpers');
 const Joi = require('joi');
 
 const internals = {
@@ -19,7 +18,7 @@ exports.get = {
         let comment;
         const post = await posts.find((p) => p.postID === request.params.postId);
         if (!post){
-            comment = await findComment(posts, path).post;
+            comment = await request.server.app.findComment(posts, path).post;
         }
         else {
             comment = await post.comments.find(
@@ -62,7 +61,7 @@ exports.create = {
             (post) => post.postID === request.params.postId
         );
         if ((await postIndex) === -1) {
-            comment = await findComment(posts, path).post;
+            comment = await request.server.app.findComment(posts, path).post;
             await comment.comments.push(newComment);
         }
         else {
@@ -76,7 +75,7 @@ exports.create = {
         const signedUser = await client.users.query({
             id: request.auth.credentials.id
         });
-        const timeline = await createTimeline(request.auth.credentials.id, client);
+        const timeline = await request.server.app.createTimeline(request.auth.credentials.id, client);
         return {
             posts: user[0].posts,
             post: comment,
@@ -107,7 +106,7 @@ exports.update = {
         const path = request.payload.path;
         const postIndex = await posts.findIndex((x) => x.postID === request.params.postId);
         if ((await postIndex) === -1) {
-            const comment = await findComment(posts, path).post;
+            const comment = await request.server.app.findComment(posts, path).post;
             comment.post = request.payload.comment;
             updatedPost = await comment;
         }
@@ -120,7 +119,7 @@ exports.update = {
         }
 
         await client.users.update({ id: request.auth.credentials.id, posts });
-        await createTimeline(request.params.userId, client);
+        await request.server.app.createTimeline(request.params.userId, client);
         user = await client.users.query({ id: request.params.userId });
 
         return updatedPost;
@@ -147,7 +146,7 @@ exports.delete = {
         let postIndex;
         const post = await posts.find((p) => p.postID === request.params.postId);
         if (!post){
-            comment = await findComment(posts, request.payload.path);
+            comment = await request.server.app.findComment(posts, request.payload.path);
             postIndex = await comment.currentPost.comments.findIndex((x) => x.postID === request.params.commentId);
             comment.currentPost.comments.splice(postIndex, 1);
         }
@@ -160,7 +159,7 @@ exports.delete = {
         }
 
         await client.users.update({ id: request.auth.credentials.id, posts });
-        await createTimeline(request.params.userId, client);
+        await request.server.app.createTimeline(request.params.userId, client);
         user = await client.users.query({ id: request.auth.credentials.id });
         return { posts: user[0].posts, timeline: user[0].timeline };
     }

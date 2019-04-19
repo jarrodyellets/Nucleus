@@ -1,7 +1,5 @@
 'use strict';
 
-const { createTimeline } = require('../helpers');
-
 const internals = {};
 
 exports.getFollowing = {
@@ -52,7 +50,7 @@ exports.create = {
         await followers.push(user[0].id);
         await client.users.update({ id: request.auth.credentials.id, following });
         await client.users.update({ id: request.params.userID, followers });
-        const timeline = await createTimeline(request.auth.credentials.id, client);
+        const timeline = await request.server.app.createTimeline(request.auth.credentials.id, client);
         return { following, followers, timeline };
     }
 };
