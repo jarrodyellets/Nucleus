@@ -1,5 +1,8 @@
 {
   "name": "root",
+  "scripts": {
+    "postinstall": "lerna bootstrap"
+  },
   "private": true,
   "devDependencies": {
     "lerna": "^3.5.1"
