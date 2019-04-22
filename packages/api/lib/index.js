@@ -4,7 +4,7 @@ const Hapi = require('hapi');
 const Path = require('path');
 const Routes = require('./options');
 
-//Deaclare internals
+//Declare internals
 const internals = {};
 
 
