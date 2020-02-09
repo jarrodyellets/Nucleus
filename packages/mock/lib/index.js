@@ -32,7 +32,7 @@ exports.setup =  {
 internals.provision = async function () {
 
     const vault = await Setup.vault.generate();
-    const dbase = await Setup.dbase();
+    const dbase = await Setup.dbase(true);
 
     return { vault, dbase };
 };
