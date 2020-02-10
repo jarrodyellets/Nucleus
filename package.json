@@ -1,7 +1,8 @@
 {
   "name": "root",
   "scripts": {
-    "postinstall": "lerna bootstrap"
+    "postinstall": "lerna bootstrap",
+    "dev": "node packages/mock/lib/start && lerna run start"
   },
   "private": true,
   "devDependencies": {
